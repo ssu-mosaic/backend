@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>메인</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    {{#user}}
+        <li>{{user.email}}님 안녕하세요</li>
+        <li>
+            <a href="logout" role="button">로그아웃</a>
+        </li>
+    {{/user}}
+    {{^user}}
+        <li>
+            <a href="login" role="button">로그인</a>
+        </li>
+        <li>
+            <a href="register" role="button">회원가입</a>
+        </li>
+    {{/user}}
+</body>
+</html>

@@ -1,19 +1,24 @@
 package kr.co.easystock.domain.inquiry;
 
 import kr.co.easystock.domain.BaseTimeEntity;
+import kr.co.easystock.domain.answer.Answer;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@SecondaryTable(
+        name = "inquiryAnswer",
+        pkJoinColumns = @PrimaryKeyJoinColumn(
+                name = "inquiryId", referencedColumnName = "id"
+        )
+)
 public class Inquiry extends BaseTimeEntity
 {
     @Id
@@ -22,7 +27,21 @@ public class Inquiry extends BaseTimeEntity
     private String category;
     private String title;
     private String content;
-    @CreatedDate
-    private LocalDateTime date;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "user", column = @Column(name = "aUser")),
+            @AttributeOverride(name = "content", column = @Column(name = "aContent")),
+            @AttributeOverride(name = "createdDate", column = @Column(name = "aCreatedDate")),
+            @AttributeOverride(name = "lastModifiedDate", column = @Column(name = "aLastModifiedDate"))
+    })
+    private Answer answer;
 
+    @Builder
+    public Inquiry(String category, String title, String content, Answer answer)
+    {
+        this.category = category;
+        this.title = title;
+        this.content = content;
+        this.answer = answer;
+    }
 }
