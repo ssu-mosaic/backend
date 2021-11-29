@@ -17,11 +17,10 @@ import java.time.LocalDateTime;
 @Table
 public class User extends BaseTimeEntity
 {
-
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
-    private Long id;
+    private int id;
 
     @Column
     private String name;
