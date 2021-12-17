@@ -5,20 +5,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<div>
-    제목 : {{inquiry.title}}
-</div>
-<div>
-    카테고리 : {{inquiry.category}}
-</div>
-<div>
-    작성일자 : {{inquiry.createdDate}}
-</div>
-<div>
-    수정일자 : {{inquiry.lastModifiedDate}}
-</div>
-<div>
-    내용 : {{inquiry.content}}
-</div>
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>작성일</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#inquiryList}}
+        <tr>
+            <td>{{id}}</td>
+            <td><a href="/inquiry/{{id}}">{{title}}</a></td>
+            <td>{{createdDate}}</td>
+        </tr>
+    {{/inquiryList}}
+    </tbody>
+</table>
 </body>
 </html>

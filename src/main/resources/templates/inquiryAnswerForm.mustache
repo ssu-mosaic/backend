@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    제목 : {{inquiry.title}}
+</div>
+<div>
+    카테고리 : {{inquiry.category}}
+</div>
+<div>
+    작성일자 : {{inquiry.createdDate}}
+</div>
+<div>
+    수정일자 : {{inquiry.lastModifiedDate}}
+</div>
+<div>
+    내용 : {{inquiry.content}}
+</div>
+
+<form action="/inquiry/{{inquiry.id}}/answer" method="post">
+    <div>
+        <label for="content">내용</label>
+        <textarea name="content" placeholder="내용을 입력하세요"></textarea>
+    </div>
+    <div>
+        <button type="submit">제출</button>
+        <a href="/" role="button">취소</a>
+    </div>
+</form>
+</body>
+</html>

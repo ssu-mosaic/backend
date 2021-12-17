@@ -1,15 +1,13 @@
 package kr.co.easystock.domain.inquiry;
 
 import kr.co.easystock.domain.BaseTimeEntity;
+import kr.co.easystock.domain.answer.Answer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -23,6 +21,8 @@ public class Inquiry extends BaseTimeEntity
     private String category;
     private String title;
     private String content;
+    @OneToOne(mappedBy = "inquiry")
+    private Answer answer;
 
     @Builder
     public Inquiry(String category, String title, String content)

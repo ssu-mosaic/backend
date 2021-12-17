@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    제목 : {{inquiry.title}}
+</div>
+<div>
+    카테고리 : {{inquiry.category}}
+</div>
+<div>
+    작성일자 : {{inquiry.createdDate}}
+</div>
+<div>
+    수정일자 : {{inquiry.lastModifiedDate}}
+</div>
+<div>
+    내용 : {{inquiry.content}}
+</div>
+
+{{#inquiry.answerContent}}
+    <div>
+        답변 : {{inquiry.answerContent}}
+    </div>
+{{/inquiry.answerContent}}
+{{^inquiry.answerContent}}
+    <div>
+        <a href="/inquiry/{{inquiry.id}}/answer">답변하기</a>
+    </div>
+{{/inquiry.answerContent}}
+</body>
+</html>
