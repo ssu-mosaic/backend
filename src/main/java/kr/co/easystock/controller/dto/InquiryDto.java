@@ -34,19 +34,26 @@ public class InquiryDto
     @Getter
     public static class InquiryResponseDto
     {
+        private int id;
         private String title;
         private String content;
         private String category;
         private LocalDateTime createdDate;
         private LocalDateTime lastModifiedDate;
+        private String answerContent;
 
         public InquiryResponseDto(Inquiry entity)
         {
+            this.id = entity.getId();
             this.title = entity.getTitle();
             this.content = entity.getContent();
             this.category = entity.getCategory();
             this.createdDate = entity.getCreatedDate();
             this.lastModifiedDate = entity.getLastModifiedDate();
+            if(entity.getAnswer() != null)
+            {
+                this.answerContent = entity.getAnswer().getContent();
+            }
         }
     }
 
