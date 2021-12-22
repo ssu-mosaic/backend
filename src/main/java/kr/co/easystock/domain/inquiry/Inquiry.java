@@ -1,19 +1,18 @@
 package kr.co.easystock.domain.inquiry;
 
 import kr.co.easystock.domain.BaseTimeEntity;
+import kr.co.easystock.domain.answer.Answer;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Inquiry extends BaseTimeEntity
 {
     @Id
@@ -22,7 +21,14 @@ public class Inquiry extends BaseTimeEntity
     private String category;
     private String title;
     private String content;
-    @CreatedDate
-    private LocalDateTime date;
+    @OneToOne(mappedBy = "inquiry")
+    private Answer answer;
 
+    @Builder
+    public Inquiry(String category, String title, String content)
+    {
+        this.category = category;
+        this.title = title;
+        this.content = content;
+    }
 }

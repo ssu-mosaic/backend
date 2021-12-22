@@ -2,32 +2,36 @@ package kr.co.easystock.domain.answer;
 
 import kr.co.easystock.domain.BaseTimeEntity;
 import kr.co.easystock.domain.inquiry.Inquiry;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Answer extends BaseTimeEntity
 {
     @Id
-    private int id;
+    private int inquiryId;
+
     @OneToOne
+    @Cascade(CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Inquiry inquiry;
     private String content;
-    @CreatedDate
-    private LocalDateTime date;
 
+    @Builder
     public Answer(Inquiry inquiry, String content)
     {
-        this.id = inquiry.getId();
         this.inquiry = inquiry;
+        this.inquiryId = inquiry.getId();
         this.content = content;
     }
 }

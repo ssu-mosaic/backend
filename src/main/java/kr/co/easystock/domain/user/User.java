@@ -4,43 +4,35 @@ import kr.co.easystock.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-//@Setter
 @Entity
-@Table
 public class User extends BaseTimeEntity
 {
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     private int id;
 
-    @Column
     private String name;
 
-    @Column
     private String businessNo;
 
-    @Column
+    @Column(length = 10, columnDefinition = "char")
+    private String businessNo;
+    
+    @Column(unique = true)
     private String email;
 
-    @Column
     private String password;
 
-    @Column
     private String address;
 
-    @Column
     private String phone;
 
-    @Column
     private String gender;
 
     @Builder
@@ -54,4 +46,9 @@ public class User extends BaseTimeEntity
         this.gender = gender;
     }
 
+    /*
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+    */
 }

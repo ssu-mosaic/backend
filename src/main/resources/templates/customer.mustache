@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>거래처 관리</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>이름</th>
+        <th>연락처</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#customerList}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{phone}}</td>
+        </tr>
+    {{/customerList}}
+    </tbody>
+</table>
+    <a href="/customer/add" role="button">거래처 등록</a>
+</body>
+</html>
