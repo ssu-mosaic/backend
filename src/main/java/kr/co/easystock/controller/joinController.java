@@ -1,7 +1,6 @@
 package kr.co.easystock.controller;
 
-import kr.co.easystock.Dto.UserJoinRequestDto;
-import kr.co.easystock.domain.user.User;
+import kr.co.easystock.controller.dto.UserJoinRequestDto;
 import kr.co.easystock.service.UserJoinService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

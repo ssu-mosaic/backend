@@ -1,11 +1,9 @@
-package kr.co.easystock.Dto;
+package kr.co.easystock.controller.dto;
 
 import kr.co.easystock.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
 
 @Getter
 @NoArgsConstructor
