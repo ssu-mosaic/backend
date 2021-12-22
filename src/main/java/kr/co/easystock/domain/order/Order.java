@@ -1,7 +1,5 @@
 package kr.co.easystock.domain.order;
 
-import kr.co.easystock.domain.user.User;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,6 +7,6 @@ import javax.persistence.Id;
 public class Order
 {
     @Id
-    int id;
+    Long id;
     String name;
 }
