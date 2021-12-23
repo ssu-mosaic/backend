@@ -18,7 +18,7 @@ public class Customer
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     private int id;
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
     private String name;
     private String phone;

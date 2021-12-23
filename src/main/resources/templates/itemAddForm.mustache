@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>거래 물품 등록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<form action="/customer/{{id}}/add" method="post">
+    <div>
+        <label for="name">제품명</label>
+        <input type="text" name="name">
+    </div>
+    <div>
+        <label for="price">가격</label>
+        <input type="text" name="price">
+    </div>
+    <div>
+        <label for="detail">설명</label>
+        <input type="text" name="detail">
+    </div>
+    <div>
+        <label for="category">분류</label>
+        <input type="text" name="category">
+    </div>
+    <button type="submit">추가</button>
+    <a href="/customer" role="button">취소</a>
+</form>
+</body>
+</html>

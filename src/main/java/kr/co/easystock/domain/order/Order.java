@@ -1,12 +1,26 @@
 package kr.co.easystock.domain.order;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import kr.co.easystock.domain.BaseTimeEntity;
+import kr.co.easystock.domain.user.User;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Order
+public class Order extends BaseTimeEntity
 {
     @Id
-    Long id;
-    String name;
+    private String id;
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItemList = new ArrayList<>();
+
+    private LocalDateTime orderDate;
 }

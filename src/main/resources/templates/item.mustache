@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>거래 물품</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>물품명</th>
+        <th>가격</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#itemList}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{price}}</td>
+        </tr>
+    {{/itemList}}
+    </tbody>
+</table>
+<a href="/customer/{{id}}/add" role="button">거래 물품 추가</a>
+</body>
+</html>

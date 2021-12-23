@@ -34,6 +34,21 @@ public class CustomerDto
     }
 
     @Getter
+    public static class CustomerResponseDto
+    {
+        private int id;
+        private String name;
+        private String phone;
+
+        public CustomerResponseDto(Customer entity)
+        {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.phone = entity.getPhone();
+        }
+    }
+
+    @Getter
     public static class CustomerListResponseDto
     {
         private int id;
