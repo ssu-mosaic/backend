@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class JoinController
 {
-
     private final UserJoinService userjoinService;
 
     @GetMapping(value = "/join")

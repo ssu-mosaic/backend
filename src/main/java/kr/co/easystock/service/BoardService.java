@@ -29,7 +29,7 @@ public class BoardService
 
     public int answerSave(int id, AnswerDto.AnswerFormDto answerFormDto)
     {
-        Inquiry inquiry = inquiryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+        Inquiry inquiry = inquiryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
         answerFormDto.setInquiry(inquiry);
 
         Answer answer = answerRepository.save(answerFormDto.toEntity());
@@ -39,7 +39,7 @@ public class BoardService
 
     public InquiryDto.InquiryResponseDto getInquiry(int id)
     {
-        Inquiry entity = inquiryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+        Inquiry entity = inquiryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
 
         return new InquiryDto.InquiryResponseDto(entity);
     }
