@@ -1,12 +1,9 @@
 package kr.co.easystock.controller.dto;
 
 import kr.co.easystock.domain.user.User;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 public class UserJoinRequestDto {
 
     private String name;
@@ -23,7 +20,6 @@ public class UserJoinRequestDto {
 
     private String gender;
 
-    @Builder
     public UserJoinRequestDto(String name, String password, String businessNo, String email, String address, String phone, String gender) {
         this.name = name;
         this.password = password;

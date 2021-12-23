@@ -4,7 +4,6 @@ import kr.co.easystock.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 
@@ -14,16 +13,11 @@ import javax.persistence.*;
 public class User extends BaseTimeEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
-    private int id;
+    @Column(length = 10)
+    private String businessNo;
 
     private String name;
 
-    private String businessNo;
-
-    @Column(length = 10, columnDefinition = "char")
-    private String businessNo;
-    
     @Column(unique = true)
     private String email;
 

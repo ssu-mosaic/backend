@@ -20,9 +20,9 @@ public class BoardService
     private final InquiryRepository inquiryRepository;
     private final AnswerRepository answerRepository;
 
-    public int inquirySave(InquiryDto.InquiryFormDto inquiryFormDTO)
+    public int inquirySave(InquiryDto.InquiryFormDto inquiryFormDto)
     {
-        Inquiry inquiry = inquiryRepository.save(inquiryFormDTO.toEntity());
+        Inquiry inquiry = inquiryRepository.save(inquiryFormDto.toEntity());
 
         return inquiry.getId();
     }

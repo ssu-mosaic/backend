@@ -26,9 +26,9 @@ public class BoardController
     }
 
     @PostMapping("/inquiry/write")
-    public String inquirySave(InquiryDto.InquiryFormDto inquiryFormDTO)
+    public String inquirySave(InquiryDto.InquiryFormDto inquiryFormDto)
     {
-        boardService.inquirySave(inquiryFormDTO);
+        boardService.inquirySave(inquiryFormDto);
         return "redirect:/inquiry";
     }
 

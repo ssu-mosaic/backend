@@ -16,11 +16,10 @@ public class UserJoinService {
 
     /* 회원 가입 */
     @Transactional
-    public int join(UserJoinRequestDto requestDto) {
+    public void join(UserJoinRequestDto requestDto) {
         validateDuplicateUser(requestDto);
 
-        return userRepository.save(requestDto.toEntity()).getId();
-
+        userRepository.save(requestDto.toEntity());
     }
 
     /* 중복 회원 체크 */
