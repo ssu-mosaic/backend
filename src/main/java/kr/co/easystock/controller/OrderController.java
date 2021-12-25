@@ -12,7 +12,7 @@ public class OrderController
     private final OrderService orderService;
 
     @GetMapping("/order")
-    public String order()
+    public String orderView()
     {
         return "order";
     }

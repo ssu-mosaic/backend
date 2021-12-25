@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>재고 목록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>물품명</th>
+        <th>재고수</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#stockList}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{count}}</td>
+        </tr>
+    {{/stockList}}
+    </tbody>
+</table>
+<a href="/stock/add" role="button">재고 추가</a>
+</body>
+</html>
