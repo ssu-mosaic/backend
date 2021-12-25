@@ -30,4 +30,11 @@ public class JoinController
     {
         return "test";
     }
+
+    @ResponseBody
+    @PostMapping(value = "/register")
+    public int register()
+    {
+        return 10;
+    }
 }
