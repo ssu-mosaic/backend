@@ -84,9 +84,9 @@ public class joinTest {
                 .password(password)
                 .businessNo(businessNo)
                 .email(email)
-                .address(address)
-                .phone(phone)
-                .gender(gender)
+                //.address(address)
+                //.phone(phone)
+                //.gender(gender)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/join";
