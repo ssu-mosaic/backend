@@ -25,7 +25,9 @@ dependencies {
     implementation 'junit:junit:4.13.1'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     compileOnly 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     implementation("org.mariadb.jdbc:mariadb-java-client")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

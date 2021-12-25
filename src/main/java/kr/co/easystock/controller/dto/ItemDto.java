@@ -1,6 +1,7 @@
 package kr.co.easystock.controller.dto;
 
 import kr.co.easystock.domain.Item.Item;
+import kr.co.easystock.domain.Item.ItemImg;
 import kr.co.easystock.domain.customer.Customer;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,6 +52,27 @@ public class ItemDto
             this.id = entity.getId();
             this.name = entity.getName();
             this.price = entity.getPrice();
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class ItemImgDto
+    {
+        private int id;
+
+        private String imgName;
+
+        private String oriImgName;
+
+        private String imgUrl;
+
+        public ItemImgDto(ItemImg entity)
+        {
+            this.id = entity.getId();
+            this.imgName = entity.getImgName();
+            this.oriImgName = entity.getOriImgName();
+            this.imgUrl = entity.getImgUrl();
         }
     }
 }

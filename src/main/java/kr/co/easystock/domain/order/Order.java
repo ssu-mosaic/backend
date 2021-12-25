@@ -12,7 +12,8 @@ import java.util.List;
 public class Order extends BaseTimeEntity
 {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
 
     @ManyToOne
