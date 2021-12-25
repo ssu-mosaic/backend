@@ -26,23 +26,9 @@ public class JoinController
     }
 
     @ResponseBody
-    @GetMapping(value = "/register")
-    public String registerTest()
-    {
-        return "test";
-    }
-
-    @ResponseBody
-    @PostMapping(value = "/register")
-    public int register()
-    {
-        return 10;
-    }
-
-    @ResponseBody
     @PutMapping(value = "/register")
-    public int registerInt()
+    public String register(UserJoinRequestDto userJoinRequestDto)
     {
-        return 10;
+        return userjoinService.join(userJoinRequestDto);
     }
 }

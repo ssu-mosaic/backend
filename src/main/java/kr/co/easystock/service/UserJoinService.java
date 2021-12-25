@@ -16,10 +16,10 @@ public class UserJoinService {
 
     /* 회원 가입 */
     @Transactional
-    public void join(UserJoinRequestDto requestDto) {
+    public String join(UserJoinRequestDto requestDto) {
         validateDuplicateUser(requestDto);
 
-        userRepository.save(requestDto.toEntity());
+        return userRepository.save(requestDto.toEntity()).getBusinessNo();
     }
 
     /* 중복 회원 체크 */
