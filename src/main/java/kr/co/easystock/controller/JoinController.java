@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,5 +22,11 @@ public class JoinController
     @PostMapping(value = "/join")
     public void joinMember(UserJoinRequestDto requestDto) {
         userjoinService.join(requestDto);
+    }
+
+    @ResponseBody
+    public String registerTest()
+    {
+        return "test";
     }
 }
