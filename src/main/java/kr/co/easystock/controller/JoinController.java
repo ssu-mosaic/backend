@@ -25,6 +25,7 @@ public class JoinController
     }
 
     @ResponseBody
+    @GetMapping(value = "/register")
     public String registerTest()
     {
         return "test";
