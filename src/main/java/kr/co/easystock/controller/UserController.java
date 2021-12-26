@@ -26,6 +26,7 @@ public class UserController
     @PostMapping("/login")
     public boolean login(String name, String password)
     {
+        System.out.println(name + " : " + password);
         User user = userService.login(name, password);
         if(user == null)
         {
