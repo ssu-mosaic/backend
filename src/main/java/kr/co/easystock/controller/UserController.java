@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,18 +22,17 @@ public class UserController
         return "login";
     }
 
+    @ResponseBody
     @PostMapping("/login")
-    public String login(String email, String password, HttpSession session)
+    public boolean login(String name, String password)
     {
-        User user = userService.login(email, password);
+        User user = userService.login(name, password);
         if(user == null)
         {
-            System.out.println("login fail");
-            return "redirect:/login";
+            return false;
         }
 
-        session.setAttribute("user", user);
-        return "redirect:/";
+        return true;
     }
 
     @GetMapping("/logout")
