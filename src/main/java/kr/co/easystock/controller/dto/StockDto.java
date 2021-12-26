@@ -9,25 +9,46 @@ public class StockDto
 {
     @Getter
     @Setter
-    public static class StockFormDto
+    public static class StockAddRequestDto
     {
         private User user;
-        private String name;
-        private int count;
+        private String userName;
+        private String stockName;
+        private int stockCount;
 
-        public StockFormDto(String name, int count)
+        public StockAddRequestDto(String userName, String stockName, int stockCount)
         {
-            this.name = name;
-            this.count = count;
+            this.userName = userName;
+            this.stockName = stockName;
+            this.stockCount = stockCount;
         }
 
         public Stock toEntity()
         {
             return Stock.builder()
                     .user(user)
-                    .name(name)
-                    .count(count)
+                    .name(stockName)
+                    .count(stockCount)
                     .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class StockUpdateRequestDto
+    {
+        private User user;
+        private String userName;
+        private int stockId;
+        private String stockName;
+        private int stockCount;
+
+        public StockUpdateRequestDto(String userName, int stockId, String stockName, int stockCount)
+        {
+            this.userName = userName;
+            this.stockId = stockId;
+            this.stockName = stockName;
+            this.stockCount = stockCount;
         }
     }
 

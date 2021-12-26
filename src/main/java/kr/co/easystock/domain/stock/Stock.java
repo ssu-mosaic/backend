@@ -30,4 +30,10 @@ public class Stock
         this.name = name;
         this.count = count;
     }
+
+    public void update(String name, int count)
+    {
+        this.name = name;
+        this.count = count;
+    }
 }

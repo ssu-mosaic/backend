@@ -52,14 +52,14 @@ public class RetailerController
     }
 
     @PostMapping("retailer/list")
-    public List<RetailerDto.RetailerListResponseDto> getRetailerList(@RequestBody String name, @PageableDefault(direction = Sort.Direction.DESC, sort="id")Pageable pageable)
+    public List<RetailerDto.RetailerListResponseDto> getRetailerList(@RequestBody String userName, @PageableDefault(direction = Sort.Direction.DESC, sort="id")Pageable pageable)
     {
-        List<RetailerDto.RetailerListResponseDto> retailerListResponseDtos = new ArrayList<>();
-        User user = userService.getUser(name);
+        List<RetailerDto.RetailerListResponseDto> retailerListResponseDtoList = new ArrayList<>();
+        User user = userService.getUser(userName);
         if(user == null)
-            return retailerListResponseDtos;
+            return retailerListResponseDtoList;
 
-        retailerListResponseDtos = retailerService.getRetailerList(user, pageable);
-        return retailerListResponseDtos;
+        retailerListResponseDtoList = retailerService.getRetailerList(user, pageable);
+        return retailerListResponseDtoList;
     }
 }
