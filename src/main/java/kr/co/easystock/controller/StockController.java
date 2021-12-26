@@ -3,56 +3,56 @@ package kr.co.easystock.controller;
 import kr.co.easystock.controller.dto.StockDto;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.StockService;
-import lombok.Getter;
+import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class StockController
 {
+    private final UserService userService;
     private final StockService stockService;
 
-    @GetMapping("/stock")
-    public String getStockList(@PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable, Model model, HttpSession session)
-    {
-        User user = (User)session.getAttribute("user");
-        if(user == null)
-        {
-            System.out.println("로그인이 필요합니다.");
-            return "redirect:/login";
-        }
-
-        model.addAttribute("stockList", stockService.getStockList(user, pageable));
-        return "stock";
-    }
-
-    @GetMapping("/stock/add")
-    public String stockForm()
-    {
-        return "stockAddForm";
-    }
-
     @PostMapping("/stock/add")
-    public String stockAdd(StockDto.StockFormDto stockFormDto, HttpSession session)
+    public boolean add(StockDto.StockAddRequestDto stockAddRequestDto)
     {
-        User user = (User)session.getAttribute("user");
+        User user = userService.getUser(stockAddRequestDto.getUserName());
         if(user == null)
-        {
-            System.out.println("로그인이 필요합니다.");
-            return "redirect:/login";
-        }
+            return false;
 
-        stockFormDto.setUser(user);
-        int id = stockService.stockAdd(stockFormDto);
-        return "redirect:/stock";
+        return stockService.add(stockAddRequestDto);
+    }
+
+    @PostMapping("/stock/edit")
+    public boolean update(@RequestBody StockDto.StockUpdateRequestDto stockUpdateRequestDto)
+    {
+        return stockService.update(stockUpdateRequestDto);
+    }
+
+    @PostMapping("/stock/delete")
+    public boolean delete(@RequestBody int stockId)
+    {
+        return stockService.delete(stockId);
+    }
+
+    @PostMapping("stock/list")
+    public List<StockDto.StockListResponseDto> getStockList(@RequestBody String userName, @PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable)
+    {
+        List<StockDto.StockListResponseDto> stockListResponseDtoList = new ArrayList<>();
+        User user = userService.getUser(userName);
+        if(user == null)
+            return stockListResponseDtoList;
+
+        stockListResponseDtoList = stockService.getStockList(user, pageable);
+        return stockListResponseDtoList;
     }
 }

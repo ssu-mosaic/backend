@@ -17,9 +17,33 @@ public class StockService
 {
     private final StockRepository stockRepository;
 
-    public int stockAdd(StockDto.StockFormDto stockFormDto)
+    public boolean add(StockDto.StockAddRequestDto stockAddRequestDto)
     {
-        return stockRepository.save(stockFormDto.toEntity()).getId();
+        Stock stock = stockRepository.save(stockAddRequestDto.toEntity());
+        if(stock == null)
+            return false;
+
+        return true;
+    }
+
+    public boolean update(StockDto.StockUpdateRequestDto stockUpdateRequestDto)
+    {
+        Stock stock = stockRepository.getById(stockUpdateRequestDto.getStockId());
+        if(stock == null)
+            return false;
+
+        stock.update(stockUpdateRequestDto.getStockName(), stockUpdateRequestDto.getStockCount());
+        return true;
+    }
+
+    public boolean delete(int stockId)
+    {
+        Stock stock = stockRepository.getById(stockId);
+        if(stock == null)
+            return false;
+
+        stockRepository.delete(stock);
+        return true;
     }
 
     public List<StockDto.StockListResponseDto> getStockList(User user, Pageable pageable)
