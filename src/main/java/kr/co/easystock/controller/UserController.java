@@ -1,5 +1,6 @@
 package kr.co.easystock.controller;
 
+import kr.co.easystock.controller.dto.UserDto;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,9 @@ public class UserController
 
     @ResponseBody
     @PostMapping("/login")
-    public boolean login(String name, String password)
+    public boolean login(UserDto.UserLoginDto userLoginDto)
     {
-        System.out.println(name + " : " + password);
-        User user = userService.login(name, password);
+        User user = userService.login(userLoginDto);
         if(user == null)
         {
             return false;
