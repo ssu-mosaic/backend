@@ -18,7 +18,7 @@ public class Stock
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "business_no")
     private User user;
     private String name;
     private int count;

@@ -2,7 +2,7 @@ package kr.co.easystock.controller.dto;
 
 import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.Item.ItemImg;
-import kr.co.easystock.domain.customer.Customer;
+import kr.co.easystock.domain.retailer.Retailer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ public class ItemDto
     @Setter
     public static class ItemFormDto
     {
-        private Customer customer;
+        private Retailer retailer;
         private String name;
         private int price;
         private String detail;
@@ -31,7 +31,7 @@ public class ItemDto
         public Item toEntity()
         {
             return Item.builder()
-                    .customer(customer)
+                    .customer(retailer)
                     .name(name)
                     .price(price)
                     .detail(detail)

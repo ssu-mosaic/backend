@@ -43,4 +43,11 @@ public class UserController
         session.removeAttribute("user");
         return "redirect:/";
     }
+
+    @ResponseBody
+    @PostMapping(value = "/register")
+    public String register(@RequestBody UserDto.UserRegisterRequestDto userRegisterRequestDto)
+    {
+        return userService.register(userRegisterRequestDto);
+    }
 }
