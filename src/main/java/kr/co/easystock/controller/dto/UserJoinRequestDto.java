@@ -9,57 +9,35 @@ public class UserJoinRequestDto {
 
     private String name;
 
+    private String password;
+
     private String businessNo;
 
     private String email;
 
-    private String password;
+    private String address;
 
-    //private String address;
-
-    //private String phone;
-
-    //private String gender;
+    private String phone;
 
     @Builder
-    public UserJoinRequestDto(String businessNo, String name, String email, String password)
+    public UserJoinRequestDto(String name, String password, String businessNo, String email, String address, String phone)
     {
-        this.businessNo = businessNo;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User toEntity() {
-        return User.builder()
-                .name(name)
-                .email(email)
-                .businessNo(businessNo)
-                .password(password)
-                .build();
-    }
-
-    /*
-    public UserJoinRequestDto(String name, String password, String businessNo, String email, String address, String phone, String gender) {
         this.name = name;
         this.password = password;
         this.businessNo = businessNo;
         this.email = email;
         this.address = address;
         this.phone = phone;
-        this.gender = gender;
     }
 
     public User toEntity() {
         return User.builder()
                 .name(name)
-                .address(address)
-                .email(email)
-                .businessNo(businessNo)
-                .gender(gender)
-                .phone(phone)
                 .password(password)
+                .businessNo(businessNo)
+                .email(email)
+                .address(address)
+                .phone(phone)
                 .build();
     }
-     */
 }

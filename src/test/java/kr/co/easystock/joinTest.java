@@ -47,9 +47,8 @@ public class joinTest {
         String email = "yeojin@gmail.com";
         String address = "서울특별시 동작구 숭실대학교";
         String phone = "010-1111-2222";
-        String gender = "F";
 
-        user = new User(name, password, businessNo, email, address, phone, gender);
+        user = new User(name, password, businessNo, email, address, phone);
 
         userRepository.save(user);
 
@@ -64,7 +63,6 @@ public class joinTest {
         assertThat(users.getEmail()).isEqualTo(email);
         assertThat(users.getAddress()).isEqualTo(address);
         assertThat(users.getPhone()).isEqualTo(phone);
-        assertThat(users.getGender()).isEqualTo(gender);
     }
 
 
@@ -84,9 +82,8 @@ public class joinTest {
                 .password(password)
                 .businessNo(businessNo)
                 .email(email)
-                //.address(address)
-                //.phone(phone)
-                //.gender(gender)
+                .address(address)
+                .phone(phone)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/join";
@@ -106,7 +103,6 @@ public class joinTest {
         assertThat(all.get(0).getEmail()).isEqualTo(email);
         assertThat(all.get(0).getAddress()).isEqualTo(address);
         assertThat(all.get(0).getPhone()).isEqualTo(phone);
-        assertThat(all.get(0).getGender()).isEqualTo(gender);
 
 
 

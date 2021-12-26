@@ -27,17 +27,14 @@ public class User extends BaseTimeEntity
 
     private String phone;
 
-    private String gender;
-
     @Builder
-    public User(String name, String password, String businessNo, String email, String address, String phone, String gender) {
+    public User(String name, String password, String businessNo, String email, String address, String phone) {
         this.name = name;
         this.password = password;
         this.businessNo = businessNo;
         this.email = email;
         this.address = address;
         this.phone = phone;
-        this.gender = gender;
     }
 
     /*
