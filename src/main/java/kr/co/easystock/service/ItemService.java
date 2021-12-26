@@ -3,8 +3,8 @@ package kr.co.easystock.service;
 import kr.co.easystock.controller.dto.ItemDto;
 import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.Item.ItemRepository;
-import kr.co.easystock.domain.customer.Customer;
-import kr.co.easystock.domain.customer.CustomerRepository;
+import kr.co.easystock.domain.retailer.Retailer;
+import kr.co.easystock.domain.retailer.RetailerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItemService
 {
-    private final CustomerRepository customerRepository;
+    private final RetailerRepository retailerRepository;
     private final ItemRepository itemRepository;
 
     public int itemAdd(int id, ItemDto.ItemFormDto itemFormDto)
     {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
-        itemFormDto.setCustomer(customer);
+        Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
+        itemFormDto.setRetailer(retailer);
 
         Item item = itemRepository.save(itemFormDto.toEntity());
         return item.getId();
@@ -30,9 +30,9 @@ public class ItemService
 
     public List<ItemDto.ItemListResponseDto> getItemList(int id, Pageable pageable)
     {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
+        Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
 
-        return itemRepository.findAllByCustomer(customer, pageable)
+        return itemRepository.findAllByCustomer(retailer, pageable)
                 .stream()
                 .map(ItemDto.ItemListResponseDto::new)
                 .collect(Collectors.toList());

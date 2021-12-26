@@ -1,7 +1,7 @@
 package kr.co.easystock.domain.Item;
 
 import kr.co.easystock.domain.BaseTimeEntity;
-import kr.co.easystock.domain.customer.Customer;
+import kr.co.easystock.domain.retailer.Retailer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ public class Item extends BaseTimeEntity
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private Retailer retailer;
 
     private String name;
 
@@ -33,9 +33,9 @@ public class Item extends BaseTimeEntity
     private String category;
 
     @Builder
-    public Item(Customer customer, String name, int price, String detail, String category)
+    public Item(Retailer retailer, String name, int price, String detail, String category)
     {
-        this.customer = customer;
+        this.retailer = retailer;
         this.name = name;
         this.price = price;
         this.detail = detail;

@@ -1,5 +1,6 @@
 package kr.co.easystock;
 
+import kr.co.easystock.controller.dto.UserDto;
 import kr.co.easystock.controller.dto.UserJoinRequestDto;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
@@ -77,7 +78,7 @@ public class joinTest {
         String phone = "010-1111-2222";
         String gender = "F";
 
-        UserJoinRequestDto requestDto = UserJoinRequestDto.builder()
+        UserDto.UserRegisterRequestDto userRegisterRequestDto = UserDto.UserRegisterRequestDto.builder()
                 .name(name)
                 .password(password)
                 .businessNo(businessNo)
@@ -89,7 +90,7 @@ public class joinTest {
         String url = "http://localhost:" + port + "/api/v1/join";
 
         //when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, userRegisterRequestDto, Long.class);
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);

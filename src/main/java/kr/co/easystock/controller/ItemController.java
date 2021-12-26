@@ -1,7 +1,7 @@
 package kr.co.easystock.controller;
 
 import kr.co.easystock.controller.dto.ItemDto;
-import kr.co.easystock.service.CustomerService;
+import kr.co.easystock.service.RetailerService;
 import kr.co.easystock.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class ItemController
 {
-    private final CustomerService customerService;
+    private final RetailerService retailerService;
     private final ItemService itemService;
 
     @GetMapping("/customer/{id}/add")

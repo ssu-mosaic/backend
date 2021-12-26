@@ -1,4 +1,4 @@
-package kr.co.easystock.domain.customer;
+package kr.co.easystock.domain.retailer;
 
 import kr.co.easystock.domain.user.User;
 import org.springframework.data.domain.Pageable;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer>, JpaSpecificationExecutor<Customer>
+public interface RetailerRepository extends JpaRepository<Retailer, Integer>, JpaSpecificationExecutor<Retailer>
 {
-    List<Customer> findAllByUser(User user, Pageable pageable);
+    List<Retailer> findAllByUser(User user, Pageable pageable);
 }
