@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,14 +53,14 @@ public class RetailerController
     }
 
     @PostMapping("retailer/list")
-    public List<RetailerDto.RetailerListResponseDto> getRetailerList(@RequestBody String userName, @PageableDefault(direction = Sort.Direction.DESC, sort="id")Pageable pageable)
+    public List<RetailerDto.RetailerListResponseDto> getRetailerList(@RequestBody Map<String, String> param)
     {
         List<RetailerDto.RetailerListResponseDto> retailerListResponseDtoList = new ArrayList<>();
-        User user = userService.getUser(userName);
+        User user = userService.getUser(param.get("userName"));
         if(user == null)
             return retailerListResponseDtoList;
 
-        retailerListResponseDtoList = retailerService.getRetailerList(user, pageable);
+        retailerListResponseDtoList = retailerService.getRetailerList(user);
         return retailerListResponseDtoList;
     }
 }

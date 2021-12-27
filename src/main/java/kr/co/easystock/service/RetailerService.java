@@ -58,9 +58,9 @@ public class RetailerService
         return new RetailerDto.RetailerResponseDto(retailer);
     }
 
-    public List<RetailerDto.RetailerListResponseDto> getRetailerList(User user, Pageable pageable)
+    public List<RetailerDto.RetailerListResponseDto> getRetailerList(User user)
     {
-        return retailerRepository.findAllByUser(user, pageable)
+        return retailerRepository.findAllByUser(user)
                 .stream()
                 .map(RetailerDto.RetailerListResponseDto::new)
                 .collect(Collectors.toList());
