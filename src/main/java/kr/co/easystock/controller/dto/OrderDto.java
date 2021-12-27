@@ -1,5 +1,8 @@
 package kr.co.easystock.controller.dto;
 
+import kr.co.easystock.domain.order.Order;
+import kr.co.easystock.domain.retailer.Retailer;
+import kr.co.easystock.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,13 +12,26 @@ public class OrderDto
     @Setter
     public static class OrderRequestDto
     {
-        private int itemId;
-        private int count;
+        private User user;
+        private String userName;
+        private Retailer retailer;
+        private int retailerId;
+        private String orderDetail;
 
-        public OrderRequestDto(int itemId, int count)
+        public OrderRequestDto(String userName, String orderDetail, int retailerId)
         {
-            this.itemId = itemId;
-            this.count = count;
+            this.userName = userName;
+            this.orderDetail = orderDetail;
+            this.retailerId = retailerId;
+        }
+
+        public Order toEntity()
+        {
+            return Order.builder()
+                    .user(user)
+                    .retailer(retailer)
+                    .detail(orderDetail)
+                    .build();
         }
     }
 }

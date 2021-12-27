@@ -1,12 +1,11 @@
 package kr.co.easystock.domain.order;
 
 import kr.co.easystock.domain.BaseTimeEntity;
+import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.user.User;
+import lombok.Builder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Order extends BaseTimeEntity
@@ -14,14 +13,19 @@ public class Order extends BaseTimeEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "business_no")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "retailer_id")
+    private Retailer retailer;
+    private String detail;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItemList = new ArrayList<>();
-
-    private LocalDateTime orderDate;
+    @Builder
+    public Order(User user, Retailer retailer, String detail)
+    {
+        this.user = user;
+        this.retailer = retailer;
+        this.detail = detail;
+    }
 }
