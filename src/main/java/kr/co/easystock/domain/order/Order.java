@@ -4,10 +4,12 @@ import kr.co.easystock.domain.BaseTimeEntity;
 import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.user.User;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 public class Order extends BaseTimeEntity
 {
     @Id
