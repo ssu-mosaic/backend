@@ -53,6 +53,19 @@ public class StockDto
     }
 
     @Getter
+    public static class StockDeleteRequestDto
+    {
+        private String userName;
+        private int stockId;
+
+        public StockDeleteRequestDto(String userName, int stockId)
+        {
+            this.userName = userName;
+            this.stockId = stockId;
+        }
+    }
+
+    @Getter
     public static class StockListResponseDto
     {
         private int id;

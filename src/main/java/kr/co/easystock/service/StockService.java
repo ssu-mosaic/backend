@@ -7,6 +7,7 @@ import kr.co.easystock.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public class StockService
         return true;
     }
 
+    @Transactional
     public boolean update(StockDto.StockUpdateRequestDto stockUpdateRequestDto)
     {
         Stock stock = stockRepository.getById(stockUpdateRequestDto.getStockId());
@@ -36,9 +38,9 @@ public class StockService
         return true;
     }
 
-    public boolean delete(int stockId)
+    public boolean delete(StockDto.StockDeleteRequestDto stockDeleteRequestDto)
     {
-        Stock stock = stockRepository.getById(stockId);
+        Stock stock = stockRepository.getById(stockDeleteRequestDto.getStockId());
         if(stock == null)
             return false;
 

@@ -82,8 +82,8 @@ public class RetailerDto
     @Getter
     public static class RetailerDeleteRequestDto
     {
-        String userName;
-        int retailerId;
+        private String userName;
+        private int retailerId;
 
         public RetailerDeleteRequestDto(String userName, int retailerId)
         {
