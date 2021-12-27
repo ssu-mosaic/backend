@@ -5,9 +5,6 @@ import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.StockService;
 import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +27,7 @@ public class StockController
         if(user == null)
             return false;
 
+        stockAddRequestDto.setUser(user);
         return stockService.add(stockAddRequestDto);
     }
 
