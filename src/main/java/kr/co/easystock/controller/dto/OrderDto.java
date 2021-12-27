@@ -6,8 +6,6 @@ import kr.co.easystock.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 public class OrderDto
 {
     @Getter
@@ -31,7 +29,6 @@ public class OrderDto
         {
             return Order.builder()
                     .user(user)
-                    .retailer(retailer)
                     .detail(orderDetail)
                     .build();
         }
@@ -41,13 +38,11 @@ public class OrderDto
     @Setter
     public static class OrderListResponseDto
     {
-        private User user;
-        private String userName;
-        private LocalDateTime createdDate;
+        private String detail;
 
-        public OrderListResponseDto()
+        public OrderListResponseDto(String detail)
         {
-
+            this.detail = detail;
         }
     }
 }
