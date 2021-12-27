@@ -47,9 +47,9 @@ public class RetailerController
     }
 
     @PostMapping("retailer/delete")
-    public boolean delete(@RequestBody int retailerId)
+    public boolean delete(@RequestBody RetailerDto.RetailerDeleteRequestDto retailerDeleteRequestDto)
     {
-        return retailerService.delete(retailerId);
+        return retailerService.delete(retailerDeleteRequestDto);
     }
 
     @PostMapping("retailer/list")
