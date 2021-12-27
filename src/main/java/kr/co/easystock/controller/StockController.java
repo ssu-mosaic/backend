@@ -38,7 +38,7 @@ public class StockController
         if(user == null)
             return false;
 
-        stockService.update(stockUpdateRequestDto);
+        stockUpdateRequestDto.setUser(user);
         return stockService.update(stockUpdateRequestDto);
     }
 
