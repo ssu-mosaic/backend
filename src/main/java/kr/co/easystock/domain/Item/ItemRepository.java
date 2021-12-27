@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecificationExecutor<Item>
 {
-    List<Item> findAllByCustomer(Retailer retailer, Pageable pageable);
+    List<Item> findAllByRetailer(Retailer retailer, Pageable pageable);
 }
