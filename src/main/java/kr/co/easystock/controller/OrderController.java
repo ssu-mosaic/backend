@@ -39,7 +39,6 @@ public class OrderController
         return orderService.add(orderRequestDto);
     }
 
-    /*
     @PostMapping("/order/list")
     public List<OrderDto.OrderListResponseDto> getOrderList(@RequestBody Map<String, String> param)
     {
@@ -51,5 +50,4 @@ public class OrderController
         orderListResponseDtoList = orderService.getOrderList(user);
         return orderListResponseDtoList;
     }
-     */
 }

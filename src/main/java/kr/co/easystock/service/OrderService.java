@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +27,20 @@ public class OrderService
         return true;
     }
 
-    /*
     public List<OrderDto.OrderListResponseDto> getOrderList(User user)
     {
-        return orderRepository.findAllByUser(user)
-                .stream()
-                .map(OrderDto.OrderListResponseDto::new)
-                .collect(Collectors.toList());
+        List<Order> orderList = orderRepository.findAllByUser(user);
+        List<OrderDto.OrderListResponseDto> orderListResponseDtoList = new ArrayList<>();
+        for(Order order : orderList)
+        {
+            orderListResponseDtoList.add(OrderDto.OrderListResponseDto.builder()
+            .orderDate(order.getCreatedDate())
+            .retailerName(order.getRetailer().getName())
+            .retailerPhone(order.getRetailer().getPhone())
+            .orderDetail(order.getDetail())
+            .build());
+        }
+
+        return orderListResponseDtoList;
     }
-     */
 }
