@@ -47,7 +47,7 @@ public class OrderController
         if(user == null)
             return orderListResponseDtoList;
 
-        orderListResponseDtoList = orderService.getOrderList(user);
+        //orderListResponseDtoList = orderService.getOrderList(user);
         return orderListResponseDtoList;
     }
 }
