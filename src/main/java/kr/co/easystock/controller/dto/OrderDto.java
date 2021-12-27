@@ -6,7 +6,6 @@ import kr.co.easystock.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class OrderDto
