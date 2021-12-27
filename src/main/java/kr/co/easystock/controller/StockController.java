@@ -34,6 +34,11 @@ public class StockController
     @PostMapping("/stock/edit")
     public boolean update(@RequestBody StockDto.StockUpdateRequestDto stockUpdateRequestDto)
     {
+        User user = userService.getUser(stockUpdateRequestDto.getUserName());
+        if(user == null)
+            return false;
+
+        stockService.update(stockUpdateRequestDto);
         return stockService.update(stockUpdateRequestDto);
     }
 
