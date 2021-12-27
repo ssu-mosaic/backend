@@ -51,11 +51,11 @@ public class RetailerService
         return true;
     }
 
-    public RetailerDto.RetailerResponseDto getRetailer(int id)
+    public Retailer getRetailer(int id)
     {
         Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
 
-        return new RetailerDto.RetailerResponseDto(retailer);
+        return retailer;
     }
 
     public List<RetailerDto.RetailerListResponseDto> getRetailerList(User user)
