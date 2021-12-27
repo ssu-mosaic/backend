@@ -32,7 +32,7 @@ public class ItemService
     {
         Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
 
-        return itemRepository.findAllByCustomer(retailer, pageable)
+        return itemRepository.findAllByRetailer(retailer, pageable)
                 .stream()
                 .map(ItemDto.ItemListResponseDto::new)
                 .collect(Collectors.toList());

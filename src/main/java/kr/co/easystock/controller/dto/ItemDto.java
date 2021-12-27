@@ -31,7 +31,7 @@ public class ItemDto
         public Item toEntity()
         {
             return Item.builder()
-                    .customer(retailer)
+                    .retailer(retailer)
                     .name(name)
                     .price(price)
                     .detail(detail)
