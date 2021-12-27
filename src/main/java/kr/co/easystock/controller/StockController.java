@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,10 +46,10 @@ public class StockController
     }
 
     @PostMapping("stock/list")
-    public List<StockDto.StockListResponseDto> getStockList(@RequestBody String userName, @PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable)
+    public List<StockDto.StockListResponseDto> getStockList(@RequestBody Map<String, String> param, @PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable)
     {
         List<StockDto.StockListResponseDto> stockListResponseDtoList = new ArrayList<>();
-        User user = userService.getUser(userName);
+        User user = userService.getUser(param.get("userName"));
         if(user == null)
             return stockListResponseDtoList;
 
