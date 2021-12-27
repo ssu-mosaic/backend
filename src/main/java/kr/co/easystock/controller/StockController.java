@@ -23,7 +23,7 @@ public class StockController
     private final StockService stockService;
 
     @PostMapping("/stock/add")
-    public boolean add(StockDto.StockAddRequestDto stockAddRequestDto)
+    public boolean add(@RequestBody StockDto.StockAddRequestDto stockAddRequestDto)
     {
         User user = userService.getUser(stockAddRequestDto.getUserName());
         if(user == null)
