@@ -6,6 +6,7 @@ import kr.co.easystock.domain.order.OrderRepository;
 import kr.co.easystock.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class OrderService
 {
     private final OrderRepository orderRepository;
 
-    public boolean add(OrderDto.OrderRequestDto orderRequestDto)
+    public boolean add(@RequestBody OrderDto.OrderRequestDto orderRequestDto)
     {
         Order order = orderRepository.save(orderRequestDto.toEntity());
         if(order == null)
