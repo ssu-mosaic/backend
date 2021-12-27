@@ -7,6 +7,7 @@ import kr.co.easystock.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public class RetailerService
         return true;
     }
 
+    @Transactional
     public boolean update(RetailerDto.RetailerUpdateRequestDto retailerUpdateRequestDto)
     {
         Retailer retailer = retailerRepository.getById(retailerUpdateRequestDto.getRetailerId());
@@ -41,9 +43,9 @@ public class RetailerService
         return true;
     }
 
-    public boolean delete(int retailerId)
+    public boolean delete(RetailerDto.RetailerDeleteRequestDto retailerDeleteRequestDto)
     {
-        Retailer retailer = retailerRepository.getById(retailerId);
+        Retailer retailer = retailerRepository.getById(retailerDeleteRequestDto.getRetailerId());
         if(retailer == null)
             return false;
 

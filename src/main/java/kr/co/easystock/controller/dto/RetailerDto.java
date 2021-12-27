@@ -80,6 +80,19 @@ public class RetailerDto
     }
 
     @Getter
+    public static class RetailerDeleteRequestDto
+    {
+        String userName;
+        int retailerId;
+
+        public RetailerDeleteRequestDto(String userName, int retailerId)
+        {
+            this.userName = userName;
+            this.retailerId = retailerId;
+        }
+    }
+
+    @Getter
     public static class RetailerResponseDto
     {
         private int id;
