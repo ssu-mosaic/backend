@@ -46,14 +46,14 @@ public class StockController
     }
 
     @PostMapping("stock/list")
-    public List<StockDto.StockListResponseDto> getStockList(@RequestBody Map<String, String> param, @PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable)
+    public List<StockDto.StockListResponseDto> getStockList(@RequestBody Map<String, String> param)
     {
         List<StockDto.StockListResponseDto> stockListResponseDtoList = new ArrayList<>();
         User user = userService.getUser(param.get("userName"));
         if(user == null)
             return stockListResponseDtoList;
 
-        stockListResponseDtoList = stockService.getStockList(user, pageable);
+        stockListResponseDtoList = stockService.getStockList(user);
         return stockListResponseDtoList;
     }
 }
