@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 public class OrderController
@@ -33,5 +37,17 @@ public class OrderController
         orderRequestDto.setUser(user);
         orderRequestDto.setRetailer(retailer);
         return orderService.add(orderRequestDto);
+    }
+
+    @PostMapping("/order/list")
+    public List<OrderDto.OrderListResponseDto> getOrderList(@RequestBody Map<String, String> param)
+    {
+        List<OrderDto.OrderListResponseDto> orderListResponseDtoList = new ArrayList<>();
+        User user = userService.getUser(param.get("userName"));
+        if(user == null)
+            return orderListResponseDtoList;
+
+        orderListResponseDtoList = orderService.getOrderList(user);
+        return orderListResponseDtoList;
     }
 }
