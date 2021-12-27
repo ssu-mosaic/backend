@@ -97,21 +97,21 @@ public class RetailerDto
     @Getter
     public static class RetailerListResponseDto
     {
-        private int id;
-        private String name;
-        private String email;
-        private String phone;
-        private String address;
-        private String memo;
+        private int retailerId;
+        private String retailerName;
+        private String retailerEmail;
+        private String retailerPhone;
+        private String retailerAddress;
+        private String retailerMemo;
 
         public RetailerListResponseDto(Retailer entity)
         {
-            this.id = entity.getId();
-            this.name = entity.getName();
-            this.email = entity.getEmail();
-            this.phone = entity.getPhone();
-            this.address = entity.getAddress();
-            this.memo = entity.getMemo();
+            this.retailerId = entity.getId();
+            this.retailerName = entity.getName();
+            this.retailerEmail = entity.getEmail();
+            this.retailerPhone = entity.getPhone();
+            this.retailerAddress = entity.getAddress();
+            this.retailerMemo = entity.getMemo();
         }
     }
 }
