@@ -16,6 +16,7 @@ public class Retailer
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
+    @Column(name = "retailer_id")
     private int id;
     @ManyToOne
     @JoinColumn(name = "business_no")
