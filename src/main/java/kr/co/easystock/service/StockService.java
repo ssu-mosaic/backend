@@ -48,9 +48,9 @@ public class StockService
         return true;
     }
 
-    public List<StockDto.StockListResponseDto> getStockList(User user, Pageable pageable)
+    public List<StockDto.StockListResponseDto> getStockList(User user)
     {
-        return stockRepository.findAllByUser(user, pageable)
+        return stockRepository.findAllByUser(user)
                 .stream()
                 .map(StockDto.StockListResponseDto::new)
                 .collect(Collectors.toList());
