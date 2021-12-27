@@ -68,15 +68,15 @@ public class StockDto
     @Getter
     public static class StockListResponseDto
     {
-        private int id;
-        private String name;
-        private int count;
+        private int stockId;
+        private String stockName;
+        private int stockCount;
 
         public StockListResponseDto(Stock entity)
         {
-            this.id = entity.getId();
-            this.name = entity.getName();
-            this.count = entity.getCount();
+            this.stockId = entity.getId();
+            this.stockName = entity.getName();
+            this.stockCount = entity.getCount();
         }
     }
 }
