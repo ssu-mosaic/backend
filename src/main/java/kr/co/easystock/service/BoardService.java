@@ -38,7 +38,6 @@ public class BoardService
          */
 
         Inquiry inquiry = inquiryRepository.save(requestDto.toEntity(user));
-
         return inquiry;
     }
 
@@ -59,7 +58,7 @@ public class BoardService
     }
 
     /**
-     * 문의글 보기
+     * 문의 상세 조회
      * @param id
      * @return Inquiry
      */
@@ -70,15 +69,13 @@ public class BoardService
     }
 
     /**
-     * 문의글 목록 보기
+     * 문의 목록 조회
      * @param pageable
      * @return List
      */
-    public List<InquiryListDto> viewInquiryList(Pageable pageable)
+    public List<Inquiry> viewInquiryList(Pageable pageable)
     {
-        return inquiryRepository.findAll(pageable)
-                .map(InquiryListDto::new)
-                .getContent();
+        return inquiryRepository.findAll(pageable).getContent();
     }
 
     /**
@@ -111,10 +108,11 @@ public class BoardService
         문의가 없으면??
          */
 
-        Answer answer = answerRepository.save(requestDto.toEntity(inquiry));
+        Answer answer = requestDto.toEntity(inquiry);
+        // 양방향 연관관계의 편의 메서드 호출
         answer.answerToInquiry(inquiry);
 
-        return answer;
+        return answerRepository.save(answer);
     }
 
     /**

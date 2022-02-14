@@ -20,7 +20,7 @@ public class Inquiry extends BaseTimeEntity
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "inquiry", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "inquiry", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Answer answer;
 
     private String title;
@@ -36,13 +36,14 @@ public class Inquiry extends BaseTimeEntity
         this.category = category;
     }
 
-    public void update(Inquiry entity)
+    public void update(Inquiry inquiry)
     {
-        this.title = entity.getTitle();
-        this.content = entity.getContent();
-        this.category = entity.getCategory();
+        this.title = inquiry.getTitle();
+        this.content = inquiry.getContent();
+        this.category = inquiry.getCategory();
     }
 
+    // soft delete
     @Override
     public void delete()
     {

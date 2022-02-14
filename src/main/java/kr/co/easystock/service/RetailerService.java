@@ -1,51 +1,65 @@
 package kr.co.easystock.service;
 
-import kr.co.easystock.controller.dto.RetailerDto;
 import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.retailer.RetailerRepository;
 import kr.co.easystock.domain.user.User;
+import kr.co.easystock.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static kr.co.easystock.controller.dto.RetailerDto.*;
+
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class RetailerService
 {
+    private final UserRepository userRepository;
     private final RetailerRepository retailerRepository;
 
-    public boolean add(RetailerDto.RetailerAddRequestDto retailerAddRequestDto)
+    /**
+     * 거래처 추가
+     * @param requestDto
+     * @return Retailer
+     */
+    public Retailer add(RetailerAddRequestDto requestDto)
     {
-        Retailer retailer = retailerRepository.save(retailerAddRequestDto.toEntity());
+        User user = userRepository.findById(requestDto.getUserId()).orElse(null);
+        /*
+        user가 없으면?
+         */
+
+        return retailerRepository.save(requestDto.toEntity(user));
+    }
+
+    /**
+     * 거래처 수정
+     * @param id
+     * @param requestDto
+     * @return boolean
+     */
+    public boolean update(Long id, RetailerUpdateRequestDto requestDto)
+    {
+        Retailer retailer = retailerRepository.findById(id).orElse(null);
         if(retailer == null)
             return false;
 
+        retailer.update(requestDto.toEntity());
         return true;
     }
 
-    @Transactional
-    public boolean update(RetailerDto.RetailerUpdateRequestDto retailerUpdateRequestDto)
+    /**
+     * 거래처 삭제
+     * @param id
+     * @return boolean
+     */
+    public boolean delete(Long id)
     {
-        Retailer retailer = retailerRepository.getById(retailerUpdateRequestDto.getRetailerId());
-        if(retailer == null)
-            return false;
-
-        retailer.update(retailerUpdateRequestDto.getRetailerName(),
-                retailerUpdateRequestDto.getRetailerEmail(),
-                retailerUpdateRequestDto.getRetailerPhone(),
-                retailerUpdateRequestDto.getRetailerAddress(),
-                retailerUpdateRequestDto.getRetailerMemo());
-
-        return true;
-    }
-
-    public boolean delete(RetailerDto.RetailerDeleteRequestDto retailerDeleteRequestDto)
-    {
-        Retailer retailer = retailerRepository.getById(retailerDeleteRequestDto.getRetailerId());
+        Retailer retailer = retailerRepository.findById(id).orElse(null);
         if(retailer == null)
             return false;
 
@@ -53,18 +67,30 @@ public class RetailerService
         return true;
     }
 
-    public Retailer getRetailer(Long id)
+    /**
+     * 거래처 상세 조회
+     * @param id
+     * @return Retailer
+     */
+    @Transactional(readOnly = true)
+    public Retailer view(Long id)
     {
-        Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
-
-        return retailer;
+        return retailerRepository.findById(id).orElse(null);
     }
 
-    public List<RetailerDto.RetailerListResponseDto> getRetailerList(User user)
+    /**
+     * 거래처 목록 조회
+     * @param userId
+     * @return List
+     */
+    @Transactional(readOnly = true)
+    public List<Retailer> list(String userId)
     {
-        return retailerRepository.findAllByUser(user)
-                .stream()
-                .map(RetailerDto.RetailerListResponseDto::new)
-                .collect(Collectors.toList());
+        User user = userRepository.findById(userId).orElse(null);
+        /*
+        user가 없으면?
+         */
+
+        return retailerRepository.findAllByUser(user);
     }
 }

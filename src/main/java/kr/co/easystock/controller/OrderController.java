@@ -30,7 +30,7 @@ public class OrderController
         if(user == null)
             return false;
 
-        Retailer retailer = retailerService.getRetailer(orderRequestDto.getRetailerId());
+        Retailer retailer = retailerService.view(orderRequestDto.getRetailerId());
         if(retailer == null)
             return false;
 

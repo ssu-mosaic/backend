@@ -58,6 +58,7 @@ public class User extends BaseTimeEntity
         this.phone = user.getPhone();
     }
 
+    // soft delete
     @Override
     public void delete()
     {

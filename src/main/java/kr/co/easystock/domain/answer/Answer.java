@@ -18,7 +18,7 @@ public class Answer extends BaseTimeEntity
     @Column(name = "inquiry_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "inquiry_id")
     private Inquiry inquiry;

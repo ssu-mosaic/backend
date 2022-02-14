@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static kr.co.easystock.controller.dto.AnswerDto.AnswerUpdateRequestDto;
 import static kr.co.easystock.controller.dto.AnswerDto.AnswerWriteRequestDto;
@@ -46,29 +47,28 @@ public class BoardController
     }
 
     /**
-     * 문의글 보기
+     * 문의 상세 조회
      * @param id
      * @return InquiryViewDto
      */
     @GetMapping("/qna/{id}")
     public InquiryViewDto viewInquiry(@PathVariable(name = "id") Long id)
     {
-        Inquiry inquiry = boardService.viewInquiry(id);
-        if(inquiry == null)
-            return null;
-
-        return new InquiryViewDto(inquiry);
+        return new InquiryViewDto(boardService.viewInquiry(id));
     }
 
     /**
-     * 문의글 목록 보기
+     * 문의 목록 조회
      * @param pageable
      * @return List
      */
     @GetMapping("/qna")
     public List<InquiryListDto> viewInquiryList(@PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
     {
-        return boardService.viewInquiryList(pageable);
+        return boardService.viewInquiryList(pageable)
+                .stream()
+                .map(InquiryListDto::new)
+                .collect(Collectors.toList());
     }
 
     /**
