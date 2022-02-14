@@ -1,63 +1,97 @@
 package kr.co.easystock.controller;
 
-import kr.co.easystock.controller.dto.AnswerDto;
-import kr.co.easystock.controller.dto.InquiryDto;
+import kr.co.easystock.domain.inquiry.Inquiry;
 import kr.co.easystock.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import javax.websocket.server.PathParam;
+
+import java.util.List;
+
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerUpdateRequestDto;
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerWriteRequestDto;
+import static kr.co.easystock.controller.dto.InquiryDto.*;
+
+@RestController
 @RequiredArgsConstructor
 public class BoardController
 {
     private final BoardService boardService;
 
-    @GetMapping("/inquiry/write")
-    public String inquiryForm()
+    /**
+     * 문의 작성
+     * @param requestDto
+     * @return Long
+     */
+    @PostMapping("/qna/write")
+    public Long writeInquiry(@RequestBody InquiryWriteRequestDto requestDto)
     {
-        return "inquiryForm";
+        return boardService.writeInquiry(requestDto).getId();
     }
 
-    @PostMapping("/inquiry/write")
-    public String inquirySave(InquiryDto.InquiryFormDto inquiryFormDto)
+    /**
+     * 문의 수정
+     * @param id
+     * @param requestDto
+     * @return boolean
+     */
+    @PutMapping("/qna/edit/{id}")
+    public boolean updateInquiry(@PathVariable(name = "id") Long id, @RequestBody InquiryUpdateRequestDto requestDto)
     {
-        boardService.inquirySave(inquiryFormDto);
-        return "redirect:/inquiry";
+        return boardService.updateInquiry(id, requestDto);
     }
 
-    @GetMapping("/inquiry/{id}/answer")
-    public String answerForm(@PathVariable int id, Model model)
+    /**
+     * 문의글 보기
+     * @param id
+     * @return InquiryViewDto
+     */
+    @GetMapping("/qna/{id}")
+    public InquiryViewDto viewInquiry(@PathVariable(name = "id") Long id)
     {
-        model.addAttribute("inquiry", boardService.getInquiry(id));
-        return "/inquiryAnswerForm";
+        Inquiry inquiry = boardService.viewInquiry(id);
+        if(inquiry == null)
+            return null;
+
+        return new InquiryViewDto(inquiry);
     }
 
-    @PostMapping("/inquiry/{id}/answer")
-    public String answerSave(@PathVariable int id, AnswerDto.AnswerFormDto answerFormDto)
+    /**
+     * 문의글 목록 보기
+     * @param pageable
+     * @return List
+     */
+    @GetMapping("/qna")
+    public List<InquiryListDto> viewInquiryList(@PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
     {
-        boardService.answerSave(id, answerFormDto);
-        return "redirect:/inquiry/" + id;
+        return boardService.viewInquiryList(pageable);
     }
 
-    @GetMapping("/inquiry/{id}")
-    public String getInquiry(@PathVariable int id, Model model)
+    /**
+     * 답변 작성
+     * @param id
+     * @param requestDto
+     * @return Long
+     */
+    @PostMapping("/qna/{id}/answer")
+    public Long writeAnswer(@PathVariable(name = "id") Long id, @RequestBody AnswerWriteRequestDto requestDto)
     {
-        model.addAttribute("inquiry", boardService.getInquiry(id));
-        return "inquiryView";
-        //return boardService.getInquiry(id);
+        return boardService.writeAnswer(id, requestDto).getId();
     }
 
-    @GetMapping("/inquiry")
-    public String getInquiryList(@PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable, Model model)
+    /**
+     * 답변 수정
+     * @param id
+     * @param requestDto
+     * @return boolean
+     */
+    @PutMapping("/qna/{id}/answer")
+    public boolean updateAnswer(@PathVariable(name = "id") Long id, @RequestBody AnswerUpdateRequestDto requestDto)
     {
-        model.addAttribute("inquiryList", boardService.getInquiryList(pageable));
-        return "inquiry";
+        return boardService.updateAnswer(id, requestDto);
     }
 }

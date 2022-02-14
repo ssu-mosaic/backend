@@ -1,6 +1,5 @@
 package kr.co.easystock.domain.Item;
 
-import kr.co.easystock.domain.BaseTimeEntity;
 import kr.co.easystock.domain.retailer.Retailer;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,14 +10,14 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Item extends BaseTimeEntity
+public class Item
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "retailer_id")
     private Retailer retailer;
 
     private String name;
@@ -27,18 +26,22 @@ public class Item extends BaseTimeEntity
     private int price;
 
     @Column(nullable = false)
-    private String detail;
+    private String unit;
+
+    @Column(nullable = false)
+    private String desc;
 
     @Column(nullable = false)
     private String category;
 
     @Builder
-    public Item(Retailer retailer, String name, int price, String detail, String category)
+    public Item(Retailer retailer, String name, int price, String unit, String desc, String category)
     {
         this.retailer = retailer;
         this.name = name;
         this.price = price;
-        this.detail = detail;
+        this.unit = unit;
+        this.desc = desc;
         this.category = category;
     }
 }

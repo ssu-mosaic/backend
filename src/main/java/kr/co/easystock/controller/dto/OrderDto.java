@@ -18,13 +18,11 @@ public class OrderDto
         private User user;
         private String userName;
         private Retailer retailer;
-        private int retailerId;
-        private String orderDetail;
+        private Long retailerId;
 
-        public OrderRequestDto(String userName, String orderDetail, int retailerId)
+        public OrderRequestDto(String userName, Long retailerId)
         {
             this.userName = userName;
-            this.orderDetail = orderDetail;
             this.retailerId = retailerId;
         }
 
@@ -33,7 +31,6 @@ public class OrderDto
             return Order.builder()
                     .user(user)
                     .retailer(retailer)
-                    .detail(orderDetail)
                     .build();
         }
     }

@@ -16,15 +16,15 @@ public class ItemDto
         private Retailer retailer;
         private String name;
         private int price;
-        private String detail;
+        private String desc;
         private String category;
 
         @Builder
-        public ItemFormDto(String name, int price, String detail, String category)
+        public ItemFormDto(String name, int price, String desc, String category)
         {
             this.name = name;
             this.price = price;
-            this.detail = detail;
+            this.desc = desc;
             this.category = category;
         }
 
@@ -34,7 +34,7 @@ public class ItemDto
                     .retailer(retailer)
                     .name(name)
                     .price(price)
-                    .detail(detail)
+                    .desc(desc)
                     .category(category)
                     .build();
         }
@@ -43,7 +43,7 @@ public class ItemDto
     @Getter
     public static class ItemListResponseDto
     {
-        private int id;
+        private Long id;
         private String name;
         private int price;
 

@@ -21,4 +21,11 @@ public abstract class BaseTimeEntity
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
+    private LocalDateTime deletedDate;
+
+    protected void delete()
+    {
+        deletedDate = LocalDateTime.now();
+    }
 }

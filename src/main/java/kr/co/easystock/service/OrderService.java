@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +36,6 @@ public class OrderService
             .orderDate(order.getCreatedDate())
             .retailerName(order.getRetailer().getName())
             .retailerPhone(order.getRetailer().getPhone())
-            .orderDetail(order.getDetail())
             .build());
         }
 

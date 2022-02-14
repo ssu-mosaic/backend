@@ -6,12 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -19,19 +15,32 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Answer extends BaseTimeEntity
 {
     @Id
-    private int inquiryId;
+    @Column(name = "inquiry_id")
+    private Long id;
 
-    @OneToOne
-    @Cascade(CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    @MapsId
+    @JoinColumn(name = "inquiry_id")
     private Inquiry inquiry;
+
     private String content;
 
     @Builder
     public Answer(Inquiry inquiry, String content)
     {
         this.inquiry = inquiry;
-        this.inquiryId = inquiry.getId();
         this.content = content;
+    }
+
+    public void update(String content)
+    {
+        this.content = content;
+    }
+
+    // 연관관계 메서드
+    public void answerToInquiry(Inquiry inquiry)
+    {
+        inquiry.mapAnswer(this);
+        this.inquiry = inquiry;
     }
 }

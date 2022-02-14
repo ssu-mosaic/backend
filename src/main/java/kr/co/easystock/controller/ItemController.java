@@ -21,21 +21,21 @@ public class ItemController
     private final ItemService itemService;
 
     @GetMapping("/customer/{id}/add")
-    public String itemAddForm(@PathVariable int id, Model model)
+    public String itemAddForm(@PathVariable Long id, Model model)
     {
         model.addAttribute("id", id);
         return "itemAddForm";
     }
 
     @PostMapping("/customer/{id}/add")
-    public String itemAdd(@PathVariable int id, ItemDto.ItemFormDto itemFormDto)
+    public String itemAdd(@PathVariable Long id, ItemDto.ItemFormDto itemFormDto)
     {
         itemService.itemAdd(id, itemFormDto);
         return "redirect:/customer";
     }
 
     @GetMapping("/customer/{id}")
-    public String getItemList(@PathVariable int id, @PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable, Model model)
+    public String getItemList(@PathVariable Long id, @PageableDefault(direction = Sort.Direction.DESC, sort = "id") Pageable pageable, Model model)
     {
         model.addAttribute("id", id);
         model.addAttribute("itemList", itemService.getItemList(id, pageable));
