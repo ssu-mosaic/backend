@@ -5,21 +5,40 @@ import kr.co.easystock.domain.inquiry.Inquiry;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 public class AnswerDto
 {
     @Getter
-    @Setter
-    public static class AnswerFormDto
+    public static class AnswerWriteRequestDto
     {
-        private Inquiry inquiry;
         private String content;
 
-        public AnswerFormDto(String content)
+        public AnswerWriteRequestDto(String content)
         {
             this.content = content;
         }
 
-        public Answer toEntity()
+        public Answer toEntity(Inquiry inquiry)
+        {
+            return Answer.builder()
+                    .inquiry(inquiry)
+                    .content(content)
+                    .build();
+        }
+    }
+
+    @Getter
+    public static class AnswerUpdateRequestDto
+    {
+        private String content;
+
+        public AnswerUpdateRequestDto(String content)
+        {
+            this.content = content;
+        }
+
+        public Answer toEntity(Inquiry inquiry)
         {
             return Answer.builder()
                     .inquiry(inquiry)

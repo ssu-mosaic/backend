@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface RetailerRepository extends JpaRepository<Retailer, Integer>, JpaSpecificationExecutor<Retailer>
+public interface RetailerRepository extends JpaRepository<Retailer, Long>, JpaSpecificationExecutor<Retailer>
 {
     List<Retailer> findAllByUser(User user);
 }

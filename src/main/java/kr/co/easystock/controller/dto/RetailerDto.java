@@ -48,14 +48,14 @@ public class RetailerDto
     {
         private User user;
         private String userName;
-        private int retailerId;
+        private Long retailerId;
         private String retailerName;
         private String retailerPhone;
         private String retailerEmail;
         private String retailerAddress;
         private String retailerMemo;
 
-        public RetailerUpdateRequestDto(String userName, int retailerId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerMemo)
+        public RetailerUpdateRequestDto(String userName, Long retailerId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerMemo)
         {
             this.userName = userName;
             this.retailerId = retailerId;
@@ -83,9 +83,9 @@ public class RetailerDto
     public static class RetailerDeleteRequestDto
     {
         private String userName;
-        private int retailerId;
+        private Long retailerId;
 
-        public RetailerDeleteRequestDto(String userName, int retailerId)
+        public RetailerDeleteRequestDto(String userName, Long retailerId)
         {
             this.userName = userName;
             this.retailerId = retailerId;
@@ -95,7 +95,7 @@ public class RetailerDto
     @Getter
     public static class RetailerResponseDto
     {
-        private int id;
+        private Long id;
         private String name;
         private String phone;
 
@@ -110,7 +110,7 @@ public class RetailerDto
     @Getter
     public static class RetailerListResponseDto
     {
-        private int retailerId;
+        private Long retailerId;
         private String retailerName;
         private String retailerEmail;
         private String retailerPhone;

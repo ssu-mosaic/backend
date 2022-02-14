@@ -39,11 +39,11 @@ public class StockDto
     {
         private User user;
         private String userName;
-        private int stockId;
+        private Long stockId;
         private String stockName;
         private int stockCount;
 
-        public StockUpdateRequestDto(String userName, int stockId, String stockName, int stockCount)
+        public StockUpdateRequestDto(String userName, Long stockId, String stockName, int stockCount)
         {
             this.userName = userName;
             this.stockId = stockId;
@@ -56,9 +56,9 @@ public class StockDto
     public static class StockDeleteRequestDto
     {
         private String userName;
-        private int stockId;
+        private Long stockId;
 
-        public StockDeleteRequestDto(String userName, int stockId)
+        public StockDeleteRequestDto(String userName, Long stockId)
         {
             this.userName = userName;
             this.stockId = stockId;
@@ -68,7 +68,7 @@ public class StockDto
     @Getter
     public static class StockListResponseDto
     {
-        private int stockId;
+        private Long stockId;
         private String stockName;
         private int stockCount;
 

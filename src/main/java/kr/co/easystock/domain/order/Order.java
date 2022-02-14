@@ -16,21 +16,20 @@ import javax.persistence.*;
 public class Order extends BaseTimeEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @ManyToOne
-    @JoinColumn(name = "business_no")
+    private String id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "retailer_id")
     private Retailer retailer;
-    private String detail;
 
     @Builder
-    public Order(User user, Retailer retailer, String detail)
+    public Order(User user, Retailer retailer)
     {
         this.user = user;
         this.retailer = retailer;
-        this.detail = detail;
     }
 }

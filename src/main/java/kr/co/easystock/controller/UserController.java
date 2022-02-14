@@ -4,50 +4,65 @@ import kr.co.easystock.controller.dto.UserDto;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController
 {
     private final UserService userService;
 
-    @GetMapping("/login")
-    public String loginForm()
+    @PostMapping("/register")
+    public String register(@RequestBody UserDto.UserRegisterRequestDto requestDto)
     {
-        return "login";
+        return userService.register(requestDto).getId();
     }
 
-    @ResponseBody
     @PostMapping("/login")
-    public boolean login(@RequestBody UserDto.UserLoginDto userLoginDto)
+    public UserDto.UserInfoDto login(@RequestBody String name, @RequestBody String password)
     {
-        User user = userService.login(userLoginDto);
+        User user = userService.login(name, password);
         if(user == null)
-        {
-            return false;
-        }
+            return null;
 
-        return true;
+        return new UserDto.UserInfoDto(user);
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session)
+    /*
+    @PostMapping(value = "/findid")
+    public String findIdByEmail(@RequestBody String email)
     {
-        session.removeAttribute("user");
-        return "redirect:/";
+        return userService.findIdByEmail(email);
+    }
+     */
+
+    /*
+    @PostMapping(value = "/findpwd")
+    public String findPwd(@RequestBody String id)
+    {
+        return userService.findPwd(id);
+    }
+     */
+
+    @PostMapping("/myinfo")
+    public UserDto.UserInfoDto getMyInfo(@RequestBody String id, @RequestBody String password)
+    {
+        User user = userService.getMyInfo(id, password);
+        if(user == null)
+            return null;
+
+        return new UserDto.UserInfoDto(user);
     }
 
-    @ResponseBody
-    @PostMapping(value = "/register")
-    public String register(@RequestBody UserDto.UserRegisterRequestDto userRegisterRequestDto)
+    @PutMapping("/myinfo/change")
+    public boolean changeMyInfo(@RequestBody UserDto.UserUpdateRequestDto requestDto)
     {
-        return userService.register(userRegisterRequestDto);
+        return userService.changeMyInfo(requestDto);
+    }
+
+    @DeleteMapping("/withdraw")
+    public boolean withdraw(@RequestBody String id)
+    {
+        return userService.withdraw(id);
     }
 }

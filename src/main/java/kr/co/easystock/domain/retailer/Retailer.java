@@ -9,41 +9,41 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity
 public class Retailer
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
-    @Column(name = "retailer_id")
-    private int id;
-    @ManyToOne
-    @JoinColumn(name = "business_no")
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
     private String name;
     private String email;
-    private String phone;
     private String address;
+    private String phone;
     private String memo;
 
     @Builder
-    public Retailer(User user, String name, String email, String phone, String address, String memo)
+    public Retailer(User user, String name, String email, String address, String phone, String memo)
     {
         this.user = user;
         this.name = name;
         this.email = email;
-        this.phone = phone;
         this.address = address;
+        this.phone = phone;
         this.memo = memo;
     }
 
-    public void update(String name, String email, String phone, String address, String memo)
+    public void update(String name, String email, String address, String phone, String memo)
     {
         this.name = name;
         this.email = email;
-        this.phone = phone;
         this.address = address;
+        this.phone = phone;
         this.memo = memo;
     }
 }

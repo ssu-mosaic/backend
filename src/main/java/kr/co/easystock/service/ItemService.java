@@ -19,7 +19,7 @@ public class ItemService
     private final RetailerRepository retailerRepository;
     private final ItemRepository itemRepository;
 
-    public int itemAdd(int id, ItemDto.ItemFormDto itemFormDto)
+    public Long itemAdd(Long id, ItemDto.ItemFormDto itemFormDto)
     {
         Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
         itemFormDto.setRetailer(retailer);
@@ -28,7 +28,7 @@ public class ItemService
         return item.getId();
     }
 
-    public List<ItemDto.ItemListResponseDto> getItemList(int id, Pageable pageable)
+    public List<ItemDto.ItemListResponseDto> getItemList(Long id, Pageable pageable)
     {
         Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
 

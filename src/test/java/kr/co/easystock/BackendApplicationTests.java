@@ -6,10 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BackendApplicationTests
 {
-
     @Test
-    void contextLoads()
+    public void tested() throws Exception
     {
-    }
+        // given
 
+        // when
+
+        // then
+    }
 }

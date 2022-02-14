@@ -9,16 +9,16 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class Stock
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "business_no")
+    @JoinColumn(name = "user_id")
     private User user;
     private String name;
     private int count;

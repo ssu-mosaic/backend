@@ -53,7 +53,7 @@ public class RetailerService
         return true;
     }
 
-    public Retailer getRetailer(int id)
+    public Retailer getRetailer(Long id)
     {
         Retailer retailer = retailerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("거래처가 존재하지 않습니다."));
 
