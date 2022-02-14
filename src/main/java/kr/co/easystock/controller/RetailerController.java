@@ -1,21 +1,15 @@
 package kr.co.easystock.controller;
 
-import kr.co.easystock.controller.dto.RetailerDto;
-import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.RetailerService;
 import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static kr.co.easystock.controller.dto.RetailerDto.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,43 +18,62 @@ public class RetailerController
     private final UserService userService;
     private final RetailerService retailerService;
 
-    @PostMapping("retailer/add")
-    public boolean add(@RequestBody RetailerDto.RetailerAddRequestDto retailerAddRequestDto)
+    /**
+     * 거래처 추가
+     * @param requestDto
+     * @return Long
+     */
+    @PostMapping("/retailer/add")
+    public Long add(@RequestBody RetailerAddRequestDto requestDto)
     {
-        User user = userService.getUser(retailerAddRequestDto.getUserName());
-        if(user == null)
-            return false;
-
-        retailerAddRequestDto.setUser(user);
-        return retailerService.add(retailerAddRequestDto);
+        return retailerService.add(requestDto).getId();
     }
 
-    @PostMapping("retailer/edit")
-    public boolean update(@RequestBody RetailerDto.RetailerUpdateRequestDto retailerUpdateRequestDto)
+    /**
+     * 거래처 수정
+     * @param id
+     * @param requestDto
+     * @return boolean
+     */
+    @PutMapping("/retailer/{id}")
+    public boolean update(@PathVariable(name = "id") Long id, @RequestBody RetailerUpdateRequestDto requestDto)
     {
-        User user = userService.getUser(retailerUpdateRequestDto.getUserName());
-        if(user == null)
-            return false;
-
-        retailerUpdateRequestDto.setUser(user);
-        return retailerService.update(retailerUpdateRequestDto);
+        return retailerService.update(id, requestDto);
     }
 
-    @PostMapping("retailer/delete")
-    public boolean delete(@RequestBody RetailerDto.RetailerDeleteRequestDto retailerDeleteRequestDto)
+    /**
+     * 거래처 삭제
+     * @param id
+     * @return boolean
+     */
+    @DeleteMapping("/retailer/{id}")
+    public boolean delete(@PathVariable(name = "id") Long id)
     {
-        return retailerService.delete(retailerDeleteRequestDto);
+        return retailerService.delete(id);
     }
 
-    @PostMapping("retailer/list")
-    public List<RetailerDto.RetailerListResponseDto> getRetailerList(@RequestBody Map<String, String> param)
+    /**
+     * 거래처 상세 조회
+     * @param id
+     * @return RetailerViewDto
+     */
+    @PostMapping("/retailer/detail")
+    public RetailerViewDto view(@RequestBody Long id)
     {
-        List<RetailerDto.RetailerListResponseDto> retailerListResponseDtoList = new ArrayList<>();
-        User user = userService.getUser(param.get("userName"));
-        if(user == null)
-            return retailerListResponseDtoList;
+        return new RetailerViewDto(retailerService.view(id));
+    }
 
-        retailerListResponseDtoList = retailerService.getRetailerList(user);
-        return retailerListResponseDtoList;
+    /**
+     * 거래처 목록 조회
+     * @param param
+     * @return List
+     */
+    @PostMapping("/retailer")
+    public List<RetailerListDto> list(@RequestBody Map<String, String> param)
+    {
+        return retailerService.list(param.get("userId"))
+                .stream()
+                .map(RetailerListDto::new)
+                .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,5 @@
 package kr.co.easystock.service;
 
-import kr.co.easystock.controller.dto.AnswerDto;
-import kr.co.easystock.controller.dto.InquiryDto;
 import kr.co.easystock.domain.answer.Answer;
 import kr.co.easystock.domain.answer.AnswerRepository;
 import kr.co.easystock.domain.inquiry.Inquiry;
@@ -20,12 +18,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static kr.co.easystock.controller.dto.AnswerDto.*;
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerUpdateRequestDto;
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerWriteRequestDto;
 import static kr.co.easystock.controller.dto.InquiryDto.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by WOOSERK.
@@ -120,7 +119,10 @@ public class BoardServiceTest
 
         // when
         Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
-        List<InquiryListDto> inquiryListDtos = boardService.viewInquiryList(pageable);
+        List<InquiryListDto> inquiryListDtos = boardService.viewInquiryList(pageable)
+                .stream()
+                .map(InquiryListDto::new)
+                .collect(Collectors.toList());
 
         // then
         for(InquiryListDto dto : inquiryListDtos)

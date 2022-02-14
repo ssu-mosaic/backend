@@ -10,6 +10,9 @@ import org.hibernate.jpa.internal.PersistenceUnitUtilImpl;
 import javax.persistence.PersistenceUnitUtil;
 import java.time.LocalDateTime;
 
+import static kr.co.easystock.controller.dto.AnswerDto.*;
+import static kr.co.easystock.controller.dto.UserDto.*;
+
 public class InquiryDto
 {
     @Getter
@@ -69,31 +72,24 @@ public class InquiryDto
     public static class InquiryViewDto
     {
         private Long id;
+        private UserInfoDto user;
         private String title;
         private String content;
         private String category;
         private LocalDateTime createdDate;
         private LocalDateTime lastModifiedDate;
-        private String answerContent;
-        private LocalDateTime answerCreatedDate;
-        private LocalDateTime answerLastModifiedDate;
+        private AnswerViewDto answer;
 
         public InquiryViewDto(Inquiry entity)
         {
             this.id = entity.getId();
+            this.user = new UserInfoDto(entity.getUser());
             this.title = entity.getTitle();
             this.content = entity.getContent();
             this.category = entity.getCategory();
             this.createdDate = entity.getCreatedDate();
             this.lastModifiedDate = entity.getLastModifiedDate();
-
-            Answer answer = entity.getAnswer();
-            if(answer != null)
-            {
-                this.answerContent = answer.getContent();
-                this.answerCreatedDate = answer.getCreatedDate();
-                this.answerLastModifiedDate = answer.getLastModifiedDate();
-            }
+            this.answer = new AnswerViewDto(entity.getAnswer());
         }
     }
 
@@ -101,6 +97,7 @@ public class InquiryDto
     public static class InquiryListDto
     {
         private Long id;
+        private UserInfoDto user;
         private String title;
         private String category;
         private LocalDateTime createdDate;
@@ -110,6 +107,7 @@ public class InquiryDto
         public InquiryListDto(Inquiry entity)
         {
             this.id = entity.getId();
+            this.user = new UserInfoDto(entity.getUser());
             this.title = entity.getTitle();
             this.category = entity.getCategory();
             this.createdDate = entity.getCreatedDate();

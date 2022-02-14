@@ -6,26 +6,39 @@ import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import static kr.co.easystock.controller.dto.UserDto.*;
+
 @RequiredArgsConstructor
 @RestController
 public class UserController
 {
     private final UserService userService;
 
+    /**
+     * 회원가입
+     * @param requestDto
+     * @return id
+     */
     @PostMapping("/register")
-    public String register(@RequestBody UserDto.UserRegisterRequestDto requestDto)
+    public String register(@RequestBody UserRegisterRequestDto requestDto)
     {
         return userService.register(requestDto).getId();
     }
 
+    /**
+     * 로그인
+     * @param name
+     * @param password
+     * @return UserInfoDto
+     */
     @PostMapping("/login")
-    public UserDto.UserInfoDto login(@RequestBody String name, @RequestBody String password)
+    public UserInfoDto login(@RequestBody String name, @RequestBody String password)
     {
         User user = userService.login(name, password);
         if(user == null)
             return null;
 
-        return new UserDto.UserInfoDto(user);
+        return new UserInfoDto(user);
     }
 
     /*
@@ -44,22 +57,38 @@ public class UserController
     }
      */
 
+    /**
+     * 내 정보 조회
+     * @param id
+     * @param password
+     * @return UserInfoDto
+     */
     @PostMapping("/myinfo")
-    public UserDto.UserInfoDto getMyInfo(@RequestBody String id, @RequestBody String password)
+    public UserInfoDto getMyInfo(@RequestBody String id, @RequestBody String password)
     {
         User user = userService.getMyInfo(id, password);
         if(user == null)
             return null;
 
-        return new UserDto.UserInfoDto(user);
+        return new UserInfoDto(user);
     }
 
+    /**
+     * 내 정보 수정
+     * @param requestDto
+     * @return boolean
+     */
     @PutMapping("/myinfo/change")
-    public boolean changeMyInfo(@RequestBody UserDto.UserUpdateRequestDto requestDto)
+    public boolean changeMyInfo(@RequestBody UserUpdateRequestDto requestDto)
     {
         return userService.changeMyInfo(requestDto);
     }
 
+    /**
+     * 회원 탈퇴
+     * @param id
+     * @return boolean
+     */
     @DeleteMapping("/withdraw")
     public boolean withdraw(@RequestBody String id)
     {

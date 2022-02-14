@@ -70,7 +70,7 @@ public class UserService
      */
 
     /**
-     * 내 정보 보기
+     * 내 정보 조회
      * @param id
      * @param password
      * @return User

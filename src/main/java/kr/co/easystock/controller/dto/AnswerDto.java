@@ -46,4 +46,19 @@ public class AnswerDto
                     .build();
         }
     }
+
+    @Getter
+    public static class AnswerViewDto
+    {
+        private String content;
+        private LocalDateTime createdDate;
+        private LocalDateTime lastModifedDate;
+
+        public AnswerViewDto(Answer entity)
+        {
+            this.content = entity.getContent();
+            this.createdDate = entity.getCreatedDate();
+            this.lastModifedDate = entity.getLastModifiedDate();
+        }
+    }
 }

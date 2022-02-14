@@ -44,4 +44,19 @@ public class Item
         this.desc = desc;
         this.category = category;
     }
+
+    public void update(Item item)
+    {
+        this.name = item.getName();
+        this.price = item.getPrice();
+        this.unit = item.getUnit();
+        this.desc = item.getDesc();
+        this.category = item.getCategory();
+    }
+
+    // 연관관계 메서드
+    public void mapRetailer(Retailer retailer)
+    {
+        this.retailer = retailer;
+    }
 }
