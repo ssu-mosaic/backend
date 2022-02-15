@@ -2,6 +2,7 @@ package kr.co.easystock.service;
 
 import kr.co.easystock.controller.dto.UserDto;
 import kr.co.easystock.controller.dto.UserDto.UserRegisterRequestDto;
+import kr.co.easystock.domain.cart.Cart;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class UserService
 {
@@ -20,11 +22,15 @@ public class UserService
      * @param requestDto
      * @return User
      */
-    @Transactional
     public User register(UserRegisterRequestDto requestDto)
     {
+        // 유저 생성
         User user = requestDto.toEntity();
         validateDuplicateUser(user);
+
+        // 장바구니 생성
+        Cart cart = new Cart();
+        user.assignCart(cart);
 
         return userRepository.save(user);
     }
@@ -88,7 +94,6 @@ public class UserService
      * @param requestDto
      * @return boolean
      */
-    @Transactional
     public boolean changeMyInfo(@RequestBody UserDto.UserUpdateRequestDto requestDto)
     {
         User user = userRepository.findById(requestDto.getId()).orElse(null);
@@ -112,7 +117,6 @@ public class UserService
      * @param id
      * @return boolean
      */
-    @Transactional
     public boolean withdraw(String id)
     {
         User user = userRepository.findByIdAndDeletedDateNull(id).orElse(null);

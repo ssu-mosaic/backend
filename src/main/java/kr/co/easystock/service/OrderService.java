@@ -34,8 +34,6 @@ public class OrderService
         {
             orderListResponseDtoList.add(OrderDto.OrderListResponseDto.builder()
             .orderDate(order.getCreatedDate())
-            .retailerName(order.getRetailer().getName())
-            .retailerPhone(order.getRetailer().getPhone())
             .build());
         }
 

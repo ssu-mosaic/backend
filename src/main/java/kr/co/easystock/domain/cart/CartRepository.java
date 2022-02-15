@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long>, JpaSpecificationExecutor<Cart>
+public interface CartRepository extends JpaRepository<Cart, String>, JpaSpecificationExecutor<Cart>
 {
 }

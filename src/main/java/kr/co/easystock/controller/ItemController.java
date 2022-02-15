@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static kr.co.easystock.controller.dto.ItemDto.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ItemController
 {

@@ -22,14 +22,9 @@ public class Order extends BaseTimeEntity
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "retailer_id")
-    private Retailer retailer;
-
     @Builder
-    public Order(User user, Retailer retailer)
+    public Order(User user)
     {
         this.user = user;
-        this.retailer = retailer;
     }
 }

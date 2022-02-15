@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by WOOSERK.
@@ -19,9 +21,33 @@ import javax.persistence.*;
 public class Cart
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(updatable = false)
+    private String id;
 
-    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @MapsId
     private User user;
+
+    @OneToMany(mappedBy = "cart")
+    private List<CartItem> cartItems = new ArrayList<>();
+
+    public void mapUser(User user)
+    {
+        this.user = user;
+    }
+
+    // 연관관계 메서드
+    public void addCartItem(CartItem cartItem)
+    {
+        cartItems.add(cartItem);
+        cartItem.mapCart(this);
+    }
+
+    // 연관관계 메서드
+    public void deleteCartItem(CartItem cartItem)
+    {
+        cartItems.remove(cartItem);
+        cartItem.mapCart(null);
+    }
 }
