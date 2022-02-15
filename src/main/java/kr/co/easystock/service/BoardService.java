@@ -4,6 +4,8 @@ import kr.co.easystock.domain.answer.Answer;
 import kr.co.easystock.domain.answer.AnswerRepository;
 import kr.co.easystock.domain.inquiry.Inquiry;
 import kr.co.easystock.domain.inquiry.InquiryRepository;
+import kr.co.easystock.domain.notice.Notice;
+import kr.co.easystock.domain.notice.NoticeRepository;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import static kr.co.easystock.controller.dto.AnswerDto.*;
 import static kr.co.easystock.controller.dto.InquiryDto.*;
+import static kr.co.easystock.controller.dto.NoticeDto.*;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +26,7 @@ public class BoardService
     private final UserRepository userRepository;
     private final InquiryRepository inquiryRepository;
     private final AnswerRepository answerRepository;
+    private final NoticeRepository noticeRepository;
 
     /**
      * 문의 작성
@@ -37,8 +41,7 @@ public class BoardService
         user가 없으면??
          */
 
-        Inquiry inquiry = inquiryRepository.save(requestDto.toEntity(user));
-        return inquiry;
+        return inquiryRepository.save(requestDto.toEntity(user));
     }
 
     /**
@@ -73,9 +76,9 @@ public class BoardService
      * @param pageable
      * @return List
      */
-    public List<Inquiry> viewInquiryList(Pageable pageable)
+    public List<Inquiry> listInquiry(Pageable pageable)
     {
-        return inquiryRepository.findAll(pageable).getContent();
+        return inquiryRepository.findAllByDeletedDateIsNull(pageable).getContent();
     }
 
     /**
@@ -86,7 +89,7 @@ public class BoardService
     @Transactional
     public boolean deleteInquiry(Long id)
     {
-        Inquiry inquiry = inquiryRepository.findById(id).orElse(null);
+        Inquiry inquiry = inquiryRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
         if(inquiry == null)
             return false;
 
@@ -129,6 +132,74 @@ public class BoardService
             return false;
 
         answer.update(requestDto.getContent());
+        return true;
+    }
+
+    /**
+     * 공지 작성
+     * @param requestDto
+     * @return Notice
+     */
+    public Notice writeNotice(NoticeWriteRequestDto requestDto)
+    {
+        User user = userRepository.findById(requestDto.getUserId()).orElse(null);
+        /*
+        user가 없으면?
+         */
+
+        return noticeRepository.save(requestDto.toEntity(user));
+    }
+
+    /**
+     * 공지 수정
+     * @param id
+     * @param requestDto
+     * @return boolean
+     */
+    public boolean updateNotice(Long id, NoticeUpdateRequestDto requestDto)
+    {
+        Notice notice = noticeRepository.findById(id).orElse(null);
+        if(notice == null)
+            return false;
+
+        notice.update(requestDto.getTitle(), requestDto.getContent());
+        return true;
+    }
+
+    /**
+     * 공지 상세 조회
+     * @param id
+     * @return Notice
+     */
+    @Transactional(readOnly = true)
+    public Notice viewNotice(Long id)
+    {
+        return noticeRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * 공지 목록 조회
+     * @param pageable
+     * @return List
+     */
+    @Transactional(readOnly = true)
+    public List<Notice> listNotice(Pageable pageable)
+    {
+        return noticeRepository.findAllByDeletedDateIsNull(pageable).getContent();
+    }
+
+    /**
+     * 공지 삭제
+     * @param id
+     * @return boolean
+     */
+    public boolean deleteNotice(Long id)
+    {
+        Notice notice = noticeRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
+        if(notice == null)
+            return false;
+
+        notice.delete();
         return true;
     }
 }

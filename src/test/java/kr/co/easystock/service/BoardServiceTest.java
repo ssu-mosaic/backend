@@ -4,6 +4,8 @@ import kr.co.easystock.domain.answer.Answer;
 import kr.co.easystock.domain.answer.AnswerRepository;
 import kr.co.easystock.domain.inquiry.Inquiry;
 import kr.co.easystock.domain.inquiry.InquiryRepository;
+import kr.co.easystock.domain.notice.Notice;
+import kr.co.easystock.domain.notice.NoticeRepository;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import org.junit.Test;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 import static kr.co.easystock.controller.dto.AnswerDto.AnswerUpdateRequestDto;
 import static kr.co.easystock.controller.dto.AnswerDto.AnswerWriteRequestDto;
 import static kr.co.easystock.controller.dto.InquiryDto.*;
+import static kr.co.easystock.controller.dto.NoticeDto.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -46,6 +49,8 @@ public class BoardServiceTest
     private AnswerRepository answerRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NoticeRepository noticeRepository;
     @Autowired
     private EntityManager em;
 
@@ -119,7 +124,7 @@ public class BoardServiceTest
 
         // when
         Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
-        List<InquiryListDto> inquiryListDtos = boardService.viewInquiryList(pageable)
+        List<InquiryListDto> inquiryListDtos = boardService.listInquiry(pageable)
                 .stream()
                 .map(InquiryListDto::new)
                 .collect(Collectors.toList());
@@ -144,6 +149,30 @@ public class BoardServiceTest
 
         // then
         Assertions.assertNotEquals(null, inquiry.getDeletedDate());
+    }
+
+    @Test
+    public void 삭제된_문의_제외한_목록보기()
+    {
+        // given
+        User user = createUser();
+        InquiryWriteRequestDto requestDto = createInquiry(user);
+        for(int i=0; i<20; i++)
+            boardService.writeInquiry(requestDto);
+
+        // when
+        boolean result1 = boardService.deleteInquiry(1L);
+        boolean result2 = boardService.deleteInquiry(2L);
+        Pageable pageable = PageRequest.of(0, 20, Sort.Direction.DESC, "id");
+        List<InquiryListDto> inquiryListDtos = boardService.listInquiry(pageable)
+                .stream()
+                .map(InquiryListDto::new)
+                .collect(Collectors.toList());
+
+        // then
+        Assertions.assertEquals(true, result1);
+        Assertions.assertEquals(true, result2);
+        Assertions.assertEquals(18, inquiryListDtos.size());
     }
 
     @Test
@@ -203,6 +232,121 @@ public class BoardServiceTest
         assertEquals(findInquiry.getAnswer(), answer);
     }
 
+    @Test
+    public void 공지작성()
+    {
+        // given
+        User user = createUser();
+        NoticeWriteRequestDto requestDto = createNotice(user);
+
+        // when
+        Notice notice = boardService.writeNotice(requestDto);
+        Notice findOne = noticeRepository.findById(notice.getId()).orElse(null);
+
+        // then
+        Assertions.assertEquals(notice, findOne);
+    }
+
+    @Test
+    public void 공지수정()
+    {
+        // given
+        User user = createUser();
+        NoticeWriteRequestDto writeRequestDto = createNotice(user);
+        Notice notice = boardService.writeNotice(writeRequestDto);
+        NoticeUpdateRequestDto updateRequestDto = new NoticeUpdateRequestDto(user.getId(), "목제", "용내");
+
+        // when
+        boolean result = boardService.updateNotice(notice.getId(), updateRequestDto);
+
+        // then
+        Assertions.assertEquals(true, result);
+        Assertions.assertEquals("목제", notice.getTitle());
+        Assertions.assertEquals("용내", notice.getContent());
+    }
+
+    @Test
+    @Transactional(readOnly = true)
+    public void 공지상세조회()
+    {
+        // given
+        User user = createUser();
+        NoticeWriteRequestDto requestDto = createNotice(user);
+        Notice notice = boardService.writeNotice(requestDto);
+
+        // when
+        Notice findOne = boardService.viewNotice(notice.getId());
+
+        // then
+        Assertions.assertEquals(notice, findOne);
+    }
+
+    @Test
+    @Transactional(readOnly = true)
+    public void 공지목록조회()
+    {
+        // given
+        User user = createUser();
+        NoticeWriteRequestDto requestDto = createNotice(user);
+
+        for(int i=0; i<20; i++)
+            boardService.writeNotice(requestDto);
+
+        // when
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
+        List<NoticeListDto> notices = boardService.listNotice(pageable)
+                .stream()
+                .map(NoticeListDto::new)
+                .collect(Collectors.toList());
+
+        // then
+        Assertions.assertEquals(10, notices.size());
+        Assertions.assertEquals(20, notices.get(0).getId());
+    }
+
+    @Test
+    public void 공지삭제()
+    {
+        // given
+        User user = createUser();
+        NoticeWriteRequestDto requestDto = createNotice(user);
+        Notice notice = boardService.writeNotice(requestDto);
+
+        // when
+        boolean result1 = boardService.deleteNotice(notice.getId());
+        boolean result2 = boardService.deleteNotice(notice.getId());
+        Notice findOne = noticeRepository.findByIdAndDeletedDateIsNull(notice.getId()).orElse(null);
+
+        // then
+        Assertions.assertEquals(true, result1);
+        Assertions.assertEquals(false, result2);
+        Assertions.assertEquals(null, findOne);
+    }
+
+    @Test
+    public void 삭제된_공지_제외한_목록조회()
+    {
+        // given
+        User user = createUser();
+        NoticeWriteRequestDto requestDto = createNotice(user);
+        for(int i=0; i<20; i++)
+            boardService.writeNotice(requestDto);
+
+        // when
+        boolean result1 = boardService.deleteNotice(1L);
+        boolean result2 = boardService.deleteNotice(2L);
+        Pageable pageable = PageRequest.of(0, 20, Sort.Direction.DESC, "id");
+        List<NoticeListDto> notices = boardService.listNotice(pageable)
+                .stream()
+                .map(NoticeListDto::new)
+                .collect(Collectors.toList());
+
+        // then
+        Assertions.assertEquals(true, result1);
+        Assertions.assertEquals(true, result2);
+        Assertions.assertEquals(18, notices.size());
+    }
+
     private User createUser()
     {
         User user = User.builder()
@@ -228,6 +372,13 @@ public class BoardServiceTest
     private AnswerWriteRequestDto createAnswer()
     {
         AnswerWriteRequestDto requestDto = new AnswerWriteRequestDto("답변");
+
+        return requestDto;
+    }
+
+    private NoticeWriteRequestDto createNotice(User user)
+    {
+        NoticeWriteRequestDto requestDto = new NoticeWriteRequestDto(user.getId(), "제목", "내용");
 
         return requestDto;
     }
