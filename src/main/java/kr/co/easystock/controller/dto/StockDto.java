@@ -8,22 +8,20 @@ import lombok.Setter;
 public class StockDto
 {
     @Getter
-    @Setter
     public static class StockAddRequestDto
     {
-        private User user;
-        private String userName;
+        private String userId;
         private String stockName;
         private int stockCount;
 
-        public StockAddRequestDto(String userName, String stockName, int stockCount)
+        public StockAddRequestDto(String userId, String stockName, int stockCount)
         {
-            this.userName = userName;
+            this.userId = userId;
             this.stockName = stockName;
             this.stockCount = stockCount;
         }
 
-        public Stock toEntity()
+        public Stock toEntity(User user)
         {
             return Stock.builder()
                     .user(user)
@@ -34,45 +32,36 @@ public class StockDto
     }
 
     @Getter
-    @Setter
     public static class StockUpdateRequestDto
     {
-        private User user;
-        private String userName;
         private Long stockId;
         private String stockName;
         private int stockCount;
 
-        public StockUpdateRequestDto(String userName, Long stockId, String stockName, int stockCount)
+        public StockUpdateRequestDto(Long stockId, String stockName, int stockCount)
         {
-            this.userName = userName;
             this.stockId = stockId;
             this.stockName = stockName;
             this.stockCount = stockCount;
         }
-    }
 
-    @Getter
-    public static class StockDeleteRequestDto
-    {
-        private String userName;
-        private Long stockId;
-
-        public StockDeleteRequestDto(String userName, Long stockId)
+        public Stock toEntity()
         {
-            this.userName = userName;
-            this.stockId = stockId;
+            return Stock.builder()
+                    .name(stockName)
+                    .count(stockCount)
+                    .build();
         }
     }
 
     @Getter
-    public static class StockListResponseDto
+    public static class StockListDto
     {
         private Long stockId;
         private String stockName;
         private int stockCount;
 
-        public StockListResponseDto(Stock entity)
+        public StockListDto(Stock entity)
         {
             this.stockId = entity.getId();
             this.stockName = entity.getName();

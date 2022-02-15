@@ -1,62 +1,66 @@
 package kr.co.easystock.controller;
 
-import kr.co.easystock.controller.dto.StockDto;
-import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.StockService;
-import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static kr.co.easystock.controller.dto.StockDto.*;
 
 @RestController
 @RequiredArgsConstructor
 public class StockController
 {
-    private final UserService userService;
     private final StockService stockService;
 
+    /**
+     * 재고 등록
+     * @param requestDto
+     * @return Long
+     */
     @PostMapping("/stock/add")
-    public boolean add(@RequestBody StockDto.StockAddRequestDto stockAddRequestDto)
+    public Long add(@RequestBody StockAddRequestDto requestDto)
     {
-        User user = userService.getUser(stockAddRequestDto.getUserName());
-        if(user == null)
-            return false;
-
-        stockAddRequestDto.setUser(user);
-        return stockService.add(stockAddRequestDto);
+        return stockService.add(requestDto).getId();
     }
 
-    @PostMapping("/stock/edit")
-    public boolean update(@RequestBody StockDto.StockUpdateRequestDto stockUpdateRequestDto)
+    /**
+     * 재고 수정
+     * @param id
+     * @param requestDto
+     * @return boolean
+     */
+    @PutMapping("/stock/{id}")
+    public boolean update(@PathVariable(name = "id") Long id, @RequestBody StockUpdateRequestDto requestDto)
     {
-        User user = userService.getUser(stockUpdateRequestDto.getUserName());
-        if(user == null)
-            return false;
-
-        stockUpdateRequestDto.setUser(user);
-        return stockService.update(stockUpdateRequestDto);
+        return stockService.update(id, requestDto);
     }
 
-    @PostMapping("/stock/delete")
-    public boolean delete(@RequestBody StockDto.StockDeleteRequestDto stockDeleteRequestDto)
+    /**
+     * 재고 삭제
+     * @param id
+     * @return boolean
+     */
+    @DeleteMapping("/stock/{id}")
+    public boolean delete(@PathVariable(name = "id") Long id)
     {
-        return stockService.delete(stockDeleteRequestDto);
+        return stockService.delete(id);
     }
 
-    @PostMapping("stock/list")
-    public List<StockDto.StockListResponseDto> getStockList(@RequestBody Map<String, String> param)
+    /**
+     * 재고 목록 조회
+     * @param param
+     * @return List
+     */
+    @PostMapping("/stock")
+    public List<StockListDto> list(@RequestBody Map<String, String> param)
     {
-        List<StockDto.StockListResponseDto> stockListResponseDtoList = new ArrayList<>();
-        User user = userService.getUser(param.get("userName"));
-        if(user == null)
-            return stockListResponseDtoList;
-
-        stockListResponseDtoList = stockService.getStockList(user);
-        return stockListResponseDtoList;
+        return stockService.list(param.get("userId"))
+                .stream()
+                .map(StockListDto::new)
+                .collect(Collectors.toList());
     }
 }

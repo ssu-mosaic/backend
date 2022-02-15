@@ -115,7 +115,7 @@ public class UserService
     @Transactional
     public boolean withdraw(String id)
     {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findByIdAndDeletedDateNull(id).orElse(null);
         if(user == null)
             return false;
 
