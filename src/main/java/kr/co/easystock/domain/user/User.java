@@ -29,8 +29,7 @@ public class User extends BaseTimeEntity
     private String address;
     private String phone;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
 
     @Enumerated(EnumType.STRING)
@@ -45,6 +44,13 @@ public class User extends BaseTimeEntity
         this.email = email;
         this.address = address;
         this.phone = phone;
+    }
+
+    // 연관관계 메서드
+    public void assignCart(Cart cart)
+    {
+        this.cart = cart;
+        cart.mapUser(this);
     }
 
     // id는 변경할 수 없음

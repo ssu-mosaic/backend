@@ -20,6 +20,7 @@ import static kr.co.easystock.controller.dto.InquiryDto.*;
 import static kr.co.easystock.controller.dto.NoticeDto.*;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class BoardService
 {
@@ -33,7 +34,6 @@ public class BoardService
      * @param requestDto
      * @return Inquiry
      */
-    @Transactional
     public Inquiry writeInquiry(InquiryWriteRequestDto requestDto)
     {
         User user = userRepository.findById(requestDto.getUserId()).orElse(null);
@@ -49,7 +49,6 @@ public class BoardService
      * @param id
      * @return boolean
      */
-    @Transactional
     public boolean updateInquiry(Long id, InquiryUpdateRequestDto requestDto)
     {
         Inquiry inquiry = inquiryRepository.findById(id).orElse(null);
@@ -86,7 +85,6 @@ public class BoardService
      * @param id
      * @return boolean
      */
-    @Transactional
     public boolean deleteInquiry(Long id)
     {
         Inquiry inquiry = inquiryRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
@@ -103,7 +101,6 @@ public class BoardService
      * @param requestDto
      * @return Answer
      */
-    @Transactional
     public Answer writeAnswer(Long id, AnswerWriteRequestDto requestDto)
     {
         Inquiry inquiry = inquiryRepository.findById(id).orElse(null);
@@ -113,7 +110,7 @@ public class BoardService
 
         Answer answer = requestDto.toEntity(inquiry);
         // 양방향 연관관계의 편의 메서드 호출
-        answer.answerToInquiry(inquiry);
+        inquiry.answerToInquiry(answer);
 
         return answerRepository.save(answer);
     }
@@ -124,7 +121,6 @@ public class BoardService
      * @param requestDto
      * @return boolean
      */
-    @Transactional
     public boolean updateAnswer(Long id, AnswerUpdateRequestDto requestDto)
     {
         Answer answer = answerRepository.findById(id).orElse(null);

@@ -51,8 +51,9 @@ public class Inquiry extends BaseTimeEntity
     }
 
     // 연관관계 메서드
-    public void mapAnswer(Answer answer)
+    public void answerToInquiry(Answer answer)
     {
+        answer.mapInquiry(this);
         this.answer = answer;
     }
 }

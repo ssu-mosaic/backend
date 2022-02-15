@@ -30,7 +30,6 @@ public class OrderDto
         {
             return Order.builder()
                     .user(user)
-                    .retailer(retailer)
                     .build();
         }
     }

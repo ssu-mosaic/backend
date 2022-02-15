@@ -37,14 +37,6 @@ public class AnswerDto
         {
             this.content = content;
         }
-
-        public Answer toEntity(Inquiry inquiry)
-        {
-            return Answer.builder()
-                    .inquiry(inquiry)
-                    .content(content)
-                    .build();
-        }
     }
 
     @Getter

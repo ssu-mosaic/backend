@@ -54,7 +54,6 @@ public class Item
         this.category = item.getCategory();
     }
 
-    // 연관관계 메서드
     public void mapRetailer(Retailer retailer)
     {
         this.retailer = retailer;
