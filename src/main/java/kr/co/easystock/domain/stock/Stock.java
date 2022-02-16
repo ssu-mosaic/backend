@@ -1,5 +1,6 @@
 package kr.co.easystock.domain.stock;
 
+import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,13 +21,19 @@ public class Stock
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
     private String name;
     private int count;
 
     @Builder
-    public Stock(User user, String name, int count)
+    public Stock(User user, Item item, String name, int count)
     {
         this.user = user;
+        this.item = item;
         this.name = name;
         this.count = count;
     }
@@ -35,5 +42,16 @@ public class Stock
     {
         this.name = name;
         this.count = count;
+    }
+
+    // 비즈니스 로직 메서드
+    public void addCount(int count)
+    {
+        this.count += count;
+    }
+
+    public void mapItem(Item item)
+    {
+        this.item = item;
     }
 }

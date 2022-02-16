@@ -8,48 +8,65 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static kr.co.easystock.controller.dto.OrderItemDto.*;
 
 public class OrderDto
 {
     @Getter
-    @Setter
-    public static class OrderRequestDto
+    public static class OrderAddRequestDto
     {
-        private User user;
-        private String userName;
-        private Retailer retailer;
-        private Long retailerId;
+        private String userId;
 
-        public OrderRequestDto(String userName, Long retailerId)
+        public OrderAddRequestDto(String userId)
         {
-            this.userName = userName;
-            this.retailerId = retailerId;
+            this.userId = userId;
         }
 
-        public Order toEntity()
+        public Order toEntity(User user)
         {
-            return Order.builder()
-                    .user(user)
-                    .build();
+            return new Order(user);
         }
     }
 
     @Getter
-    @Setter
-    public static class OrderListResponseDto
+    public static class OrderUpdateRequestDto
     {
-        private String orderDetail;
-        private LocalDateTime orderDate;
-        private String retailerName;
-        private String retailerPhone;
-
-        @Builder
-        public OrderListResponseDto(String orderDetail, LocalDateTime orderDate, String retailerName, String retailerPhone)
+        public OrderUpdateRequestDto()
         {
-            this.orderDetail = orderDetail;
-            this.orderDate = orderDate;
-            this.retailerName = retailerName;
-            this.retailerPhone = retailerPhone;
+
+        }
+    }
+
+    @Getter
+    public static class OrderViewDto
+    {
+        private Long id;
+
+        public OrderViewDto(Order entity)
+        {
+            this.id = entity.getId();
+        }
+    }
+
+    @Getter
+    public static class OrderListDto
+    {
+        private Long orderId;
+        private List<OrderItemListDto> orderProducts;
+        private LocalDateTime orderDate;
+
+        public OrderListDto(Order entity)
+        {
+            this.orderId = entity.getId();
+            this.orderProducts = entity.getOrderItems()
+                    .stream()
+                    .map(OrderItemListDto::new)
+                    .collect(Collectors.toList());
+            this.orderDate = entity.getCreatedDate();
         }
     }
 }

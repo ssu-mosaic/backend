@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface OrderRepository extends JpaRepository<Order, Integer>, JpaSpecificationExecutor<Order>
+public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor<Order>
 {
     List<Order> findAllByUser(User user);
 }
