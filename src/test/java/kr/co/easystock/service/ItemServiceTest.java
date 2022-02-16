@@ -6,6 +6,8 @@ import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.Item.ItemRepository;
 import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.retailer.RetailerRepository;
+import kr.co.easystock.domain.stock.Stock;
+import kr.co.easystock.domain.stock.StockRepository;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import org.junit.Test;
@@ -45,6 +47,8 @@ public class ItemServiceTest
     @Autowired
     private ItemRepository itemRepository;
     @Autowired
+    private StockRepository stockRepository;
+    @Autowired
     private EntityManager em;
 
     @Test
@@ -58,9 +62,11 @@ public class ItemServiceTest
         // when
         Item item = itemService.add(requestDto);
         Item findOne = itemRepository.findById(item.getId()).orElse(null);
+        Stock stock = stockRepository.findById(item.getStock().getId()).orElse(null);
 
         // then
         Assertions.assertEquals(item, findOne);
+        Assertions.assertEquals(item.getName(), stock.getName());
     }
 
     @Test

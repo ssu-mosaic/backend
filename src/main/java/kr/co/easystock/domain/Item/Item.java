@@ -1,6 +1,7 @@
 package kr.co.easystock.domain.Item;
 
 import kr.co.easystock.domain.retailer.Retailer;
+import kr.co.easystock.domain.stock.Stock;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,9 @@ public class Item
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "retailer_id")
     private Retailer retailer;
+
+    @OneToOne(mappedBy = "item", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Stock stock;
 
     private String name;
 
@@ -57,5 +61,11 @@ public class Item
     public void mapRetailer(Retailer retailer)
     {
         this.retailer = retailer;
+    }
+
+    public void createItemToStock(Stock stock)
+    {
+        stock.mapItem(this);
+        this.stock = stock;
     }
 }
