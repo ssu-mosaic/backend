@@ -104,7 +104,7 @@ public class UserController
      * @param param
      * @return boolean
      */
-    @DeleteMapping("/withdraw")
+    @PutMapping("/withdraw")
     public boolean withdraw(@RequestBody Map<String, String> param)
     {
         String userId = param.get("userId");
