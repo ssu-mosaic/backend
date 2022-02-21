@@ -139,6 +139,7 @@ public class UserServiceTest
 
         // when
         boolean result = userService.changeMyInfo(userDto2);
+        em.flush();
 
         // then
         Assertions.assertThat(true).isEqualTo(result);

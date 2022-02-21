@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import static kr.co.easystock.controller.dto.UserDto.*;
+
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -93,7 +95,7 @@ public class UserService
      * @param requestDto
      * @return boolean
      */
-    public boolean changeMyInfo(@RequestBody UserDto.UserUpdateRequestDto requestDto)
+    public boolean changeMyInfo(@RequestBody UserUpdateRequestDto requestDto)
     {
         User user = userRepository.findByIdAndPassword(requestDto.getUserId(), requestDto.getUserPwd()).orElse(null);
         // 유저를 찾지 못했으면 false
