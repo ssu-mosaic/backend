@@ -6,6 +6,8 @@ import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 import static kr.co.easystock.controller.dto.UserDto.*;
 
 @RequiredArgsConstructor
@@ -27,18 +29,19 @@ public class UserController
 
     /**
      * 로그인
-     * @param name
-     * @param password
-     * @return UserInfoDto
+     * @param param
+     * @return boolean
      */
     @PostMapping("/login")
-    public UserInfoDto login(@RequestBody String name, @RequestBody String password)
+    public boolean login(@RequestBody Map<String, String> param)
     {
-        User user = userService.login(name, password);
+        String userId = param.get("userId");
+        String userPwd = param.get("userPwd");
+        User user = userService.login(userId, userPwd);
         if(user == null)
-            return null;
+            return false;
 
-        return new UserInfoDto(user);
+        return true;
     }
 
     /*
