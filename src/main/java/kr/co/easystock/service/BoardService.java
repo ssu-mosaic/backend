@@ -62,32 +62,37 @@ public class BoardService
     /**
      * 문의 상세 조회
      * @param id
+     * @param userId
      * @return Inquiry
      */
     @Transactional(readOnly = true)
-    public Inquiry viewInquiry(Long id)
+    public Inquiry viewInquiry(Long id, String userId)
     {
-        return inquiryRepository.findById(id).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+        return inquiryRepository.findByIdAndUserAndDeletedDateIsNull(id, user).orElse(null);
     }
 
     /**
-     * 문의 목록 조회
-     * @param pageable
+     * 1:1 문의 목록 조회
+     * @param userId
      * @return List
      */
-    public List<Inquiry> listInquiry(Pageable pageable)
+    public List<Inquiry> listInquiry(String userId)
     {
-        return inquiryRepository.findAllByDeletedDateIsNull(pageable).getContent();
+        User user = userRepository.findById(userId).orElse(null);
+        return inquiryRepository.findAllByUserAndDeletedDateIsNull(user);
     }
 
     /**
      * 문의 삭제
      * @param id
+     * @param userId
      * @return boolean
      */
-    public boolean deleteInquiry(Long id)
+    public boolean deleteInquiry(Long id, String userId)
     {
-        Inquiry inquiry = inquiryRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+        Inquiry inquiry = inquiryRepository.findByIdAndUserAndDeletedDateIsNull(id, user).orElse(null);
         if(inquiry == null)
             return false;
 
@@ -175,13 +180,12 @@ public class BoardService
 
     /**
      * 공지 목록 조회
-     * @param pageable
      * @return List
      */
     @Transactional(readOnly = true)
-    public List<Notice> listNotice(Pageable pageable)
+    public List<Notice> listNotice()
     {
-        return noticeRepository.findAllByDeletedDateIsNull(pageable).getContent();
+        return noticeRepository.findAllByDeletedDateIsNull();
     }
 
     /**

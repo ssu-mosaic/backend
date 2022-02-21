@@ -25,22 +25,19 @@ public class Inquiry extends BaseTimeEntity
 
     private String title;
     private String content;
-    private String category;
 
     @Builder
-    public Inquiry(User user, String title, String content, String category)
+    public Inquiry(User user, String title, String content)
     {
         this.user = user;
         this.title = title;
         this.content = content;
-        this.category = category;
     }
 
     public void update(Inquiry inquiry)
     {
         this.title = inquiry.getTitle();
         this.content = inquiry.getContent();
-        this.category = inquiry.getCategory();
     }
 
     // soft delete

@@ -12,5 +12,5 @@ public interface NoticeRepository extends JpaRepository<Notice, Long>, JpaSpecif
 {
     Optional<Notice> findByIdAndDeletedDateIsNull(Long id);
     // 삭제된 공지사항 제외하고 목록 조회
-    Page<Notice> findAllByDeletedDateIsNull(Pageable pageable);
+    List<Notice> findAllByDeletedDateIsNull();
 }
