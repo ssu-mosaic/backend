@@ -1,17 +1,14 @@
 package kr.co.easystock.controller.dto;
 
-import kr.co.easystock.domain.answer.Answer;
 import kr.co.easystock.domain.inquiry.Inquiry;
 import kr.co.easystock.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.jpa.internal.PersistenceUnitUtilImpl;
 
-import javax.persistence.PersistenceUnitUtil;
 import java.time.LocalDateTime;
 
-import static kr.co.easystock.controller.dto.AnswerDto.*;
-import static kr.co.easystock.controller.dto.UserDto.*;
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerViewDto;
+import static kr.co.easystock.controller.dto.UserDto.UserInfoDto;
 
 public class InquiryDto
 {
@@ -19,26 +16,23 @@ public class InquiryDto
     public static class InquiryWriteRequestDto
     {
         private String userId;
-        private String title;
-        private String content;
-        private String category;
+        private String inquiryTitle;
+        private String inquiryContent;
 
         @Builder
-        public InquiryWriteRequestDto(String userId, String title, String content, String category)
+        public InquiryWriteRequestDto(String userId, String inquiryTitle, String inquiryContent)
         {
             this.userId = userId;
-            this.title = title;
-            this.content = content;
-            this.category = category;
+            this.inquiryTitle = inquiryTitle;
+            this.inquiryContent = inquiryContent;
         }
 
         public Inquiry toEntity(User user)
         {
             return Inquiry.builder()
                     .user(user)
-                    .title(title)
-                    .content(content)
-                    .category(category)
+                    .title(inquiryTitle)
+                    .content(inquiryContent)
                     .build();
         }
     }
@@ -46,24 +40,29 @@ public class InquiryDto
     @Getter
     public static class InquiryUpdateRequestDto
     {
-        private String category;
-        private String title;
-        private String content;
+        private Long inquiryId;
+        private String inquiryTitle;
+        private LocalDateTime inquiryDate;
+        private String inquiryContent;
+        private String inquiryAnswer;
+        private LocalDateTime inquiryAnsDate;
 
         @Builder
-        public InquiryUpdateRequestDto(String title, String content, String category)
+        public InquiryUpdateRequestDto(Long inquiryId, String inquiryTitle, LocalDateTime inquiryDate, String inquiryContent, String inquiryAnswer, LocalDateTime inquiryAnsDate)
         {
-            this.title = title;
-            this.content = content;
-            this.category = category;
+            this.inquiryId = inquiryId;
+            this.inquiryTitle = inquiryTitle;
+            this.inquiryDate = inquiryDate;
+            this.inquiryContent = inquiryContent;
+            this.inquiryAnswer = inquiryAnswer;
+            this.inquiryAnsDate = inquiryAnsDate;
         }
 
         public Inquiry toEntity()
         {
             return Inquiry.builder()
-                    .title(title)
-                    .content(content)
-                    .category(category)
+                    .title(inquiryTitle)
+                    .content(inquiryContent)
                     .build();
         }
     }
@@ -75,7 +74,6 @@ public class InquiryDto
         private UserInfoDto user;
         private String title;
         private String content;
-        private String category;
         private LocalDateTime createdDate;
         private LocalDateTime lastModifiedDate;
         private AnswerViewDto answer;
@@ -86,7 +84,6 @@ public class InquiryDto
             this.user = new UserInfoDto(entity.getUser());
             this.title = entity.getTitle();
             this.content = entity.getContent();
-            this.category = entity.getCategory();
             this.createdDate = entity.getCreatedDate();
             this.lastModifiedDate = entity.getLastModifiedDate();
             this.answer = new AnswerViewDto(entity.getAnswer());
@@ -99,7 +96,6 @@ public class InquiryDto
         private Long id;
         private UserInfoDto user;
         private String title;
-        private String category;
         private LocalDateTime createdDate;
         private LocalDateTime lastModifiedDate;
         private boolean isAnswered;
@@ -109,7 +105,6 @@ public class InquiryDto
             this.id = entity.getId();
             this.user = new UserInfoDto(entity.getUser());
             this.title = entity.getTitle();
-            this.category = entity.getCategory();
             this.createdDate = entity.getCreatedDate();
             this.lastModifiedDate = entity.getLastModifiedDate();
 

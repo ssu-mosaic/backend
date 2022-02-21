@@ -80,22 +80,19 @@ public class BoardServiceTest
 
         // when
         InquiryUpdateRequestDto requestDto = InquiryUpdateRequestDto.builder()
-                .title("목제")
-                .content("용내")
-                .category("리고테카")
+                .inquiryTitle("목제")
+                .inquiryContent("용내")
                 .build();
 
         boardService.updateInquiry(inquiry.getId(), requestDto);
         em.flush();
 
         // then
-        Assertions.assertEquals(inquiry.getTitle(), requestDto.getTitle());
-        Assertions.assertEquals(inquiry.getContent(), requestDto.getContent());
-        Assertions.assertEquals(inquiry.getCategory(), requestDto.getCategory());
+        Assertions.assertEquals(inquiry.getTitle(), requestDto.getInquiryTitle());
+        Assertions.assertEquals(inquiry.getContent(), requestDto.getInquiryContent());
     }
 
     @Test
-    @Transactional(readOnly = true)
     public void 문의글보기()
     {
         // given
@@ -104,14 +101,13 @@ public class BoardServiceTest
         Inquiry inquiry = boardService.writeInquiry(requestDto);
 
         // when
-        Inquiry findInquiry = boardService.viewInquiry(inquiry.getId());
+        Inquiry findInquiry = boardService.viewInquiry(inquiry.getId(), user.getId());
 
         // then
         Assertions.assertEquals(inquiry, findInquiry);
     }
 
     @Test
-    @Transactional(readOnly = true)
     public void 문의목록보기()
     {
         // given
@@ -123,8 +119,7 @@ public class BoardServiceTest
         }
 
         // when
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
-        List<InquiryListDto> inquiryListDtos = boardService.listInquiry(pageable)
+        List<InquiryListDto> inquiryListDtos = boardService.listInquiry(user.getId())
                 .stream()
                 .map(InquiryListDto::new)
                 .collect(Collectors.toList());
@@ -133,7 +128,7 @@ public class BoardServiceTest
         for(InquiryListDto dto : inquiryListDtos)
             System.out.println(dto.getId() + " : " + dto.getTitle());
 
-        Assertions.assertEquals(inquiryListDtos.size(), 10);
+        Assertions.assertEquals(inquiryListDtos.size(), 20);
     }
 
     @Test
@@ -145,7 +140,7 @@ public class BoardServiceTest
         Inquiry inquiry = boardService.writeInquiry(requestDto);
 
         // when
-        boardService.deleteInquiry(inquiry.getId());
+        boardService.deleteInquiry(inquiry.getId(), user.getId());
 
         // then
         Assertions.assertNotEquals(null, inquiry.getDeletedDate());
@@ -161,10 +156,9 @@ public class BoardServiceTest
             boardService.writeInquiry(requestDto);
 
         // when
-        boolean result1 = boardService.deleteInquiry(1L);
-        boolean result2 = boardService.deleteInquiry(2L);
-        Pageable pageable = PageRequest.of(0, 20, Sort.Direction.DESC, "id");
-        List<InquiryListDto> inquiryListDtos = boardService.listInquiry(pageable)
+        boolean result1 = boardService.deleteInquiry(1L, user.getId());
+        boolean result2 = boardService.deleteInquiry(2L, user.getId());
+        List<InquiryListDto> inquiryListDtos = boardService.listInquiry(user.getId())
                 .stream()
                 .map(InquiryListDto::new)
                 .collect(Collectors.toList());
@@ -214,7 +208,6 @@ public class BoardServiceTest
     }
 
     @Test
-    @Transactional(readOnly = true)
     public void 답변이_달린_문의_보기()
     {
         // given
@@ -226,7 +219,7 @@ public class BoardServiceTest
         Answer answer = boardService.writeAnswer(inquiry.getId(), answerDto);
 
         // when
-        Inquiry findInquiry = boardService.viewInquiry(inquiry.getId());
+        Inquiry findInquiry = boardService.viewInquiry(inquiry.getId(), user.getId());
 
         // then
         assertEquals(findInquiry.getAnswer(), answer);
@@ -266,7 +259,6 @@ public class BoardServiceTest
     }
 
     @Test
-    @Transactional(readOnly = true)
     public void 공지상세조회()
     {
         // given
@@ -282,7 +274,6 @@ public class BoardServiceTest
     }
 
     @Test
-    @Transactional(readOnly = true)
     public void 공지목록조회()
     {
         // given
@@ -293,15 +284,14 @@ public class BoardServiceTest
             boardService.writeNotice(requestDto);
 
         // when
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
-        List<NoticeListDto> notices = boardService.listNotice(pageable)
+        List<NoticeListDto> notices = boardService.listNotice()
                 .stream()
                 .map(NoticeListDto::new)
                 .collect(Collectors.toList());
 
         // then
-        Assertions.assertEquals(10, notices.size());
-        Assertions.assertEquals(20, notices.get(0).getId());
+        Assertions.assertEquals(20, notices.size());
+        Assertions.assertEquals(1, notices.get(0).getId());
     }
 
     @Test
@@ -330,20 +320,19 @@ public class BoardServiceTest
         User user = createUser();
         NoticeWriteRequestDto requestDto = createNotice(user);
         for(int i=0; i<20; i++)
-            boardService.writeNotice(requestDto);
+        {
+            Notice notice = boardService.writeNotice(requestDto);
+            // when
+            if(i % 10 == 0)
+                boardService.deleteNotice(notice.getId());
+        }
 
-        // when
-        boolean result1 = boardService.deleteNotice(1L);
-        boolean result2 = boardService.deleteNotice(2L);
-        Pageable pageable = PageRequest.of(0, 20, Sort.Direction.DESC, "id");
-        List<NoticeListDto> notices = boardService.listNotice(pageable)
+        List<NoticeListDto> notices = boardService.listNotice()
                 .stream()
                 .map(NoticeListDto::new)
                 .collect(Collectors.toList());
 
         // then
-        Assertions.assertEquals(true, result1);
-        Assertions.assertEquals(true, result2);
         Assertions.assertEquals(18, notices.size());
     }
 
@@ -364,7 +353,7 @@ public class BoardServiceTest
 
     private InquiryWriteRequestDto createInquiry(User user)
     {
-        InquiryWriteRequestDto requestDto = new InquiryWriteRequestDto(user.getId(), "제목", "내용", "카테고리");
+        InquiryWriteRequestDto requestDto = new InquiryWriteRequestDto(user.getId(), "제목", "내용");
 
         return requestDto;
     }

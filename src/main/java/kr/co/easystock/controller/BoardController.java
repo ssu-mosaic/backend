@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static kr.co.easystock.controller.dto.AnswerDto.*;
@@ -46,26 +47,41 @@ public class BoardController
     /**
      * 문의 상세 조회
      * @param id
+     * @param param
      * @return InquiryViewDto
      */
-    @GetMapping("/qna/{id}")
-    public InquiryViewDto viewInquiry(@PathVariable(name = "id") Long id)
+    @PostMapping("/qna/{id}")
+    public InquiryViewDto viewInquiry(@PathVariable(name = "id") Long id, @RequestBody Map<String, String> param)
     {
-        return new InquiryViewDto(boardService.viewInquiry(id));
+        String userId = param.get("userId");
+        return new InquiryViewDto(boardService.viewInquiry(id, userId));
     }
 
     /**
-     * 문의 목록 조회
-     * @param pageable
+     * 1:1 문의 목록 조회
+     * @param param
      * @return List
      */
-    @GetMapping("/qna")
-    public List<InquiryListDto> listInquiry(@PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
+    @PostMapping("/qna")
+    public List<InquiryListDto> listInquiry(@RequestBody Map<String, String> param)
     {
-        return boardService.listInquiry(pageable)
+        return boardService.listInquiry(param.get("userId"))
                 .stream()
                 .map(InquiryListDto::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 문의 삭제
+     * @param id
+     * @param param
+     * @return boolean
+     */
+    @PutMapping("/qna/{id}")
+    public boolean deleteInquiry(@PathVariable(name = "id") Long id, @RequestBody Map<String, String> param)
+    {
+        String userId = param.get("userId");
+        return boardService.deleteInquiry(id, userId);
     }
 
     /**
@@ -128,13 +144,12 @@ public class BoardController
 
     /**
      * 공지 목록 조회
-     * @param pageable
      * @return List
      */
     @GetMapping("/notice")
-    public List<NoticeListDto> listNotice(@PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
+    public List<NoticeListDto> listNotice()
     {
-        return boardService.listNotice(pageable)
+        return boardService.listNotice()
                 .stream()
                 .map(NoticeListDto::new)
                 .collect(Collectors.toList());
