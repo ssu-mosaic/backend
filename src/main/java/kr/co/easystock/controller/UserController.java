@@ -1,6 +1,5 @@
 package kr.co.easystock.controller;
 
-import kr.co.easystock.controller.dto.UserDto;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -62,14 +61,13 @@ public class UserController
 
     /**
      * 내 정보 조회
-     * @param id
-     * @param password
+     * @param param
      * @return UserInfoDto
      */
     @PostMapping("/myinfo")
-    public UserInfoDto getMyInfo(@RequestBody String id, @RequestBody String password)
+    public UserInfoDto getMyInfo(@RequestBody Map<String, String> param)
     {
-        User user = userService.getMyInfo(id, password);
+        User user = userService.getMyInfo(param.get("userId"));
         if(user == null)
             return null;
 
@@ -77,7 +75,7 @@ public class UserController
     }
 
     /**
-     * 내 정보 수정
+     * 내 정보 변경
      * @param requestDto
      * @return boolean
      */
@@ -88,13 +86,28 @@ public class UserController
     }
 
     /**
+     * 비밀번호 변경
+     * @param param
+     * @return boolean
+     */
+    @PutMapping("/myinfo/changepwd")
+    public boolean changeMyPwd(@RequestBody Map<String, String> param)
+    {
+        String userId = param.get("userId");
+        String userPwd = param.get("userPwd");
+
+        return userService.changeMyPwd(userId, userPwd);
+    }
+
+    /**
      * 회원 탈퇴
-     * @param id
+     * @param param
      * @return boolean
      */
     @DeleteMapping("/withdraw")
-    public boolean withdraw(@RequestBody String id)
+    public boolean withdraw(@RequestBody Map<String, String> param)
     {
-        return userService.withdraw(id);
+        String userId = param.get("userId");
+        return userService.withdraw(userId);
     }
 }

@@ -78,13 +78,12 @@ public class UserService
     /**
      * 내 정보 조회
      * @param id
-     * @param password
      * @return User
      */
     @Transactional(readOnly = true)
-    public User getMyInfo(String id, String password)
+    public User getMyInfo(String id)
     {
-        User user = userRepository.findByIdAndPassword(id, password).get();
+        User user = userRepository.findById(id).get();
 
         return user;
     }
@@ -96,12 +95,23 @@ public class UserService
      */
     public boolean changeMyInfo(@RequestBody UserDto.UserUpdateRequestDto requestDto)
     {
-        User user = userRepository.findById(requestDto.getId()).orElse(null);
+        User user = userRepository.findByIdAndPassword(requestDto.getUserId(), requestDto.getUserPwd()).orElse(null);
         // 유저를 찾지 못했으면 false
         if(user == null)
             return false;
 
         user.update(requestDto.toEntity());
+        return true;
+    }
+
+    /**
+     * 비밀번호 변경
+     * @param id
+     * @param password
+     * @return
+     */
+    public boolean changeMyPwd(String id, String password)
+    {
         return true;
     }
 
