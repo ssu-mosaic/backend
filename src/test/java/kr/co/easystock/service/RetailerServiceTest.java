@@ -78,7 +78,7 @@ public class RetailerServiceTest
         Assertions.assertEquals(retailer.getEmail(), updateRequestDto.getRetailerEmail());
         Assertions.assertEquals(retailer.getPhone(), updateRequestDto.getRetailerPhone());
         Assertions.assertEquals(retailer.getAddress(), updateRequestDto.getRetailerAddress());
-        Assertions.assertEquals(retailer.getDesc(), updateRequestDto.getRetailerDesc());
+        Assertions.assertEquals(retailer.getDetail(), updateRequestDto.getRetailerDetail());
     }
 
     @Test

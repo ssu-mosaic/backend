@@ -5,7 +5,6 @@ import kr.co.easystock.domain.Item.ItemImg;
 import kr.co.easystock.domain.retailer.Retailer;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import static kr.co.easystock.controller.dto.RetailerDto.*;
 
@@ -17,17 +16,17 @@ public class ItemDto
         private Long retailerId;
         private String name;
         private int price;
-        private String desc;
+        private String detail;
         private String category;
         private String unit;
 
         @Builder
-        public ItemAddRequestDto(Long retailerId, String name, int price, String desc, String category, String unit)
+        public ItemAddRequestDto(Long retailerId, String name, int price, String detail, String category, String unit)
         {
             this.retailerId = retailerId;
             this.name = name;
             this.price = price;
-            this.desc = desc;
+            this.detail = detail;
             this.category = category;
             this.unit = unit;
         }
@@ -38,7 +37,7 @@ public class ItemDto
                     .retailer(retailer)
                     .name(name)
                     .price(price)
-                    .desc(desc)
+                    .detail(detail)
                     .category(category)
                     .unit(unit)
                     .build();
@@ -51,17 +50,17 @@ public class ItemDto
         private Long retailerId;
         private String name;
         private int price;
-        private String desc;
+        private String detail;
         private String category;
         private String unit;
 
         @Builder
-        public ItemUpdateRequestDto(Long retailerId, String name, int price, String desc, String category, String unit)
+        public ItemUpdateRequestDto(Long retailerId, String name, int price, String detail, String category, String unit)
         {
             this.retailerId = retailerId;
             this.name = name;
             this.price = price;
-            this.desc = desc;
+            this.detail = detail;
             this.category = category;
             this.unit = unit;
         }
@@ -71,7 +70,7 @@ public class ItemDto
             return Item.builder()
                     .name(name)
                     .price(price)
-                    .desc(desc)
+                    .detail(detail)
                     .category(category)
                     .unit(unit)
                     .build();
@@ -85,7 +84,7 @@ public class ItemDto
         private RetailerViewDto retailer;
         private String name;
         private int price;
-        private String desc;
+        private String detail;
         private String category;
         private String unit;
 
@@ -95,7 +94,7 @@ public class ItemDto
             this.retailer = new RetailerViewDto(entity.getRetailer());
             this.name = entity.getName();
             this.price = entity.getPrice();
-            this.desc = entity.getDesc();
+            this.detail = entity.getDetail();
             this.category = entity.getCategory();
             this.unit = entity.getUnit();
         }
