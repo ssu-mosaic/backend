@@ -171,13 +171,13 @@ public class UserServiceTest
     private UserRegisterRequestDto createUser()
     {
         UserRegisterRequestDto userDto = UserRegisterRequestDto.builder()
-                .id("testman")
-                .password("1234")
-                .businessNo("1234512345")
-                .name("실험")
-                .email("testman@naver.com")
-                .phone("010-1234-5678")
-                .address("서울")
+                .userId("testman")
+                .userPwd("1234")
+                .userBusinessNo("1234512345")
+                .userName("실험")
+                .userEmail("testman@naver.com")
+                .userPhoneNo("010-1234-5678")
+                .userAddress("서울")
                 .build();
 
         return userDto;
