@@ -112,7 +112,7 @@ public class UserServiceTest
         em.flush();
 
         // when
-        User info = userService.getMyInfo("testman", "1234");
+        User info = userService.getMyInfo("testman");
 
         // then
         Assertions.assertThat(info).isEqualTo(user);
@@ -128,13 +128,13 @@ public class UserServiceTest
         em.flush();
 
         UserUpdateRequestDto userDto2 = UserUpdateRequestDto.builder()
-                .id(user.getId())
-                .password("1541")
-                .businessNo("5432154321")
-                .name("험실")
-                .email("testman@gmail.com")
-                .phone("010-8765-4321")
-                .address("인천")
+                .userId(user.getId())
+                .userPwd("1234")
+                .userBusinessNo("5432154321")
+                .userName("험실")
+                .userEmail("testman@gmail.com")
+                .userPhoneNo("010-8765-4321")
+                .userAddress("인천")
                 .build();
 
         // when
@@ -142,13 +142,13 @@ public class UserServiceTest
 
         // then
         Assertions.assertThat(true).isEqualTo(result);
-        Assertions.assertThat(user.getId()).isEqualTo(userDto2.getId());
-        Assertions.assertThat(user.getPassword()).isEqualTo(userDto2.getPassword());
-        Assertions.assertThat(user.getBusinessNo()).isEqualTo(userDto2.getBusinessNo());
-        Assertions.assertThat(user.getName()).isEqualTo(userDto2.getName());
-        Assertions.assertThat(user.getEmail()).isEqualTo(userDto2.getEmail());
-        Assertions.assertThat(user.getPhone()).isEqualTo(userDto2.getPhone());
-        Assertions.assertThat(user.getAddress()).isEqualTo(userDto2.getAddress());
+        Assertions.assertThat(user.getId()).isEqualTo(userDto2.getUserId());
+        Assertions.assertThat(user.getPassword()).isEqualTo(userDto2.getUserPwd());
+        Assertions.assertThat(user.getBusinessNo()).isEqualTo(userDto2.getUserBusinessNo());
+        Assertions.assertThat(user.getName()).isEqualTo(userDto2.getUserName());
+        Assertions.assertThat(user.getEmail()).isEqualTo(userDto2.getUserEmail());
+        Assertions.assertThat(user.getPhone()).isEqualTo(userDto2.getUserPhoneNo());
+        Assertions.assertThat(user.getAddress()).isEqualTo(userDto2.getUserAddress());
     }
 
     @Test
