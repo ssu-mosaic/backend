@@ -27,20 +27,20 @@ public class Retailer
     private String email;
     private String address;
     private String phone;
-    private String desc;
+    private String detail;
 
     @OneToMany(mappedBy = "retailer")
     private List<Item> items = new ArrayList<>();
 
     @Builder
-    public Retailer(User user, String name, String email, String address, String phone, String desc)
+    public Retailer(User user, String name, String email, String address, String phone, String detail)
     {
         this.user = user;
         this.name = name;
         this.email = email;
         this.address = address;
         this.phone = phone;
-        this.desc = desc;
+        this.detail = detail;
     }
 
     public void update(Retailer retailer)
@@ -49,7 +49,7 @@ public class Retailer
         this.email = retailer.getEmail();
         this.address = retailer.getAddress();
         this.phone = retailer.getPhone();
-        this.desc = retailer.getDesc();
+        this.detail = retailer.getDetail();
     }
 
     // 연관관계 메서드

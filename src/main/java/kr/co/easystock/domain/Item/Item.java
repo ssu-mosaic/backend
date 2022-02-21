@@ -33,19 +33,19 @@ public class Item
     private String unit;
 
     @Column(nullable = false)
-    private String desc;
+    private String detail;
 
     @Column(nullable = false)
     private String category;
 
     @Builder
-    public Item(Retailer retailer, String name, int price, String unit, String desc, String category)
+    public Item(Retailer retailer, String name, int price, String unit, String detail, String category)
     {
         this.retailer = retailer;
         this.name = name;
         this.price = price;
         this.unit = unit;
-        this.desc = desc;
+        this.detail = detail;
         this.category = category;
     }
 
@@ -54,7 +54,7 @@ public class Item
         this.name = item.getName();
         this.price = item.getPrice();
         this.unit = item.getUnit();
-        this.desc = item.getDesc();
+        this.detail = item.getDetail();
         this.category = item.getCategory();
     }
 

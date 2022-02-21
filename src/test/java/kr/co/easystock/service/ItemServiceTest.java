@@ -1,7 +1,5 @@
 package kr.co.easystock.service;
 
-import kr.co.easystock.controller.dto.ItemDto;
-import kr.co.easystock.controller.dto.RetailerDto;
 import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.Item.ItemRepository;
 import kr.co.easystock.domain.retailer.Retailer;
@@ -23,8 +21,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static kr.co.easystock.controller.dto.ItemDto.*;
-import static kr.co.easystock.controller.dto.RetailerDto.*;
-import static org.junit.Assert.*;
 
 /**
  * Created by WOOSERK.
@@ -92,7 +88,7 @@ public class ItemServiceTest
         // then
         Assertions.assertEquals(item.getName(), updateRequestDto.getName());
         Assertions.assertEquals(item.getPrice(), updateRequestDto.getPrice());
-        Assertions.assertEquals(item.getDesc(), updateRequestDto.getDesc());
+        Assertions.assertEquals(item.getDetail(), updateRequestDto.getDetail());
         Assertions.assertEquals(item.getCategory(), updateRequestDto.getCategory());
         Assertions.assertEquals(item.getUnit(), updateRequestDto.getUnit());
     }

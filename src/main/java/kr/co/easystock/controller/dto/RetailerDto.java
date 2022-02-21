@@ -4,12 +4,11 @@ import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.user.User;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static kr.co.easystock.controller.dto.ItemDto.*;
-import static kr.co.easystock.controller.dto.UserDto.*;
+import static kr.co.easystock.controller.dto.ItemDto.ItemListDto;
+import static kr.co.easystock.controller.dto.UserDto.UserInfoDto;
 
 public class RetailerDto
 {
@@ -21,16 +20,16 @@ public class RetailerDto
         private String retailerPhone;
         private String retailerEmail;
         private String retailerAddress;
-        private String retailerDesc;
+        private String retailerDetail;
 
-        public RetailerAddRequestDto(String userId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerDesc)
+        public RetailerAddRequestDto(String userId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerDetail)
         {
             this.userId = userId;
             this.retailerName = retailerName;
             this.retailerPhone = retailerPhone;
             this.retailerEmail = retailerEmail;
             this.retailerAddress = retailerAddress;
-            this.retailerDesc = retailerDesc;
+            this.retailerDetail = retailerDetail;
         }
 
         public Retailer toEntity(User user)
@@ -41,7 +40,7 @@ public class RetailerDto
                     .phone(retailerPhone)
                     .email(retailerEmail)
                     .address(retailerAddress)
-                    .desc(retailerDesc)
+                    .detail(retailerDetail)
                     .build();
         }
     }
@@ -54,16 +53,16 @@ public class RetailerDto
         private String retailerPhone;
         private String retailerEmail;
         private String retailerAddress;
-        private String retailerDesc;
+        private String retailerDetail;
 
-        public RetailerUpdateRequestDto(String userId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerDesc)
+        public RetailerUpdateRequestDto(String userId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerDetail)
         {
             this.userId = userId;
             this.retailerName = retailerName;
             this.retailerPhone = retailerPhone;
             this.retailerEmail = retailerEmail;
             this.retailerAddress = retailerAddress;
-            this.retailerDesc = retailerDesc;
+            this.retailerDetail = retailerDetail;
         }
 
         public Retailer toEntity()
@@ -73,7 +72,7 @@ public class RetailerDto
                     .phone(retailerPhone)
                     .email(retailerEmail)
                     .address(retailerAddress)
-                    .desc(retailerDesc)
+                    .detail(retailerDetail)
                     .build();
         }
     }
@@ -102,7 +101,7 @@ public class RetailerDto
         private String retailerEmail;
         private String retailerPhone;
         private String retailerAddress;
-        private String retailerDesc;
+        private String retailerDetail;
         private List<ItemListDto> items;
 
         public RetailerViewDto(Retailer entity)
@@ -113,7 +112,7 @@ public class RetailerDto
             this.retailerEmail = entity.getEmail();
             this.retailerPhone = entity.getPhone();
             this.retailerAddress = entity.getAddress();
-            this.retailerDesc = entity.getDesc();
+            this.retailerDetail = entity.getDetail();
             this.items = entity.getItems()
                     .stream()
                     .map(ItemListDto::new)
@@ -129,7 +128,7 @@ public class RetailerDto
         private String retailerEmail;
         private String retailerPhone;
         private String retailerAddress;
-        private String retailerDesc;
+        private String retailerDetail;
         private int itemNum;
 
         public RetailerListDto(Retailer entity)
@@ -139,7 +138,7 @@ public class RetailerDto
             this.retailerEmail = entity.getEmail();
             this.retailerPhone = entity.getPhone();
             this.retailerAddress = entity.getAddress();
-            this.retailerDesc = entity.getDesc();
+            this.retailerDetail = entity.getDetail();
             this.itemNum = entity.getItems().size();
         }
     }
