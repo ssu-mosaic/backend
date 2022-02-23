@@ -70,6 +70,19 @@ public class BoardController
     }
 
     /**
+     * 관리자 1:1 문의 목록 조회
+     * @return List
+     */
+    @GetMapping("/admin/qna")
+    public List<InquiryListDto> adminListInquiry()
+    {
+        return boardService.adminListInquiry()
+                .stream()
+                .map(InquiryListDto::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * 문의 삭제
      * @param id
      * @param param

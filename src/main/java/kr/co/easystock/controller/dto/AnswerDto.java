@@ -2,8 +2,8 @@ package kr.co.easystock.controller.dto;
 
 import kr.co.easystock.domain.answer.Answer;
 import kr.co.easystock.domain.inquiry.Inquiry;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -12,18 +12,29 @@ public class AnswerDto
     @Getter
     public static class AnswerWriteRequestDto
     {
-        private String content;
+        private Long inquiryId;
+        private String inquiryTitle;
+        private String inquiryContent;
+        private LocalDateTime inquiryDate;
+        private String inquiryAnswer;
+        private LocalDateTime inquiryAnsDate;
 
-        public AnswerWriteRequestDto(String content)
+        @Builder
+        public AnswerWriteRequestDto(Long inquiryId, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, String inquiryAnswer, LocalDateTime inquiryAnsDate)
         {
-            this.content = content;
+            this.inquiryId = inquiryId;
+            this.inquiryTitle = inquiryTitle;
+            this.inquiryContent = inquiryContent;
+            this.inquiryDate = inquiryDate;
+            this.inquiryAnswer = inquiryAnswer;
+            this.inquiryAnsDate = inquiryAnsDate;
         }
 
         public Answer toEntity(Inquiry inquiry)
         {
             return Answer.builder()
                     .inquiry(inquiry)
-                    .content(content)
+                    .content(inquiryContent)
                     .build();
         }
     }
