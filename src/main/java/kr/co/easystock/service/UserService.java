@@ -1,6 +1,5 @@
 package kr.co.easystock.service;
 
-import kr.co.easystock.controller.dto.UserDto;
 import kr.co.easystock.controller.dto.UserDto.UserRegisterRequestDto;
 import kr.co.easystock.domain.cart.Cart;
 import kr.co.easystock.domain.user.User;
@@ -60,7 +59,7 @@ public class UserService
     @Transactional(readOnly = true)
     public User login(String id, String password)
     {
-        User user = userRepository.findByIdAndPassword(id, password).orElse(null);
+        User user = userRepository.findByIdAndPasswordAndDeletedDateIsNull(id, password).orElse(null);
 
         return user;
     }
@@ -85,7 +84,7 @@ public class UserService
     @Transactional(readOnly = true)
     public User getMyInfo(String id)
     {
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findByIdAndDeletedDateIsNull(id).get();
 
         return user;
     }
@@ -97,7 +96,7 @@ public class UserService
      */
     public boolean changeMyInfo(@RequestBody UserUpdateRequestDto requestDto)
     {
-        User user = userRepository.findByIdAndPassword(requestDto.getUserId(), requestDto.getUserPwd()).orElse(null);
+        User user = userRepository.findByIdAndPasswordAndDeletedDateIsNull(requestDto.getUserId(), requestDto.getUserPwd()).orElse(null);
         // 유저를 찾지 못했으면 false
         if(user == null)
             return false;
@@ -114,6 +113,11 @@ public class UserService
      */
     public boolean changeMyPwd(String id, String password)
     {
+        User user = userRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
+        if(user == null)
+            return false;
+
+        user.updatePassword(password);
         return true;
     }
 
@@ -131,7 +135,7 @@ public class UserService
      */
     public boolean withdraw(String id)
     {
-        User user = userRepository.findByIdAndDeletedDateNull(id).orElse(null);
+        User user = userRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
         if(user == null)
             return false;
 

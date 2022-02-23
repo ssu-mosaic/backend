@@ -1,9 +1,7 @@
 package kr.co.easystock.domain.order;
 
 import kr.co.easystock.domain.BaseTimeEntity;
-import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.user.User;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
