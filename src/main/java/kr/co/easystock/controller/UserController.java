@@ -43,6 +43,18 @@ public class UserController
         return true;
     }
 
+    @PostMapping("/admin/login")
+    public boolean adminLogin(@RequestBody Map<String, String> param)
+    {
+        String userId = param.get("userId");
+        String userPwd = param.get("userPwd");
+        User user = userService.adminLogin(userId, userPwd);
+        if(user == null)
+            return false;
+
+        return true;
+    }
+
     /*
     @PostMapping(value = "/findid")
     public String findIdByEmail(@RequestBody String email)
