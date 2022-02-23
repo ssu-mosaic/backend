@@ -43,6 +43,11 @@ public class UserController
         return true;
     }
 
+    /**
+     * 관리자 로그인
+     * @param param
+     * @return boolean
+     */
     @PostMapping("/admin/login")
     public boolean adminLogin(@RequestBody Map<String, String> param)
     {
