@@ -8,7 +8,6 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 import static kr.co.easystock.controller.dto.AnswerDto.AnswerViewDto;
-import static kr.co.easystock.controller.dto.UserDto.UserInfoDto;
 
 public class InquiryDto
 {
@@ -70,45 +69,48 @@ public class InquiryDto
     @Getter
     public static class InquiryViewDto
     {
-        private Long id;
-        private UserInfoDto user;
-        private String title;
-        private String content;
-        private LocalDateTime createdDate;
-        private LocalDateTime lastModifiedDate;
-        private AnswerViewDto answer;
+        private Long inquiryId;
+        private String inquiryTitle;
+        private String inquiryContent;
+        private LocalDateTime inquiryDate;
+        private String inquiryAnswer;
+        private LocalDateTime inquiryAnsDate;
 
         public InquiryViewDto(Inquiry entity)
         {
-            this.id = entity.getId();
-            this.user = new UserInfoDto(entity.getUser());
-            this.title = entity.getTitle();
-            this.content = entity.getContent();
-            this.createdDate = entity.getCreatedDate();
-            this.lastModifiedDate = entity.getLastModifiedDate();
-            this.answer = new AnswerViewDto(entity.getAnswer());
+            this.inquiryId = entity.getId();
+            this.inquiryTitle = entity.getTitle();
+            this.inquiryContent = entity.getContent();
+            this.inquiryDate = entity.getCreatedDate();
+
+            if(entity.getAnswer() != null)
+            {
+                this.inquiryAnswer = entity.getAnswer().getContent();
+                this.inquiryAnsDate = entity.getAnswer().getCreatedDate();
+            }
         }
     }
 
     @Getter
     public static class InquiryListDto
     {
-        private Long id;
-        private UserInfoDto user;
-        private String title;
-        private LocalDateTime createdDate;
-        private LocalDateTime lastModifiedDate;
-        private boolean isAnswered;
+        private Long inquiryId;
+        private String inquiryTitle;
+        private LocalDateTime inquiryDate;
+        private String inquiryAnswer;
+        private LocalDateTime inquiryAnsDate;
 
         public InquiryListDto(Inquiry entity)
         {
-            this.id = entity.getId();
-            this.user = new UserInfoDto(entity.getUser());
-            this.title = entity.getTitle();
-            this.createdDate = entity.getCreatedDate();
-            this.lastModifiedDate = entity.getLastModifiedDate();
+            this.inquiryId = entity.getId();
+            this.inquiryTitle = entity.getTitle();
+            this.inquiryDate = entity.getCreatedDate();
 
-            isAnswered = (entity.getAnswer() != null) ? true : false;
+            if(entity.getAnswer() != null)
+            {
+                this.inquiryAnswer = entity.getAnswer().getContent();
+                this.inquiryAnsDate = entity.getAnswer().getCreatedDate();
+            }
         }
     }
 }
