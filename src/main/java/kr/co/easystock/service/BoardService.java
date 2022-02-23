@@ -183,7 +183,7 @@ public class BoardService
         if(notice == null)
             return false;
 
-        notice.update(requestDto.getTitle(), requestDto.getContent());
+        notice.update(requestDto.getNoticeTitle(), requestDto.getNoticeContent());
         return true;
     }
 
@@ -195,7 +195,7 @@ public class BoardService
     @Transactional(readOnly = true)
     public Notice viewNotice(Long id)
     {
-        return noticeRepository.findById(id).orElse(null);
+        return noticeRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
     }
 
     /**

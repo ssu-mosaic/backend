@@ -135,7 +135,7 @@ public class BoardController
      * @param requestDto
      * @return Long
      */
-    @PostMapping("/notice")
+    @PostMapping("/admin/notice")
     public Long writeNotice(NoticeWriteRequestDto requestDto)
     {
         return boardService.writeNotice(requestDto).getId();
@@ -147,7 +147,7 @@ public class BoardController
      * @param requestDto
      * @return boolean
      */
-    @PutMapping("/notice")
+    @PutMapping("/admin/notice/{id}")
     public boolean updateNotice(@PathVariable(name = "id") Long id, @RequestBody NoticeUpdateRequestDto requestDto)
     {
         return boardService.updateNotice(id, requestDto);
