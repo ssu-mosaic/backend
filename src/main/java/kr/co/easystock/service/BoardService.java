@@ -84,6 +84,15 @@ public class BoardService
     }
 
     /**
+     * 관리자 1:1 문의 목록 조회
+     * @return List
+     */
+    public List<Inquiry> adminListInquiry()
+    {
+        return inquiryRepository.findAllByDeletedDateIsNull();
+    }
+
+    /**
      * 문의 삭제
      * @param id
      * @param userId

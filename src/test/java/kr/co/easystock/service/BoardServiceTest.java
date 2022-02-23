@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -173,7 +174,7 @@ public class BoardServiceTest
         User user = createUser();
         InquiryWriteRequestDto inquiryDto = createInquiry(user);
         Inquiry inquiry = boardService.writeInquiry(inquiryDto);
-        AnswerWriteRequestDto answerDto = createAnswer();
+        AnswerWriteRequestDto answerDto = createAnswer(inquiry);
 
         // when
         Answer answer = boardService.writeAnswer(inquiry.getId(), answerDto);
@@ -192,7 +193,7 @@ public class BoardServiceTest
         InquiryWriteRequestDto inquiryWriteRequestDto = createInquiry(user);
         Inquiry inquiry = boardService.writeInquiry(inquiryWriteRequestDto);
 
-        AnswerWriteRequestDto answerWriteRequestDto = createAnswer();
+        AnswerWriteRequestDto answerWriteRequestDto = createAnswer(inquiry);
         Answer answer = boardService.writeAnswer(inquiry.getId(), answerWriteRequestDto);
 
         AnswerUpdateRequestDto answerUpdateRequestDto = new AnswerUpdateRequestDto("용내");
@@ -212,7 +213,7 @@ public class BoardServiceTest
         InquiryWriteRequestDto inquiryDto = createInquiry(user);
         Inquiry inquiry = boardService.writeInquiry(inquiryDto);
 
-        AnswerWriteRequestDto answerDto = createAnswer();
+        AnswerWriteRequestDto answerDto = createAnswer(inquiry);
         Answer answer = boardService.writeAnswer(inquiry.getId(), answerDto);
 
         // when
@@ -355,9 +356,9 @@ public class BoardServiceTest
         return requestDto;
     }
 
-    private AnswerWriteRequestDto createAnswer()
+    private AnswerWriteRequestDto createAnswer(Inquiry inquiry)
     {
-        AnswerWriteRequestDto requestDto = new AnswerWriteRequestDto("답변");
+        AnswerWriteRequestDto requestDto = new AnswerWriteRequestDto(inquiry.getId(), inquiry.getTitle(), inquiry.getContent(), inquiry.getCreatedDate(), "답변", LocalDateTime.now());
 
         return requestDto;
     }
