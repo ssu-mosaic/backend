@@ -86,6 +86,7 @@ public class BoardService
      * @param userId
      * @return List
      */
+    @Transactional(readOnly = true)
     public List<Inquiry> listInquiry(String userId)
     {
         User user = userRepository.findById(userId).orElse(null);
@@ -96,6 +97,7 @@ public class BoardService
      * 관리자 1:1 문의 목록 조회
      * @return List
      */
+    @Transactional(readOnly = true)
     public List<Inquiry> adminListInquiry()
     {
         return inquiryRepository.findAllByDeletedDateIsNull();
