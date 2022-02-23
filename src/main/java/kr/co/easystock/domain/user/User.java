@@ -64,6 +64,12 @@ public class User extends BaseTimeEntity
         this.phone = user.getPhone();
     }
 
+    // 비밀번호 변경 전용 메서드
+    public void updatePassword(String password)
+    {
+        this.password = password;
+    }
+
     // soft delete
     @Override
     public void delete()

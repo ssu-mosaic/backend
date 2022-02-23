@@ -130,7 +130,7 @@ public class CartServiceTest
                 .collect(Collectors.toList());
 
         // then
-        Assertions.assertEquals(20, list.size());
+        Assertions.assertEquals(1, list.size());
     }
 
     private User createUser()

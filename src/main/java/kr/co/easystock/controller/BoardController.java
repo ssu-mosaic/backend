@@ -2,16 +2,14 @@ package kr.co.easystock.controller;
 
 import kr.co.easystock.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static kr.co.easystock.controller.dto.AnswerDto.*;
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerUpdateRequestDto;
+import static kr.co.easystock.controller.dto.AnswerDto.AnswerWriteRequestDto;
 import static kr.co.easystock.controller.dto.InquiryDto.*;
 import static kr.co.easystock.controller.dto.NoticeDto.*;
 
