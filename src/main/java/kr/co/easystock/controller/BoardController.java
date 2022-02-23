@@ -56,6 +56,17 @@ public class BoardController
     }
 
     /**
+     * 관리자 문의 상세 조회
+     * @param id
+     * @return
+     */
+    @GetMapping("/admin/qna/{id}")
+    public InquiryViewDto adminViewInquiry(@PathVariable(name = "id") Long id)
+    {
+        return new InquiryViewDto(boardService.adminViewInquiry(id));
+    }
+
+    /**
      * 1:1 문의 목록 조회
      * @param param
      * @return List
@@ -96,24 +107,24 @@ public class BoardController
     }
 
     /**
-     * 답변 작성
+     * 관리자 답변 작성
      * @param id
      * @param requestDto
      * @return Long
      */
-    @PostMapping("/qna/{id}/answer")
+    @PostMapping("/admin/qna/{id}/answer")
     public Long writeAnswer(@PathVariable(name = "id") Long id, @RequestBody AnswerWriteRequestDto requestDto)
     {
         return boardService.writeAnswer(id, requestDto).getId();
     }
 
     /**
-     * 답변 수정
+     * 관리자 답변 수정
      * @param id
      * @param requestDto
      * @return boolean
      */
-    @PutMapping("/qna/{id}/answer")
+    @PutMapping("/admin/qna/{id}/answer")
     public boolean updateAnswer(@PathVariable(name = "id") Long id, @RequestBody AnswerUpdateRequestDto requestDto)
     {
         return boardService.updateAnswer(id, requestDto);

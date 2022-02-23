@@ -9,7 +9,6 @@ import kr.co.easystock.domain.notice.NoticeRepository;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +69,16 @@ public class BoardService
     {
         User user = userRepository.findById(userId).orElse(null);
         return inquiryRepository.findByIdAndUserAndDeletedDateIsNull(id, user).orElse(null);
+    }
+
+    /**
+     * 관리자 문의 상세 조회
+     * @param id
+     * @return Inquiry
+     */
+    public Inquiry adminViewInquiry(Long id)
+    {
+        return inquiryRepository.findByIdAndDeletedDateIsNull(id).orElse(null);
     }
 
     /**
@@ -141,7 +150,7 @@ public class BoardService
         if(answer == null)
             return false;
 
-        answer.update(requestDto.getContent());
+        answer.update(requestDto.getInquiryAnswer());
         return true;
     }
 

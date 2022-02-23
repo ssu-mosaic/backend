@@ -196,7 +196,7 @@ public class BoardServiceTest
         AnswerWriteRequestDto answerWriteRequestDto = createAnswer(inquiry);
         Answer answer = boardService.writeAnswer(inquiry.getId(), answerWriteRequestDto);
 
-        AnswerUpdateRequestDto answerUpdateRequestDto = new AnswerUpdateRequestDto("용내");
+        AnswerUpdateRequestDto answerUpdateRequestDto = new AnswerUpdateRequestDto(inquiry.getId(), inquiry.getTitle(), inquiry.getContent(), inquiry.getCreatedDate(), "용내", answer.getCreatedDate());
 
         // when
         boardService.updateAnswer(answer.getId(), answerUpdateRequestDto);
