@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long>, JpaSpecificationExecutor<Inquiry>
 {
+    Optional<Inquiry> findByIdAndDeletedDateIsNull(Long id);
     Optional<Inquiry> findByIdAndUserAndDeletedDateIsNull(Long id, User user);
     // 삭제된 문의를 제외하고 목록 조회
     List<Inquiry> findAllByUserAndDeletedDateIsNull(User user);

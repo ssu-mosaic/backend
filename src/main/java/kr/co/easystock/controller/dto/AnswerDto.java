@@ -42,11 +42,22 @@ public class AnswerDto
     @Getter
     public static class AnswerUpdateRequestDto
     {
-        private String content;
+        private Long inquiryId;
+        private String inquiryTitle;
+        private String inquiryContent;
+        private LocalDateTime inquiryDate;
+        private String inquiryAnswer;
+        private LocalDateTime inquiryAnsDate;
 
-        public AnswerUpdateRequestDto(String content)
+        @Builder
+        public AnswerUpdateRequestDto(Long inquiryId, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, String inquiryAnswer, LocalDateTime inquiryAnsDate)
         {
-            this.content = content;
+            this.inquiryId = inquiryId;
+            this.inquiryTitle = inquiryTitle;
+            this.inquiryContent = inquiryContent;
+            this.inquiryDate = inquiryDate;
+            this.inquiryAnswer = inquiryAnswer;
+            this.inquiryAnsDate = inquiryAnsDate;
         }
     }
 
