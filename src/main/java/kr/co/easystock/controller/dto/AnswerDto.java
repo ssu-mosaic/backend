@@ -34,7 +34,7 @@ public class AnswerDto
         {
             return Answer.builder()
                     .inquiry(inquiry)
-                    .content(inquiryContent)
+                    .content(inquiryAnswer)
                     .build();
         }
     }
