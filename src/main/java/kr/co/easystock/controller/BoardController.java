@@ -136,7 +136,7 @@ public class BoardController
      * @return Long
      */
     @PostMapping("/admin/notice")
-    public Long writeNotice(NoticeWriteRequestDto requestDto)
+    public Long writeNotice(@RequestBody NoticeWriteRequestDto requestDto)
     {
         return boardService.writeNotice(requestDto).getId();
     }
