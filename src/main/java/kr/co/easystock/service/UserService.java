@@ -2,6 +2,7 @@ package kr.co.easystock.service;
 
 import kr.co.easystock.controller.dto.UserDto.UserRegisterRequestDto;
 import kr.co.easystock.domain.cart.Cart;
+import kr.co.easystock.domain.user.Role;
 import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +61,21 @@ public class UserService
     public User login(String id, String password)
     {
         User user = userRepository.findByIdAndPasswordAndDeletedDateIsNull(id, password).orElse(null);
+
+        return user;
+    }
+
+    /**
+     * 관리자 로그인
+     * @param id
+     * @param password
+     * @return User
+     */
+    public User adminLogin(String id, String password)
+    {
+        User user = userRepository.findByIdAndPasswordAndDeletedDateIsNull(id, password).orElse(null);
+        if(user == null || user.getRole() == Role.MEMBER)
+            return null;
 
         return user;
     }
