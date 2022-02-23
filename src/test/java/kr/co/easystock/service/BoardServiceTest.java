@@ -245,7 +245,7 @@ public class BoardServiceTest
         User user = createUser();
         NoticeWriteRequestDto writeRequestDto = createNotice(user);
         Notice notice = boardService.writeNotice(writeRequestDto);
-        NoticeUpdateRequestDto updateRequestDto = new NoticeUpdateRequestDto(user.getId(), "목제", "용내");
+        NoticeUpdateRequestDto updateRequestDto = new NoticeUpdateRequestDto(user.getId(), "목제", "용내", notice.getCreatedDate(), LocalDateTime.now());
 
         // when
         boolean result = boardService.updateNotice(notice.getId(), updateRequestDto);
@@ -289,7 +289,7 @@ public class BoardServiceTest
 
         // then
         Assertions.assertEquals(20, notices.size());
-        Assertions.assertEquals(1, notices.get(0).getId());
+        Assertions.assertEquals(1, notices.get(0).getNoticeId());
     }
 
     @Test

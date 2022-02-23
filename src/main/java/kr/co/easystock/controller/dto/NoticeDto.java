@@ -1,6 +1,5 @@
 package kr.co.easystock.controller.dto;
 
-import kr.co.easystock.controller.dto.UserDto.UserInfoDto;
 import kr.co.easystock.domain.notice.Notice;
 import kr.co.easystock.domain.user.User;
 import lombok.Getter;
@@ -20,19 +19,19 @@ public class NoticeDto
     public static class NoticeWriteRequestDto
     {
         private String userId;
-        private String title;
-        private String content;
+        private String noticeTitle;
+        private String noticeContent;
 
-        public NoticeWriteRequestDto(String userId, String title, String content)
+        public NoticeWriteRequestDto(String userId, String noticeTitle, String noticeContent)
         {
             this.userId = userId;
-            this.title = title;
-            this.content = content;
+            this.noticeTitle = noticeTitle;
+            this.noticeContent = noticeContent;
         }
 
         public Notice toEntity(User user)
         {
-            return new Notice(user, title, content);
+            return new Notice(user, noticeTitle, noticeContent);
         }
     }
 
@@ -40,59 +39,59 @@ public class NoticeDto
     public static class NoticeUpdateRequestDto
     {
         private String userId;
-        private String title;
-        private String content;
+        private String noticeTitle;
+        private String noticeContent;
+        private LocalDateTime noticeDate;
+        private LocalDateTime noticeEditDate;
 
-        public NoticeUpdateRequestDto(String userId, String title, String content)
+        public NoticeUpdateRequestDto(String userId, String noticeTitle, String noticeContent, LocalDateTime noticeDate, LocalDateTime noticeEditDate)
         {
             this.userId = userId;
-            this.title = title;
-            this.content = content;
+            this.noticeTitle = noticeTitle;
+            this.noticeContent = noticeContent;
+            this.noticeDate = noticeDate;
+            this.noticeEditDate = noticeEditDate;
         }
 
         public Notice toEntity()
         {
-            return new Notice(null, title, content);
+            return new Notice(null, noticeTitle, noticeContent);
         }
     }
 
     @Getter
     public static class NoticeViewDto
     {
-        private Long id;
-        private UserInfoDto user;
-        private String title;
-        private String content;
-        private LocalDateTime createdDate;
-        private LocalDateTime lastModifiedDate;
+        private Long noticeId;
+        private String noticeTitle;
+        private String noticeContent;
+        private LocalDateTime noticeDate;
+        private LocalDateTime noticeEditDate;
 
         public NoticeViewDto(Notice entity)
         {
-            this.id = entity.getId();
-            this.user = new UserInfoDto(entity.getUser());
-            this.title = entity.getTitle();
-            this.content = entity.getContent();
-            this.createdDate = entity.getCreatedDate();
-            this.lastModifiedDate = entity.getLastModifiedDate();
+            this.noticeId = entity.getId();
+            this.noticeTitle = entity.getTitle();
+            this.noticeContent = entity.getContent();
+            this.noticeDate = entity.getCreatedDate();
+            this.noticeEditDate = entity.getLastModifiedDate();
         }
     }
 
     @Getter
     public static class NoticeListDto
     {
-        private Long id;
-        private UserInfoDto user;
-        private String title;
-        private LocalDateTime createdDate;
-        private LocalDateTime lastModifiedDate;
+        private Long noticeId;
+        private String noticeTitle;
+        private LocalDateTime noticeDate;
+        private LocalDateTime noticeEditDate;
 
         public NoticeListDto(Notice entity)
         {
-            this.id = entity.getId();
-            this.user = new UserInfoDto(entity.getUser());
-            this.title = entity.getTitle();
-            this.createdDate = entity.getCreatedDate();
-            this.lastModifiedDate = entity.getLastModifiedDate();
+            this.noticeId = entity.getId();
+            this.noticeTitle = entity.getTitle();
+            this.noticeDate = entity.getCreatedDate();
+            this.noticeEditDate = entity.getLastModifiedDate();
         }
     }
 }
