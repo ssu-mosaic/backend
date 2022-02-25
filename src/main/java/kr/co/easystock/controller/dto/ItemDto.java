@@ -89,6 +89,19 @@ public class ItemDto
     }
 
     @Getter
+    public static class ItemListRequestDto
+    {
+        private String userId;
+        private Long retailerId;
+
+        public ItemListRequestDto(String userId, Long retailerId)
+        {
+            this.userId = userId;
+            this.retailerId = retailerId;
+        }
+    }
+
+    @Getter
     public static class ItemListDto
     {
         private Long productId;
