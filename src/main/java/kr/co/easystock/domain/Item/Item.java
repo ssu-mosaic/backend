@@ -35,18 +35,14 @@ public class Item
     @Column(nullable = false)
     private String detail;
 
-    @Column(nullable = false)
-    private String category;
-
     @Builder
-    public Item(Retailer retailer, String name, int price, String unit, String detail, String category)
+    public Item(Retailer retailer, String name, int price, String unit, String detail)
     {
         this.retailer = retailer;
         this.name = name;
         this.price = price;
         this.unit = unit;
         this.detail = detail;
-        this.category = category;
     }
 
     public void update(Item item)
@@ -55,7 +51,6 @@ public class Item
         this.price = item.getPrice();
         this.unit = item.getUnit();
         this.detail = item.getDetail();
-        this.category = item.getCategory();
     }
 
     public void mapRetailer(Retailer retailer)

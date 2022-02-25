@@ -6,40 +6,35 @@ import kr.co.easystock.domain.retailer.Retailer;
 import lombok.Builder;
 import lombok.Getter;
 
-import static kr.co.easystock.controller.dto.RetailerDto.*;
-
 public class ItemDto
 {
     @Getter
     public static class ItemAddRequestDto
     {
         private Long retailerId;
-        private String name;
-        private int price;
-        private String detail;
-        private String category;
-        private String unit;
+        private String productName;
+        private int productPrice;
+        private String productDetail;
+        private String productUnit;
 
         @Builder
-        public ItemAddRequestDto(Long retailerId, String name, int price, String detail, String category, String unit)
+        public ItemAddRequestDto(Long retailerId, String productName, int productPrice, String productDetail, String productUnit)
         {
             this.retailerId = retailerId;
-            this.name = name;
-            this.price = price;
-            this.detail = detail;
-            this.category = category;
-            this.unit = unit;
+            this.productName = productName;
+            this.productPrice = productPrice;
+            this.productDetail = productDetail;
+            this.productUnit = productUnit;
         }
 
         public Item toEntity(Retailer retailer)
         {
             return Item.builder()
                     .retailer(retailer)
-                    .name(name)
-                    .price(price)
-                    .detail(detail)
-                    .category(category)
-                    .unit(unit)
+                    .name(productName)
+                    .price(productPrice)
+                    .detail(productDetail)
+                    .unit(productUnit)
                     .build();
         }
     }
@@ -48,31 +43,28 @@ public class ItemDto
     public static class ItemUpdateRequestDto
     {
         private Long retailerId;
-        private String name;
-        private int price;
-        private String detail;
-        private String category;
-        private String unit;
+        private String productName;
+        private int productPrice;
+        private String productDetail;
+        private String productUnit;
 
         @Builder
-        public ItemUpdateRequestDto(Long retailerId, String name, int price, String detail, String category, String unit)
+        public ItemUpdateRequestDto(Long retailerId, String productName, int productPrice, String productDetail, String productUnit)
         {
             this.retailerId = retailerId;
-            this.name = name;
-            this.price = price;
-            this.detail = detail;
-            this.category = category;
-            this.unit = unit;
+            this.productName = productName;
+            this.productPrice = productPrice;
+            this.productDetail = productDetail;
+            this.productUnit = productUnit;
         }
 
         public Item toEntity()
         {
             return Item.builder()
-                    .name(name)
-                    .price(price)
-                    .detail(detail)
-                    .category(category)
-                    .unit(unit)
+                    .name(productName)
+                    .price(productPrice)
+                    .detail(productDetail)
+                    .unit(productUnit)
                     .build();
         }
     }
@@ -80,38 +72,34 @@ public class ItemDto
     @Getter
     public static class ItemViewDto
     {
-        private Long id;
-        private RetailerViewDto retailer;
-        private String name;
-        private int price;
-        private String detail;
-        private String category;
-        private String unit;
+        private Long productId;
+        private String productName;
+        private int productPrice;
+        private String productDetail;
+        private String productUnit;
 
         public ItemViewDto(Item entity)
         {
-            this.id = entity.getId();
-            this.retailer = new RetailerViewDto(entity.getRetailer());
-            this.name = entity.getName();
-            this.price = entity.getPrice();
-            this.detail = entity.getDetail();
-            this.category = entity.getCategory();
-            this.unit = entity.getUnit();
+            this.productId = entity.getId();
+            this.productName = entity.getName();
+            this.productPrice = entity.getPrice();
+            this.productDetail = entity.getDetail();
+            this.productUnit = entity.getUnit();
         }
     }
 
     @Getter
     public static class ItemListDto
     {
-        private Long id;
-        private String name;
-        private int price;
+        private Long productId;
+        private String productName;
+        private int productPrice;
 
         public ItemListDto(Item entity)
         {
-            this.id = entity.getId();
-            this.name = entity.getName();
-            this.price = entity.getPrice();
+            this.productId = entity.getId();
+            this.productName = entity.getName();
+            this.productPrice = entity.getPrice();
         }
     }
 

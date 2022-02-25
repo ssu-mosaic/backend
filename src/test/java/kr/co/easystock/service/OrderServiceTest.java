@@ -230,7 +230,7 @@ public class OrderServiceTest
 
     private Item createItem(Retailer retailer)
     {
-        Item item = itemService.add(new ItemDto.ItemAddRequestDto(retailer.getId(), "물품", 10000, "개", "물품입니다.", "카테고리"));
+        Item item = itemService.add(new ItemDto.ItemAddRequestDto(retailer.getId(), "물품", 10000, "개", "물품입니다."));
 
         return item;
     }
