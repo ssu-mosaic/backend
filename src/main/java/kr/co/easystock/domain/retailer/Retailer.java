@@ -25,7 +25,6 @@ public class Retailer
 
     private String name;
     private String email;
-    private String address;
     private String phone;
     private String detail;
 
@@ -33,12 +32,11 @@ public class Retailer
     private List<Item> items = new ArrayList<>();
 
     @Builder
-    public Retailer(User user, String name, String email, String address, String phone, String detail)
+    public Retailer(User user, String name, String email, String phone, String detail)
     {
         this.user = user;
         this.name = name;
         this.email = email;
-        this.address = address;
         this.phone = phone;
         this.detail = detail;
     }
@@ -47,7 +45,6 @@ public class Retailer
     {
         this.name = retailer.getName();
         this.email = retailer.getEmail();
-        this.address = retailer.getAddress();
         this.phone = retailer.getPhone();
         this.detail = retailer.getDetail();
     }

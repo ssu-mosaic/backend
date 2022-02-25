@@ -17,18 +17,16 @@ public class RetailerDto
     {
         private String userId;
         private String retailerName;
-        private String retailerPhone;
+        private String retailerPhoneNo;
         private String retailerEmail;
-        private String retailerAddress;
         private String retailerDetail;
 
-        public RetailerAddRequestDto(String userId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerDetail)
+        public RetailerAddRequestDto(String userId, String retailerName, String retailerPhoneNo, String retailerEmail, String retailerDetail)
         {
             this.userId = userId;
             this.retailerName = retailerName;
-            this.retailerPhone = retailerPhone;
+            this.retailerPhoneNo = retailerPhoneNo;
             this.retailerEmail = retailerEmail;
-            this.retailerAddress = retailerAddress;
             this.retailerDetail = retailerDetail;
         }
 
@@ -37,9 +35,8 @@ public class RetailerDto
             return Retailer.builder()
                     .user(user)
                     .name(retailerName)
-                    .phone(retailerPhone)
+                    .phone(retailerPhoneNo)
                     .email(retailerEmail)
-                    .address(retailerAddress)
                     .detail(retailerDetail)
                     .build();
         }
@@ -50,18 +47,16 @@ public class RetailerDto
     {
         private String userId;
         private String retailerName;
-        private String retailerPhone;
+        private String retailerPhoneNo;
         private String retailerEmail;
-        private String retailerAddress;
         private String retailerDetail;
 
-        public RetailerUpdateRequestDto(String userId, String retailerName, String retailerPhone, String retailerEmail, String retailerAddress, String retailerDetail)
+        public RetailerUpdateRequestDto(String userId, String retailerName, String retailerPhoneNo, String retailerEmail, String retailerDetail)
         {
             this.userId = userId;
             this.retailerName = retailerName;
-            this.retailerPhone = retailerPhone;
+            this.retailerPhoneNo = retailerPhoneNo;
             this.retailerEmail = retailerEmail;
-            this.retailerAddress = retailerAddress;
             this.retailerDetail = retailerDetail;
         }
 
@@ -69,9 +64,8 @@ public class RetailerDto
         {
             return Retailer.builder()
                     .name(retailerName)
-                    .phone(retailerPhone)
+                    .phone(retailerPhoneNo)
                     .email(retailerEmail)
-                    .address(retailerAddress)
                     .detail(retailerDetail)
                     .build();
         }
@@ -99,8 +93,7 @@ public class RetailerDto
         private UserInfoDto user;
         private String retailerName;
         private String retailerEmail;
-        private String retailerPhone;
-        private String retailerAddress;
+        private String retailerPhoneNo;
         private String retailerDetail;
         private List<ItemListDto> items;
 
@@ -110,8 +103,7 @@ public class RetailerDto
             this.user = new UserInfoDto(entity.getUser());
             this.retailerName = entity.getName();
             this.retailerEmail = entity.getEmail();
-            this.retailerPhone = entity.getPhone();
-            this.retailerAddress = entity.getAddress();
+            this.retailerPhoneNo = entity.getPhone();
             this.retailerDetail = entity.getDetail();
             this.items = entity.getItems()
                     .stream()
@@ -127,7 +119,6 @@ public class RetailerDto
         private String retailerName;
         private String retailerEmail;
         private String retailerPhone;
-        private String retailerAddress;
         private String retailerDetail;
         private int itemNum;
 
@@ -137,7 +128,6 @@ public class RetailerDto
             this.retailerName = entity.getName();
             this.retailerEmail = entity.getEmail();
             this.retailerPhone = entity.getPhone();
-            this.retailerAddress = entity.getAddress();
             this.retailerDetail = entity.getDetail();
             this.itemNum = entity.getItems().size();
         }
