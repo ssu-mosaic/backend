@@ -61,7 +61,7 @@ public class StockServiceTest
         StockAddRequestDto addRequestDto = createStock(user);
         Stock stock = stockService.add(addRequestDto);
 
-        StockUpdateRequestDto updateRequestDto = new StockUpdateRequestDto(stock.getId(), "고재", "위단", 500);
+        StockUpdateRequestDto updateRequestDto = new StockUpdateRequestDto(user.getId(), stock.getId(), "고재", "위단", 500);
 
         // when
         stockService.update(stock.getId(), updateRequestDto);
