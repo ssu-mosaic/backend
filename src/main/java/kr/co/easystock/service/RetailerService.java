@@ -55,6 +55,7 @@ public class RetailerService
     /**
      * 거래처 삭제
      * @param id
+     * @param userId
      * @return boolean
      */
     public boolean delete(Long id, String userId)

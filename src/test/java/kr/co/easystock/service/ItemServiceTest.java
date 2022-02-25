@@ -78,7 +78,6 @@ public class ItemServiceTest
                 "품상",
                 50000,
                 "상품이었습니다.",
-                "리고테카",
                 "포기");
 
         // when
@@ -86,11 +85,10 @@ public class ItemServiceTest
         itemRepository.findById(item.getId());
 
         // then
-        Assertions.assertEquals(item.getName(), updateRequestDto.getName());
-        Assertions.assertEquals(item.getPrice(), updateRequestDto.getPrice());
-        Assertions.assertEquals(item.getDetail(), updateRequestDto.getDetail());
-        Assertions.assertEquals(item.getCategory(), updateRequestDto.getCategory());
-        Assertions.assertEquals(item.getUnit(), updateRequestDto.getUnit());
+        Assertions.assertEquals(item.getName(), updateRequestDto.getProductName());
+        Assertions.assertEquals(item.getPrice(), updateRequestDto.getProductPrice());
+        Assertions.assertEquals(item.getDetail(), updateRequestDto.getProductDetail());
+        Assertions.assertEquals(item.getUnit(), updateRequestDto.getProductUnit());
     }
 
     @Test
@@ -180,7 +178,6 @@ public class ItemServiceTest
                 "상품",
                 10000,
                 "상품입니다.",
-                "카테고리",
                 "개");
     }
 }

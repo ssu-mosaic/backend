@@ -90,7 +90,7 @@ public class RetailerServiceTest
 
         // when
         retailerService.delete(retailer.getId(), user.getId());
-        Retailer findOne = retailerRepository.findById(retailer.getId()).orElse(null);
+        Retailer findOne = retailerRepository.findByIdAndUser(retailer.getId(), user).orElse(null);
 
         // then
         Assertions.assertEquals(findOne, null);

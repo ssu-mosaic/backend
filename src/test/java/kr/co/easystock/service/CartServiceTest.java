@@ -169,9 +169,7 @@ public class CartServiceTest
                 "물품",
                 10000,
                 "개",
-                "물품입니다.",
-                "카테고리"
-                );
+                "물품입니다.");
 
         em.persist(item);
         return item;
