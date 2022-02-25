@@ -35,7 +35,7 @@ public class RetailerController
      * @param requestDto
      * @return boolean
      */
-    @PutMapping("/retailer/{id}")
+    @PutMapping("/retailer/edit/{id}")
     public boolean update(@PathVariable(name = "id") Long id, @RequestBody RetailerUpdateRequestDto requestDto)
     {
         return retailerService.update(id, requestDto);
@@ -44,12 +44,13 @@ public class RetailerController
     /**
      * 거래처 삭제
      * @param id
+     * @param param
      * @return boolean
      */
-    @DeleteMapping("/retailer/{id}")
-    public boolean delete(@PathVariable(name = "id") Long id)
+    @PutMapping("/retailer/{id}")
+    public boolean delete(@PathVariable(name = "id") Long id, @RequestBody Map<String, String> param)
     {
-        return retailerService.delete(id);
+        return retailerService.delete(id, param.get("userId"));
     }
 
     /**
@@ -57,8 +58,8 @@ public class RetailerController
      * @param id
      * @return RetailerViewDto
      */
-    @PostMapping("/retailer/detail")
-    public RetailerViewDto view(@RequestBody Long id)
+    @PostMapping("/retailer/{id}")
+    public RetailerViewDto view(@PathVariable Long id)
     {
         return new RetailerViewDto(retailerService.view(id));
     }

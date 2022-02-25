@@ -57,9 +57,13 @@ public class RetailerService
      * @param id
      * @return boolean
      */
-    public boolean delete(Long id)
+    public boolean delete(Long id, String userId)
     {
-        Retailer retailer = retailerRepository.findById(id).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null)
+            return false;
+
+        Retailer retailer = retailerRepository.findByIdAndUser(id, user).orElse(null);
         if(retailer == null)
             return false;
 

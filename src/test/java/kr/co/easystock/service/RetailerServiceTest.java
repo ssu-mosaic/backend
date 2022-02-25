@@ -64,6 +64,7 @@ public class RetailerServiceTest
         Retailer retailer = retailerRepository.save(requestDto.toEntity(user));
 
         RetailerUpdateRequestDto updateRequestDto = new RetailerUpdateRequestDto(user.getId(),
+                retailer.getId(),
                 "처래거",
                 "010-8765-4321",
                 "testman@gmail.com",
@@ -88,7 +89,7 @@ public class RetailerServiceTest
         Retailer retailer = retailerRepository.save(requestDto.toEntity(user));
 
         // when
-        retailerService.delete(retailer.getId());
+        retailerService.delete(retailer.getId(), user.getId());
         Retailer findOne = retailerRepository.findById(retailer.getId()).orElse(null);
 
         // then

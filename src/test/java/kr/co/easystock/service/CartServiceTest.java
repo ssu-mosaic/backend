@@ -156,7 +156,6 @@ public class CartServiceTest
         Retailer retailer = new Retailer(user,
                 "거래처",
                 "testman@naver.com",
-                "서울",
                 "010-9300-3523",
                 "거래처입니다.");
 
