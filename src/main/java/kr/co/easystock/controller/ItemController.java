@@ -38,7 +38,7 @@ public class ItemController
      * @param requestDto
      * @return boolean
      */
-    @PutMapping("/retailer/product/{id}")
+    @PutMapping("/retailer/product/edit/{id}")
     public boolean update(@PathVariable(name = "id") Long id, @RequestBody ItemUpdateRequestDto requestDto)
     {
         return itemService.update(id, requestDto);
@@ -47,12 +47,13 @@ public class ItemController
     /**
      * 상품 삭제
      * @param id
+     * @param param
      * @return boolean
      */
-    @DeleteMapping("/retailer/product/{id}")
-    public boolean delete(@PathVariable(name = "id") Long id)
+    @PutMapping("/retailer/product/{id}")
+    public boolean delete(@PathVariable(name = "id") Long id, @RequestBody Map<String, Long> param)
     {
-        return itemService.delete(id);
+        return itemService.delete(id, param.get("retailerId"));
     }
 
     /**
