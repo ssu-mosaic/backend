@@ -27,20 +27,23 @@ public class Stock
     private Item item;
 
     private String name;
+    private String unit;
     private int count;
 
     @Builder
-    public Stock(User user, Item item, String name, int count)
+    public Stock(User user, Item item, String name, String unit, int count)
     {
         this.user = user;
         this.item = item;
+        this.unit = unit;
         this.name = name;
         this.count = count;
     }
 
-    public void update(String name, int count)
+    public void update(String name, String unit, int count)
     {
         this.name = name;
+        this.unit = unit;
         this.count = count;
     }
 

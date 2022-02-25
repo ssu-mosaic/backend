@@ -43,7 +43,7 @@ public class ItemService
         // 거래처와 매핑(양방향 연관관계 메서드)
         retailer.addItem(item);
         // 재고 생성
-        Stock stock = new Stock(retailer.getUser(), item, item.getName(), 0);
+        Stock stock = new Stock(retailer.getUser(), item, item.getName(), item.getUnit(), 0);
         // 재고와 매핑(양방향 연관관계 메서드)
         item.createItemToStock(stock);
 

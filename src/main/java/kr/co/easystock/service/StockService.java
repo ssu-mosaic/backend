@@ -47,7 +47,7 @@ public class StockService
         if(stock == null)
             return false;
 
-        stock.update(requestDto.getStockName(), requestDto.getStockCount());
+        stock.update(requestDto.getStockName(), requestDto.getStockUnit(), requestDto.getStockCount());
         return true;
     }
 

@@ -12,12 +12,14 @@ public class StockDto
     {
         private String userId;
         private String stockName;
+        private String stockUnit;
         private int stockCount;
 
-        public StockAddRequestDto(String userId, String stockName, int stockCount)
+        public StockAddRequestDto(String userId, String stockName, String stockUnit, int stockCount)
         {
             this.userId = userId;
             this.stockName = stockName;
+            this.stockUnit = stockUnit;
             this.stockCount = stockCount;
         }
 
@@ -26,6 +28,7 @@ public class StockDto
             return Stock.builder()
                     .user(user)
                     .name(stockName)
+                    .unit(stockUnit)
                     .count(stockCount)
                     .build();
         }
@@ -36,12 +39,14 @@ public class StockDto
     {
         private Long stockId;
         private String stockName;
+        private String stockUnit;
         private int stockCount;
 
-        public StockUpdateRequestDto(Long stockId, String stockName, int stockCount)
+        public StockUpdateRequestDto(Long stockId, String stockName, String stockUnit, int stockCount)
         {
             this.stockId = stockId;
             this.stockName = stockName;
+            this.stockUnit = stockUnit;
             this.stockCount = stockCount;
         }
 
@@ -49,6 +54,7 @@ public class StockDto
         {
             return Stock.builder()
                     .name(stockName)
+                    .unit(stockUnit)
                     .count(stockCount)
                     .build();
         }
