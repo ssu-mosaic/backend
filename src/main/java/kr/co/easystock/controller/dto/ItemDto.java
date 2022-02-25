@@ -107,12 +107,16 @@ public class ItemDto
         private Long productId;
         private String productName;
         private int productPrice;
+        private String productDetail;
+        private String productUnit;
 
         public ItemListDto(Item entity)
         {
             this.productId = entity.getId();
             this.productName = entity.getName();
             this.productPrice = entity.getPrice();
+            this.productDetail = entity.getDetail();
+            this.productUnit = entity.getUnit();
         }
     }
 

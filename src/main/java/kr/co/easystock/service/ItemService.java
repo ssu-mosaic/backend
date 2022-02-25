@@ -58,7 +58,11 @@ public class ItemService
      */
     public boolean update(Long id, ItemUpdateRequestDto requestDto)
     {
-        Item item = itemRepository.findById(id).orElse(null);
+        Retailer retailer = retailerRepository.findById(requestDto.getRetailerId()).orElse(null);
+        if(retailer == null)
+            return false;
+
+        Item item = itemRepository.findByIdAndRetailer(id, retailer).orElse(null);
         if(item == null)
             return false;
 
@@ -69,11 +73,16 @@ public class ItemService
     /**
      * 상품 삭제
      * @param id
+     * @param retailerId
      * @return boolean
      */
-    public boolean delete(Long id)
+    public boolean delete(Long id, Long retailerId)
     {
-        Item item = itemRepository.findById(id).orElse(null);
+        Retailer retailer = retailerRepository.findById(retailerId).orElse(null);
+        if(retailer == null)
+            return false;
+
+        Item item = itemRepository.findByIdAndRetailer(id, retailer).orElse(null);
         if(item == null)
             return false;
 
