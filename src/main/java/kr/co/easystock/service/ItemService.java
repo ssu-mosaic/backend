@@ -6,6 +6,7 @@ import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.retailer.RetailerRepository;
 import kr.co.easystock.domain.stock.Stock;
 import kr.co.easystock.domain.stock.StockRepository;
+import kr.co.easystock.domain.user.User;
 import kr.co.easystock.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import static kr.co.easystock.controller.dto.ItemDto.*;
 @Transactional
 public class ItemService
 {
+    private final UserRepository userRepository;
     private final RetailerRepository retailerRepository;
     private final ItemRepository itemRepository;
 
@@ -96,9 +98,14 @@ public class ItemService
      * @return
      */
     @Transactional(readOnly = true)
-    public List<Item> list(Long retailerId)
+    public List<Item> list(String userId, Long retailerId)
     {
-        Retailer retailer = retailerRepository.findById(retailerId).orElse(null);
+        User user = userRepository.findByIdAndDeletedDateIsNull(userId).orElse(null);
+        /*
+        user가 없으면?
+         */
+
+        Retailer retailer = retailerRepository.findByIdAndUser(retailerId, user).orElse(null);
         /*
         retailer가 없으면?
          */

@@ -56,7 +56,7 @@ public class ItemController
     }
 
     /**
-     * 상품 상세 조회
+     * 상품 상세 조회(사용안함)
      * @param id
      * @return ItemViewDto
      */
@@ -68,13 +68,13 @@ public class ItemController
 
     /**
      * 상품 목록 조회
-     * @param param
+     * @param requestDto
      * @return List
      */
     @PostMapping("/retailer/product")
-    public List<ItemListDto> list(@RequestBody Map<String, Long> param)
+    public List<ItemListDto> list(@RequestBody ItemListRequestDto requestDto)
     {
-        return itemService.list(param.get("retailerId"))
+        return itemService.list(requestDto.getUserId(), requestDto.getRetailerId())
                 .stream()
                 .map(ItemListDto::new)
                 .collect(Collectors.toList());
