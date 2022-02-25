@@ -3,7 +3,6 @@ package kr.co.easystock.controller.dto;
 import kr.co.easystock.domain.stock.Stock;
 import kr.co.easystock.domain.user.User;
 import lombok.Getter;
-import lombok.Setter;
 
 public class StockDto
 {
@@ -13,14 +12,14 @@ public class StockDto
         private String userId;
         private String stockName;
         private String stockUnit;
-        private int stockCount;
+        private int stockCnt;
 
-        public StockAddRequestDto(String userId, String stockName, String stockUnit, int stockCount)
+        public StockAddRequestDto(String userId, String stockName, String stockUnit, int stockCnt)
         {
             this.userId = userId;
             this.stockName = stockName;
             this.stockUnit = stockUnit;
-            this.stockCount = stockCount;
+            this.stockCnt = stockCnt;
         }
 
         public Stock toEntity(User user)
@@ -29,7 +28,7 @@ public class StockDto
                     .user(user)
                     .name(stockName)
                     .unit(stockUnit)
-                    .count(stockCount)
+                    .count(stockCnt)
                     .build();
         }
     }
@@ -40,14 +39,14 @@ public class StockDto
         private Long stockId;
         private String stockName;
         private String stockUnit;
-        private int stockCount;
+        private int stockCnt;
 
-        public StockUpdateRequestDto(Long stockId, String stockName, String stockUnit, int stockCount)
+        public StockUpdateRequestDto(Long stockId, String stockName, String stockUnit, int stockCnt)
         {
             this.stockId = stockId;
             this.stockName = stockName;
             this.stockUnit = stockUnit;
-            this.stockCount = stockCount;
+            this.stockCnt = stockCnt;
         }
 
         public Stock toEntity()
@@ -55,7 +54,7 @@ public class StockDto
             return Stock.builder()
                     .name(stockName)
                     .unit(stockUnit)
-                    .count(stockCount)
+                    .count(stockCnt)
                     .build();
         }
     }
@@ -65,13 +64,15 @@ public class StockDto
     {
         private Long stockId;
         private String stockName;
-        private int stockCount;
+        private String stockUnit;
+        private int stockCnt;
 
         public StockListDto(Stock entity)
         {
             this.stockId = entity.getId();
             this.stockName = entity.getName();
-            this.stockCount = entity.getCount();
+            this.stockUnit = entity.getUnit();
+            this.stockCnt = entity.getCount();
         }
     }
 }

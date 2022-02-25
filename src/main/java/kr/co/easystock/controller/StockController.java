@@ -33,7 +33,7 @@ public class StockController
      * @param requestDto
      * @return boolean
      */
-    @PutMapping("/stock/{id}")
+    @PutMapping("/stock/edit/{id}")
     public boolean update(@PathVariable(name = "id") Long id, @RequestBody StockUpdateRequestDto requestDto)
     {
         return stockService.update(id, requestDto);
@@ -42,12 +42,13 @@ public class StockController
     /**
      * 재고 삭제
      * @param id
+     * @param param
      * @return boolean
      */
-    @DeleteMapping("/stock/{id}")
-    public boolean delete(@PathVariable(name = "id") Long id)
+    @PutMapping("/stock/{id}")
+    public boolean delete(@PathVariable(name = "id") Long id, @RequestBody Map<String, String> param)
     {
-        return stockService.delete(id);
+        return stockService.delete(id, param.get("userId"));
     }
 
     /**

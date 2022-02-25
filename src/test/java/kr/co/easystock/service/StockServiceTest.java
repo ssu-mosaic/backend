@@ -80,7 +80,7 @@ public class StockServiceTest
         Stock stock = stockService.add(requestDto);
 
         // when
-        stockService.delete(stock.getId());
+        stockService.delete(stock.getId(), user.getId());
         Stock findOne = stockRepository.findById(stock.getId()).orElse(null);
 
         // then
