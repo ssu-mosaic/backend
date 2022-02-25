@@ -61,7 +61,7 @@ public class StockServiceTest
         StockAddRequestDto addRequestDto = createStock(user);
         Stock stock = stockService.add(addRequestDto);
 
-        StockUpdateRequestDto updateRequestDto = new StockUpdateRequestDto(stock.getId(), "고재", 500);
+        StockUpdateRequestDto updateRequestDto = new StockUpdateRequestDto(stock.getId(), "고재", "위단", 500);
 
         // when
         stockService.update(stock.getId(), updateRequestDto);
@@ -124,6 +124,6 @@ public class StockServiceTest
 
     private StockAddRequestDto createStock(User user)
     {
-        return new StockAddRequestDto(user.getId(), "재고", 100);
+        return new StockAddRequestDto(user.getId(), "재고", "단위", 100);
     }
 }
