@@ -47,18 +47,23 @@ public class StockService
         if(stock == null)
             return false;
 
-        stock.update(requestDto.getStockName(), requestDto.getStockUnit(), requestDto.getStockCount());
+        stock.update(requestDto.getStockName(), requestDto.getStockUnit(), requestDto.getStockCnt());
         return true;
     }
 
     /**
      * 재고 삭제
      * @param id
+     * @param userId
      * @return boolean
      */
-    public boolean delete(Long id)
+    public boolean delete(Long id, String userId)
     {
-        Stock stock = stockRepository.findById(id).orElse(null);
+        User user = userRepository.findByIdAndDeletedDateIsNull(userId).orElse(null);
+        if(user == null)
+            return false;
+
+        Stock stock = stockRepository.findByIdAndUser(id, user).orElse(null);
         if(stock == null)
             return false;
 
