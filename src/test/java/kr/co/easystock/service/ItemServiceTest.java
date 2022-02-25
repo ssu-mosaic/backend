@@ -101,7 +101,7 @@ public class ItemServiceTest
         Item item = itemService.add(requestDto);
 
         // when
-        itemService.delete(item.getId());
+        itemService.delete(item.getId(), retailer.getId());
         Item findOne = itemRepository.findById(item.getId()).orElse(null);
 
         // then
