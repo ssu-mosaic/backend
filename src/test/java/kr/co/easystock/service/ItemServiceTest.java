@@ -140,7 +140,7 @@ public class ItemServiceTest
         itemService.add(requestDto3);
 
         // when
-        List<Item> list = itemService.list(retailer.getId());
+        List<Item> list = itemService.list(user.getId(), retailer.getId());
 
         // then
         Assertions.assertEquals(3, list.size());
