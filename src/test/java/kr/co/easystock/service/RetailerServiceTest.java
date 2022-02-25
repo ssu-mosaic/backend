@@ -106,7 +106,7 @@ public class RetailerServiceTest
         Retailer retailer = retailerRepository.save(requestDto.toEntity(user));
 
         // when
-        Retailer findOne = retailerService.view(retailer.getId());
+        Retailer findOne = retailerService.view(retailer.getId(), user.getId());
 
         // then
         Assertions.assertEquals(retailer, findOne);

@@ -59,7 +59,7 @@ public class RetailerService
      */
     public boolean delete(Long id, String userId)
     {
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findByIdAndDeletedDateIsNull(userId).orElse(null);
         if(user == null)
             return false;
 
@@ -77,9 +77,13 @@ public class RetailerService
      * @return Retailer
      */
     @Transactional(readOnly = true)
-    public Retailer view(Long id)
+    public Retailer view(Long id, String userId)
     {
-        return retailerRepository.findById(id).orElse(null);
+        User user = userRepository.findByIdAndDeletedDateIsNull(userId).orElse(null);
+        if(user == null)
+            return null;
+
+        return retailerRepository.findByIdAndUser(id, user).orElse(null);
     }
 
     /**
