@@ -67,7 +67,6 @@ public class RetailerServiceTest
                 "처래거",
                 "010-8765-4321",
                 "testman@gmail.com",
-                "울서",
                 "거래처였습니다.");
 
         // when
@@ -76,8 +75,7 @@ public class RetailerServiceTest
         // then
         Assertions.assertEquals(retailer.getName(), updateRequestDto.getRetailerName());
         Assertions.assertEquals(retailer.getEmail(), updateRequestDto.getRetailerEmail());
-        Assertions.assertEquals(retailer.getPhone(), updateRequestDto.getRetailerPhone());
-        Assertions.assertEquals(retailer.getAddress(), updateRequestDto.getRetailerAddress());
+        Assertions.assertEquals(retailer.getPhone(), updateRequestDto.getRetailerPhoneNo());
         Assertions.assertEquals(retailer.getDetail(), updateRequestDto.getRetailerDetail());
     }
 
@@ -155,7 +153,6 @@ public class RetailerServiceTest
                 "거래처",
                 "010-9300-3523",
                 "testman@naver.com",
-                "서울",
                 "거래처입니다.");
     }
 }
