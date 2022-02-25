@@ -59,7 +59,7 @@ public class RetailerController
      * @return RetailerViewDto
      */
     @PostMapping("/retailer/{id}")
-    public RetailerViewDto view(@PathVariable Long id, @RequestBody Map<String, String> param)
+    public RetailerViewDto view(@PathVariable(name = "id") Long id, @RequestBody Map<String, String> param)
     {
         return new RetailerViewDto(retailerService.view(id, param.get("userId")));
     }
