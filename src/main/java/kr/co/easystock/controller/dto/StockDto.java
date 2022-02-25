@@ -36,13 +36,15 @@ public class StockDto
     @Getter
     public static class StockUpdateRequestDto
     {
+        private String userId;
         private Long stockId;
         private String stockName;
         private String stockUnit;
         private int stockCnt;
 
-        public StockUpdateRequestDto(Long stockId, String stockName, String stockUnit, int stockCnt)
+        public StockUpdateRequestDto(String userId, Long stockId, String stockName, String stockUnit, int stockCnt)
         {
+            this.userId = userId;
             this.stockId = stockId;
             this.stockName = stockName;
             this.stockUnit = stockUnit;

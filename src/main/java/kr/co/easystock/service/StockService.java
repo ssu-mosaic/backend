@@ -43,7 +43,11 @@ public class StockService
      */
     public boolean update(Long id, StockUpdateRequestDto requestDto)
     {
-        Stock stock = stockRepository.getById(id);
+        User user = userRepository.findById(requestDto.getUserId()).orElse(null);
+        if(user == null)
+            return false;
+
+        Stock stock = stockRepository.findByIdAndUser(id, user).orElse(null);
         if(stock == null)
             return false;
 
