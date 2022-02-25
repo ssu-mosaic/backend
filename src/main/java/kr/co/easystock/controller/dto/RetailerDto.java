@@ -115,7 +115,6 @@ public class RetailerDto
         private String retailerEmail;
         private String retailerPhoneNo;
         private String retailerDetail;
-        private int itemNum;
 
         public RetailerListDto(Retailer entity)
         {
@@ -124,7 +123,6 @@ public class RetailerDto
             this.retailerEmail = entity.getEmail();
             this.retailerPhoneNo = entity.getPhone();
             this.retailerDetail = entity.getDetail();
-            this.itemNum = entity.getItems().size();
         }
     }
 }
