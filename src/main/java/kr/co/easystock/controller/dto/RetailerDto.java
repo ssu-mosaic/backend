@@ -118,7 +118,7 @@ public class RetailerDto
         private Long retailerId;
         private String retailerName;
         private String retailerEmail;
-        private String retailerPhone;
+        private String retailerPhoneNo;
         private String retailerDetail;
         private int itemNum;
 
@@ -127,7 +127,7 @@ public class RetailerDto
             this.retailerId = entity.getId();
             this.retailerName = entity.getName();
             this.retailerEmail = entity.getEmail();
-            this.retailerPhone = entity.getPhone();
+            this.retailerPhoneNo = entity.getPhone();
             this.retailerDetail = entity.getDetail();
             this.itemNum = entity.getItems().size();
         }
