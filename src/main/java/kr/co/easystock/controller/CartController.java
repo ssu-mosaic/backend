@@ -40,7 +40,7 @@ public class CartController
      * @return boolean
      */
     @PutMapping("/order/cart/{id}")
-    public boolean update(@PathVariable(name = "id") Long id, CartItemUpdateRequestDto requestDto)
+    public boolean update(@PathVariable(name = "id") Long id, @RequestBody CartItemUpdateRequestDto requestDto)
     {
         return cartService.update(id, requestDto);
     }

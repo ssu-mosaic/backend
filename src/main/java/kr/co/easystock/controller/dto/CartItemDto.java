@@ -50,6 +50,7 @@ public class CartItemDto
     @Getter
     public static class CartItemListDto
     {
+        private Long cartProductId;
         private Long productId;
         private String productName;
         private int productPrice;
@@ -59,6 +60,9 @@ public class CartItemDto
 
         public CartItemListDto(CartItem entity)
         {
+            cartProductId = entity.getId();
+            this.productCnt = entity.getCount();
+
             Item item = entity.getItem();
             if(item != null)
             {
@@ -66,7 +70,6 @@ public class CartItemDto
                 this.productName = item.getName();
                 this.productPrice = item.getPrice();
                 this.productUnit = item.getUnit();
-                this.productCnt = entity.getCount();
                 this.productDetail = item.getDetail();
             }
         }
