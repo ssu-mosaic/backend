@@ -39,28 +39,36 @@ public class CartItemDto
     @Getter
     public static class CartItemUpdateRequestDto
     {
-        private int count;
+        private int productCnt;
 
-        public CartItemUpdateRequestDto(int count)
+        public CartItemUpdateRequestDto(int productCnt)
         {
-            this.count = count;
+            this.productCnt = productCnt;
         }
     }
 
     @Getter
     public static class CartItemListDto
     {
-        private Long id;
-        private ItemViewDto item;
-        private int totalPrice;
-        private int count;
+        private Long productId;
+        private String productName;
+        private int productPrice;
+        private String productUnit;
+        private int productCnt;
+        private String productDetail;
 
         public CartItemListDto(CartItem entity)
         {
-            this.id = entity.getId();
-            this.item = new ItemViewDto(entity.getItem());
-            int totalPrice = entity.getTotalPrice();
-            this.count = entity.getCount();
+            Item item = entity.getItem();
+            if(item != null)
+            {
+                this.productId= item.getId();
+                this.productName = item.getName();
+                this.productPrice = item.getPrice();
+                this.productUnit = item.getUnit();
+                this.productCnt = entity.getCount();
+                this.productDetail = item.getDetail();
+            }
         }
     }
 }
