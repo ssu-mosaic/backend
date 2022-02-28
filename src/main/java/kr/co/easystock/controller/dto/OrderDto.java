@@ -21,6 +21,8 @@ public class OrderDto
     {
         private String userId;
 
+        public OrderAddRequestDto() {}
+
         public OrderAddRequestDto(String userId)
         {
             this.userId = userId;
