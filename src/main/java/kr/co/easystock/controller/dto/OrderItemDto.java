@@ -1,5 +1,6 @@
 package kr.co.easystock.controller.dto;
 
+import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.order.OrderItem;
 import lombok.Getter;
 
@@ -21,7 +22,7 @@ public class OrderItemDto
     @Getter
     public static class OrderItemListDto
     {
-        private Long orderItemId;
+        private Long orderProductId;
         private Long productId;
         private String productName;
         private String productUnit;
@@ -30,12 +31,17 @@ public class OrderItemDto
 
         public OrderItemListDto(OrderItem entity)
         {
-            this.orderItemId = entity.getId();
-            this.productId = entity.getItem().getId();
-            this.productName = entity.getItem().getName();
-            this.productUnit = entity.getItem().getUnit();
+            this.orderProductId = entity.getId();
             this.productCnt = entity.getCount();
-            this.retailerName = entity.getItem().getRetailer().getName();
+
+            Item item = entity.getItem();
+            if(item != null)
+            {
+                this.productId = item.getId();
+                this.productName = item.getName();
+                this.productUnit = item.getUnit();
+                this.retailerName = item.getRetailer().getName();
+            }
         }
     }
 }
