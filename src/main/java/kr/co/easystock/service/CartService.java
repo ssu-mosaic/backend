@@ -70,16 +70,16 @@ public class CartService
     /**
      * 장바구니 물품 수정
      * @param id
-     * @param requestDto
+     * @param count
      * @return boolean
      */
-    public boolean update(Long id, CartItemUpdateRequestDto requestDto)
+    public boolean update(Long id, Integer count)
     {
         CartItem cartItem = cartItemRepository.findById(id).orElse(null);
         if(cartItem == null)
             return false;
 
-        cartItem.update(requestDto.getProductCnt());
+        cartItem.update(count);
         return true;
     }
 
