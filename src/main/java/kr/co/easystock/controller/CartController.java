@@ -37,12 +37,13 @@ public class CartController
     /**
      * 장바구니 물품 수정
      * @param id
+     * @param param
      * @return boolean
      */
     @PutMapping("/order/cart/{id}")
-    public boolean update(@PathVariable(name = "id") Long id, @RequestBody CartItemUpdateRequestDto requestDto)
+    public boolean update(@PathVariable(name = "id") Long id, @RequestBody Map<String, Integer> param)
     {
-        return cartService.update(id, requestDto);
+        return cartService.update(id, param.get("productCnt"));
     }
 
     /**

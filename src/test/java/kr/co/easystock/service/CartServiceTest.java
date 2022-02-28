@@ -1,6 +1,5 @@
 package kr.co.easystock.service;
 
-import kr.co.easystock.controller.dto.CartItemDto;
 import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.Item.ItemRepository;
 import kr.co.easystock.domain.cart.Cart;
@@ -11,7 +10,6 @@ import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.user.User;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,12 +17,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static kr.co.easystock.controller.dto.CartItemDto.*;
-import static org.junit.Assert.*;
+import static kr.co.easystock.controller.dto.CartItemDto.CartItemAddRequestDto;
+import static kr.co.easystock.controller.dto.CartItemDto.CartItemListDto;
 
 /**
  * Created by WOOSERK.
@@ -79,8 +76,8 @@ public class CartServiceTest
         CartItem cartItem = cartService.add(addRequestDto);
 
         // when
-        CartItemUpdateRequestDto updateRequestDto = new CartItemUpdateRequestDto(5);
-        boolean result = cartService.update(cartItem.getId(), updateRequestDto);
+//        CartItemUpdateRequestDto updateRequestDto = new CartItemUpdateRequestDto(5);
+        boolean result = cartService.update(cartItem.getId(), 5);
 
         // then
         Assertions.assertEquals(true, result);
