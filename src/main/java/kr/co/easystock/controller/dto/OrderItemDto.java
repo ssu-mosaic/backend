@@ -2,6 +2,7 @@ package kr.co.easystock.controller.dto;
 
 import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.order.OrderItem;
+import kr.co.easystock.domain.order.OrderStatus;
 import lombok.Getter;
 
 /**
@@ -28,11 +29,13 @@ public class OrderItemDto
         private String productUnit;
         private int productCnt;
         private String retailerName;
+        private OrderStatus orderStatus;
 
         public OrderItemListDto(OrderItem entity)
         {
             this.orderProductId = entity.getId();
             this.productCnt = entity.getCount();
+            this.orderStatus = entity.getStatus();
 
             Item item = entity.getItem();
             if(item != null)
