@@ -20,19 +20,19 @@ public class CartItemDto
     public static class CartItemAddRequestDto
     {
         private String userId;
-        private Long itemId;
-        private int count;
+        private Long productId;
+        private int productCnt;
 
-        public CartItemAddRequestDto(String userId, Long itemId, int count)
+        public CartItemAddRequestDto(String userId, Long productId, int productCnt)
         {
             this.userId = userId;
-            this.itemId = itemId;
-            this.count = count;
+            this.productId = productId;
+            this.productCnt = productCnt;
         }
 
         public CartItem toEntity(Cart cart, Item item)
         {
-            return new CartItem(cart, item, count);
+            return new CartItem(cart, item, productCnt);
         }
     }
 

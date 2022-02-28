@@ -41,7 +41,7 @@ public class CartService
         /*
         cart가 없으면?
          */
-        Item item = itemRepository.findById(requestDto.getItemId()).orElse(null);
+        Item item = itemRepository.findById(requestDto.getProductId()).orElse(null);
         /*
         item이 없으면?
          */
@@ -53,7 +53,7 @@ public class CartService
         CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).orElse(null);
         // 수량 증가
         if(cartItem != null)
-            cartItem.update(requestDto.getCount());
+            cartItem.update(requestDto.getProductCnt());
         // 생성해서 추가
         else
         {
