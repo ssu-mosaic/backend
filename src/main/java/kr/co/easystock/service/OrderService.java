@@ -47,6 +47,10 @@ public class OrderService
 
         // 장바구니 목록을 불러온다.
         List<CartItem> cartItems = user.getCart().getCartItems();
+        // 장바구니가 비었으면 주문 실패
+        if(cartItems.size() == 0)
+            return order;
+
         // 장바구니의 모든 물품을 주문한다.
         for(CartItem cartItem : cartItems)
         {
