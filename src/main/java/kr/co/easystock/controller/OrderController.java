@@ -21,7 +21,7 @@ public class OrderController
      * @param requestDto
      * @return String
      */
-    @PostMapping("/order/add")
+    @PostMapping("/order/checkout")
     public Long add(@RequestBody OrderAddRequestDto requestDto)
     {
         return orderService.add(requestDto).getId();
