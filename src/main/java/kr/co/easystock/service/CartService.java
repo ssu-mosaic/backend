@@ -53,7 +53,7 @@ public class CartService
         CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).orElse(null);
         // 수량 증가
         if(cartItem != null)
-            cartItem.update(requestDto.getProductCnt());
+            cartItem.update(cartItem.getCount() + requestDto.getProductCnt());
         // 생성해서 추가
         else
         {
@@ -79,7 +79,7 @@ public class CartService
         if(cartItem == null)
             return false;
 
-        cartItem.update(requestDto.getCount());
+        cartItem.update(requestDto.getProductCnt());
         return true;
     }
 
