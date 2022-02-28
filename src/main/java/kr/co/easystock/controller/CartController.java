@@ -1,6 +1,5 @@
 package kr.co.easystock.controller;
 
-import kr.co.easystock.controller.dto.CartItemDto;
 import kr.co.easystock.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
