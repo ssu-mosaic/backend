@@ -4,7 +4,6 @@ import kr.co.easystock.controller.dto.*;
 import kr.co.easystock.domain.Item.Item;
 import kr.co.easystock.domain.cart.Cart;
 import kr.co.easystock.domain.order.Order;
-import kr.co.easystock.domain.order.OrderItem;
 import kr.co.easystock.domain.order.OrderItemRepository;
 import kr.co.easystock.domain.retailer.Retailer;
 import kr.co.easystock.domain.user.User;
@@ -19,16 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static kr.co.easystock.controller.dto.CartItemDto.*;
 import static kr.co.easystock.controller.dto.ItemDto.*;
 import static kr.co.easystock.controller.dto.NoticeDto.*;
 import static kr.co.easystock.controller.dto.OrderDto.*;
 import static kr.co.easystock.controller.dto.StatsDto.*;
-import static org.junit.Assert.*;
 
 /**
  * Created by WOOSERK.

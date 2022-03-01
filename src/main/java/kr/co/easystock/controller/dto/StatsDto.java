@@ -18,17 +18,17 @@ import java.util.List;
 @Getter
 public class StatsDto
 {
-    private OrderSpendingStatsDto Spendings;
-    private List<Long> OrderCompletes;
-    private List<StockStatsDto> Stocks;
-    private List<NoticeStatsDto> Notices;
+    private OrderSpendingStatsDto spendings;
+    private List<Long> orderCompletes;
+    private List<StockStatsDto> stocks;
+    private List<NoticeStatsDto> notices;
 
     public StatsDto(OrderSpendingStatsDto spendings, List<Long> orderCompletes, List<StockStatsDto> stocks, List<NoticeStatsDto> notices)
     {
-        this.Spendings = spendings;
-        this.OrderCompletes = orderCompletes;
-        this.Stocks = stocks;
-        this.Notices = notices;
+        this.spendings = spendings;
+        this.orderCompletes = orderCompletes;
+        this.stocks = stocks;
+        this.notices = notices;
     }
 
     @Getter

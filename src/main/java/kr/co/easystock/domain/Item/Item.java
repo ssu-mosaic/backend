@@ -63,4 +63,10 @@ public class Item
         stock.mapItem(this);
         this.stock = stock;
     }
+
+    public void unmapStock(Stock stock)
+    {
+        stock.mapItem(null);
+        this.stock = null;
+    }
 }
