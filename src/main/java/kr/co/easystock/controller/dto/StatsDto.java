@@ -71,12 +71,8 @@ public class StatsDto
         public StockStatsDto(Stock entity)
         {
             this.productId = entity.getId();
-            /*
-            if(entity.getItem() != null)
+            if(entity.getItem() != null && entity.getItem().getRetailer() != null)
                 this.retailerName = entity.getItem().getRetailer().getName();
-             */
-            this.retailerName = null;
-
             this.productName = entity.getName();
             this.productCnt = entity.getCount();
             this.productUnit = entity.getUnit();
