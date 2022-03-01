@@ -72,6 +72,9 @@ public class StockService
             return false;
 
         stockRepository.delete(stock);
+        if(stock.getItem() != null)
+            stock.getItem().unmapStock(stock);
+
         return true;
     }
 
