@@ -86,6 +86,9 @@ public class ItemService
         if(item == null)
             return false;
 
+        if(item.getStock() != null)
+            item.unmapStock(item.getStock());
+
         itemRepository.delete(item);
         return true;
     }
