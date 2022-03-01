@@ -98,6 +98,7 @@ public class StatsDto
         }
     }
 
+    @Getter
     public static class Result<T>
     {
         private T data;
