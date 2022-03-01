@@ -3,6 +3,7 @@ package kr.co.easystock.domain.order;
 import kr.co.easystock.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
