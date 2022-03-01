@@ -22,6 +22,8 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static kr.co.easystock.controller.dto.CartItemDto.*;
+import static kr.co.easystock.controller.dto.ItemDto.*;
 import static kr.co.easystock.controller.dto.OrderDto.OrderAddRequestDto;
 import static kr.co.easystock.controller.dto.OrderDto.OrderListDto;
 
@@ -230,14 +232,14 @@ public class OrderServiceTest
 
     private Item createItem(Retailer retailer)
     {
-        Item item = itemService.add(new ItemDto.ItemAddRequestDto(retailer.getId(), "물품", 10000, "개", "물품입니다."));
+        Item item = itemService.add(new ItemAddRequestDto(retailer.getId(), "물품", 10000, "개", "물품입니다."));
 
         return item;
     }
 
     private void addCartItem(User user, Item item)
     {
-        cartService.add(new CartItemDto.CartItemAddRequestDto(user.getId(), item.getId(), 5));
+        cartService.add(new CartItemAddRequestDto(user.getId(), item.getId(), 5));
     }
 
     private OrderAddRequestDto createOrder(User user)

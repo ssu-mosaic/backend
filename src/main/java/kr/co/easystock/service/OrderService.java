@@ -59,7 +59,10 @@ public class OrderService
             order.addOrderItem(new OrderItem(order, item, cartItem.getCount()));
             // 장바구니에서 삭제
             cartItemRepository.delete(cartItem);
+            cartItem.mapCart(null);
         }
+
+        cartItems.clear();
 
         return orderRepository.save(order);
     }

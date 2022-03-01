@@ -11,4 +11,5 @@ public interface StockRepository extends JpaRepository<Stock, Long>, JpaSpecific
 {
     List<Stock> findAllByUser(User user);
     Optional<Stock> findByIdAndUser(Long id, User user);
+    List<Stock> findTop5ByUserOrderByCountDesc(User user);
 }
