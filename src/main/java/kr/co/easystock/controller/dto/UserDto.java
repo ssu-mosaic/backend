@@ -1,5 +1,6 @@
 package kr.co.easystock.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import kr.co.easystock.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
